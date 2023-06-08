@@ -1,0 +1,20 @@
+도서대출 현황
+	https://www.data.go.kr/data/15099196/fileData.do
+
+-------------------------------------------------------------------------------------
+한국영상자료원 온라인 VOD 열람실적
+	https://www.data.go.kr/data/15095678/fileData.do
+
+영화 로케이션 촬영 이력
+	https://www.data.go.kr/data/15109020/fileData.do
+
+영화 상세 정보
+	https://www.data.go.kr/data/15109019/fileData.do
+
+한국영상자료원 발간물 목록
+	https://www.data.go.kr/data/15052737/fileData.do
+
+
+1단계 : 공공기관에서 API 제공 --> 파이썬으로 데이터 전송
+2단계 : 파이썬으로 저장한 데이터 --> MySQL로 연동
+3단계 : MySQL에 있는 데이터 --> HTML 문서로 만들기!!!
