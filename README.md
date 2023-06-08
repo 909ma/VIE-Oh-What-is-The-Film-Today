@@ -9,18 +9,10 @@
 
 ---
 
-## 학습 체크리스트
+## 알림사항
 
-아래의 목록 중 부족한게 있다면 자습하시길 바랍니다...
-
-🔳 HTML  
-🔳 Java Script  
-🔳 CSS  
-🔳 Java  
-🔳 JS  
-🔳 D3.js  
-🔳 MySQL  
-🔳 Python API 연결
+☑️ kb.step.or.kr - java 숙제 제출해야 합니다.  
+🔳 wikidocs.net/book/5792 - 스프링 MVC 하루만에 배우기
 
 ---
 
@@ -36,5 +28,16 @@
 🔳 API명세서
 
 ---
-## 알림사항
-☑️ kb.step.or.kr - java 숙제 제출해야 합니다.
+
+## 학습 체크리스트
+
+아래의 목록 중 부족한게 있다면 자습하시길 바랍니다...
+
+🔳 HTML  
+🔳 Java Script  
+🔳 CSS  
+🔳 Java  
+🔳 Spring 프레임워크  
+🔳 D3.js  
+🔳 MySQL  
+🔳 Python API 연결
