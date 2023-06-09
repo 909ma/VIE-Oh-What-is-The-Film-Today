@@ -1,0 +1,35 @@
+http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
+?
+key=f5eef3421c602c6cb7ea224104795888
+&
+targetDt=20120101
+
+테이블 이름 : DailyMovie
+
+number movieCd + targetDt int pk
+movieCd 영화의 대표코드 int
+movieNm 영화이름 varchar1000
+openDt 영화개봉일 varchar45
+rank 순위 int
+salesAmt 매출액 int
+salesAcc 누적매출액 int
+audiCnt 관객수 int
+audiAcc 누적관객수 int
+targetDt 날짜 int
+
+
+CREATE TABLE `myproject`.`dailymovie` (
+  `movieCd` VARCHAR(100) NOT NULL,
+  `number` BIGINT NULL,
+  `movieNm` VARCHAR(1000) NULL,
+  `openDt` VARCHAR(45) NULL,
+  `rank` INT NULL,
+  `salesAmt` BIGINT NULL,
+  `salesAcc` BIGINT NULL,
+  `audiCnt` BIGINT NULL,
+  `audiAcc` BIGINT NULL,
+  `targetDt` BIGINT NULL,
+  PRIMARY KEY (`movieCd`)
+);
+
+
