@@ -9,6 +9,15 @@
 
 ---
 
+# 프로젝트 팀 구성원
+[김신혁](https://github.com/909ma)  
+[신동훈](https://github.com/Holorifle)  
+[이수성](https://github.com/goal6722)  
+[정선호](https://github.com/QQSUNH)  
+[최은지](https://github.com/EunjiCh0i)  
+
+---
+
 ## 알림사항
 
 ☑️ kb.step.or.kr - java 숙제 제출해야 합니다.  
