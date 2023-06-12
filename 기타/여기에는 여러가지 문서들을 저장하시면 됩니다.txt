@@ -1,0 +1,12 @@
+요구사항정의서
+https://docs.google.com/spreadsheets/d/1qUWuF8mxzubwPFXZKDavPpT8KSmwD_kWcZCHENOkmqo/edit?usp=sharing
+
+Gantt 차트
+https://docs.google.com/spreadsheets/d/1WqSNyU1Xab6RhuCQnC_izawzXQY4eEIHD7XKeBeQ0gE/edit?usp=sharing
+
+프로젝트 일정 관리
+https://docs.google.com/spreadsheets/d/1g6EYDc7_dvUO2h-pno-VK99G8-sQD3F9F4-mt1Nd5J0/edit?usp=sharing
+
+
+CRUD 매트릭스
+https://docs.google.com/spreadsheets/d/1AQlsvx5fH0eFIjV0mPrfMMuYrQbOiRYRbCKFcxMx4d4/edit?usp=sharing
