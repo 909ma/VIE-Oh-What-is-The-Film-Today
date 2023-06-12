@@ -1,0 +1,82 @@
+https://github.com/yuuisang/spring-movie-reserve-restfull
+
+영화 예매를 위한 스프링3.0 MVC 기반 사이트입니다.
+
+Stack
+Language : JAVA, JSP, HTML, CSS, Javascript
+Library : cos, JQuery, Lombok, jstl, el
+Framework : Spring3.0 MVC
+Database : ORACLE(MyBatis)
+Rest API(상영스케줄관리, 상영관관리, 마이페이지)
+SPA 페이지
+
+
+
+저희도 영화 예매를 지원할지 모르겠으나 도움이 됩니다
+
+-----------------------------------------------------------------------
+https://github.com/jeonjonghyeok/movie
+
+영화 예매 통합 서비스 - Spring MVC : CGV, 롯데 시네마, 메가박스 대표적인 영화 3사의 서비스를 통합하여 제공하는 서비스
+
+개발 환경 :
+OS 및 DB : Windows7, MySQL
+사용 Tool : Eclipse
+프로그래밍 언어 : JAVA, Servlet, JSP
+웹표준 기술 : HTML, CSS, Javascript, jQuery
+프레임워크 : Spring, MyBatis
+
+
+
+이 프로젝트는 결과를 첨부하지 않아 도움이 될 지는 모르겠으나 저희랑은 똑같은 개발 환경입니다.
+
+------------------------------------------------------------------
+결과 : https://lionpower.tistory.com/343
+깃허브 : https://github.com/good-luck-sh/hta-cinema
+
+##SPRING MVC패턴, MODEL2방식으로 구현한 영화 예매 사이트
+
+JAVA, JSP , ORACLE SQL , MYBATIS, SPRING BOOT, CSS3, HTML5, BOOTSTRAP, JAVASCRIPT, JQUERY, APACHE TOMACAT SERVER
+
+
+
+상당히 많은 시간을 투자해서 만든 프로젝트입니다. 잘 만들었고 결과도 좋습니다. 보면서 느낀 점은 저희는 API를 파일로 저장하여 MySQL에 넣어 데이터를 관리했는데 이 팀은 AJAX 통신으로 바로 읽어오는 듯 하네요. 이 부분이 인상깊습니다. 예매 사이트입니다.
+
+------------------------------------------------------------------
+과정 및 결과 : https://loy124.tistory.com/193
+깃허브 : https://github.com/loy124/CGV_Clone
+
+Spring + mybatis + html + javascript + css CGV 사이트 크롤링을 활용한 영화예매(가상) 사이트 만들기
+
+
+
+여기 프로젝트를 보면서 떠올랐던게 클론 코딩이라는 학습방식입니다. 기존에 존재하는 산출물을 따라 만들면서 코딩 실력을 올리는 방법인데 그런 면에서 잘 수행한 프로젝트인 것 같습니다. 저희가 쓴다면 현재 개봉 중인 영화 데이터를 json파일로 저장하는 부분이 아닐까 싶습니다.
+
+------------------------------------------------------------------
+깃허브 : https://github.com/minji0123/Movie-Review-Site
+참고 : https://gallery-k.tistory.com/300
+
+SpringBoot 로 구현하는 영화 리뷰 사이트
+
+
+
+
+개발 도구
+Front-end: Mustache, Bootstrap, jQuery
+Back-end: SpringBoot, JPA, CRUD, MVC
+DB: H2
+
+
+이 프로젝트가 저희가 가장 참고하기 좋은 프로젝트인 듯 합니다. 다만 주의점이라면 저희는 Database를 MySQL을 쓰기 때문에 초반 설계에서 주의해야 합니다. 필수 과제를 모두 해결한 충실한 프로젝트입니다.
+
+------------------------------------------------------------------
+실습 따라가기 : https://chanho0912.tistory.com/93
+깃허브 : https://github.com/KimChanHoLeeJunSung/MovieRecommendationApplication
+
+[ SpringBoot ] 장르 기반 간단한 영화 추천 API 설계하기
+
+
+
+저희와 똑같은 MySQL을 쓰는 프로젝트입니다. 직접 따라해봐야 알겠지만 이걸 잘 도입하면 풍성한 프로젝트가 될 것 같습니다.
+
+------------------------------------------------------------------
