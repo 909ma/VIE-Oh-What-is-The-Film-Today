@@ -2,3 +2,4 @@
 *.css linguist-detectable=false
 *.scss linguist-detectable=false
 *.toc linguist-detectable=false
+*.TeX linguist-detectable=false
