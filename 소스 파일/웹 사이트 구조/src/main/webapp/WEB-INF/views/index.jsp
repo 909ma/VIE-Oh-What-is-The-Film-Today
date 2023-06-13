@@ -5,30 +5,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>(수정)아 오늘 영화 뭐 보지?</title>
+<title>아 오늘 영화 뭐 보지?</title>
 </head>
 <style>
 * {
 	text-align: center;
 }
-
-#header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-footer {
-	text-align: center;
-	padding: 10px;
-	background-color: #f5f5f5;
-	color: #999999;
-	font-size: 14px;
-}
 </style>
-<link rel="stylesheet" href="commonStyles.css">
-<!-- 제대로 안 됨 -->
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 <body>
 	<%@ include file="header.jsp"%>
 	<main>

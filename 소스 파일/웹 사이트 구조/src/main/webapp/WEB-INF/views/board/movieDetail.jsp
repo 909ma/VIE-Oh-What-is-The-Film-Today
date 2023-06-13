@@ -44,27 +44,14 @@ body {
 .movie-description {
 	margin-bottom: 10px;
 }
-
-#header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-footer {
-	text-align: center;
-	padding: 10px;
-	background-color: #f5f5f5;
-	color: #999999;
-	font-size: 14px;
-}
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
 	<div class="container">
 		<h2 class="movie-title">영화 제목</h2>
-		<img class="movie-poster" src="../image/테스트1.jpg" alt="영화 포스터" />
+		<img class="movie-poster" src="${pageContext.request.contextPath}/resources/image/테스트1.jpg" alt="영화 포스터" />
 		<div class="movie-details">
 			<p class="movie-description">영화 설명이나 내용을 여기에 작성합니다.</p>
 			<p>더 많은 영화 정보를 추가할 수 있습니다.</p>

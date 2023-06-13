@@ -62,20 +62,6 @@
 .button:hover {
 	background-color: #cccccc;
 }
-
-#header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-footer {
-	text-align: center;
-	padding: 10px;
-	background-color: #f5f5f5;
-	color: #999999;
-	font-size: 14px;
-}
 /* 포스터 영역 */
 #mainBoard {
 	display: flex;
@@ -94,6 +80,7 @@ footer {
 	height: auto;
 }
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
