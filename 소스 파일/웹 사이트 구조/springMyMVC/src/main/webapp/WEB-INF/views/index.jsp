@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="kr">
   <head>
@@ -18,14 +19,9 @@
     }
   </style>
   <body>
+  <%@ include file="header.jsp" %>
     <main>
-      <img
-        id="mainLogo"
-        src="./image/main logo.png"
-        alt="main logo"
-        width="너비"
-        height="높이"
-      />
+
 
       <h2>환영합니다!</h2>
       <p>회원가입 또는 로그인하여 계속 진행하세요.</p>
@@ -36,8 +32,6 @@
       </div>
     </main>
 
-    <footer>
-      <p>© 2023 아 오늘 영화 뭐 보지?. All rights reserved.</p>
-    </footer>
+    <%@ include file="footer.jsp" %> <!-- 푸터 포함 -->
   </body>
 </html>
