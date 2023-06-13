@@ -6,62 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인 화면</title>
 <style>
-/* Main container */
-.container {
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 20px;
-	background-color: #f5f5f5;
-	color: #333333;
-	font-family: Arial, sans-serif;
-}
-
-/* Top navigation */
-.topnav {
-	overflow: hidden;
-	background-color: #333333;
-	margin-bottom: 20px;
-}
-
-.topnav a {
-	float: left;
-	color: #fff;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-	font-size: 18px;
-	transition: background-color 0.3s ease;
-}
-
-.topnav a:hover {
-	background-color: #555;
-}
-
-.topnav a.active {
-	background-color: #cccccc;
-	color: #333333;
-}
-
-/* Buttons */
-.button {
-	display: inline-block;
-	padding: 10px 20px;
-	font-size: 16px;
-	text-align: center;
-	cursor: pointer;
-	background-color: #cccccc;
-	color: #333333;
-	border: none;
-	border-radius: 4px;
-	text-decoration: none;
-	transition: background-color 0.3s ease;
-}
-
-.button:hover {
-	background-color: #cccccc;
-}
 /* 포스터 영역 */
 #mainBoard {
 	display: flex;
@@ -81,6 +27,7 @@
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -91,8 +38,8 @@
 				<a href="#">공지 사항</a>
 				<a href="#">자유게시판</a>
 				<a href="#">영화 평점</a>
-				<a href="#">상영작 통계 조회</a>
-				<a href="#">개봉작 통계 조회</a>
+				<a href="/dailyMovie">상영작 통계 조회</a>
+				<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
 			</div>
 			<br />
 			<button class="button">회원 정보 관리</button>

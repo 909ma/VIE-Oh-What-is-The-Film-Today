@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection,
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page
+	import="java.sql.Connection,
 java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>MySQL 데이터 표시 및 D3 차트</title>
+<title>개봉작 통계 조회</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 /* 차트 스타일링 */
@@ -23,42 +25,72 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 	left: 50%;
 	background-color: #ffffff;
 }
-#chart{
-  width: 100%; /* 가로 길이를 100%로 설정 */
-  height: 100vh; /* 세로 길이를 뷰포트의 높이에 맞게 설정 */
+
+#chart {
+	width: 100%; /* 가로 길이를 100%로 설정 */
+	height: 100vh; /* 세로 길이를 뷰포트의 높이에 맞게 설정 */
+}
+
+#dataBox{
+	max-width: 1024px;
+	text-align: center;
+	margin: auto;
 }
 </style>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
 </head>
 <body>
-<div id="chart-container">
-	<svg id="chart"></svg>
+	<%@ include file="../header.jsp"%>
+	<main>
+	<div class="container">
+		<div class="topnav">
+			<a href="/board">메인 화면</a>
+			<a href="#">공지 사항</a> 
+			<a href="#">자유게시판</a> 
+			<a href="#">영화 평점</a> 
+			<a href="/dailyMovie">상영작 통계 조회</a> 
+			<a class="active" href="#">개봉작 통계 조회</a>
+		</div>
+		<br />
+		<button class="button">회원 정보 관리</button>
+		<button class="button">설정</button>
 	</div>
+	<div id="dataBox">
+		<div id="chart-container">
+			<svg id="chart"></svg>
+		</div>
+		</div>
+	</main>
+	<%@ include file="../footer.jsp"%>
 	<script>
         // 초기 데이터 배열
         var originalData = [
             <%try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://localhost/myproject";
-        String username = "root";
-        String password = "1234";
-        Connection connection = DriverManager.getConnection(url, username, password);
-        Statement statement = connection.createStatement();
-        String sql = "SELECT targetDt, SUM(audiCnt) AS totalAudiCnt FROM DailyMovie GROUP BY targetDt ORDER BY targetDt ASC";
-        ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()) {
-            int totalAudiCnt = resultSet.getInt("totalAudiCnt");
-            int targetDt = resultSet.getInt("targetDt");%>
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	String url = "jdbc:mysql://localhost/myproject";
+	String username = "root";
+	String password = "1234";
+	Connection connection = DriverManager.getConnection(url, username, password);
+	Statement statement = connection.createStatement();
+	String sql = "SELECT targetDt, SUM(audiCnt) AS totalAudiCnt FROM DailyMovie GROUP BY targetDt ORDER BY targetDt ASC";
+	ResultSet resultSet = statement.executeQuery(sql);
+	while (resultSet.next()) {
+		int totalAudiCnt = resultSet.getInt("totalAudiCnt");
+		int targetDt = resultSet.getInt("targetDt");%>
             {
                 totalAudiCnt: <%=String.valueOf(totalAudiCnt)%>,
                 targetDt: <%=String.valueOf(targetDt)%>
             },
             <%}
-        resultSet.close();
-        statement.close();
-        connection.close();
-        } catch (Exception e) {
-        e.printStackTrace();
-        }%>
+resultSet.close();
+statement.close();
+connection.close();
+} catch (Exception e) {
+e.printStackTrace();
+}%>
         ];
 
         // 초기 데이터로 차트 생성

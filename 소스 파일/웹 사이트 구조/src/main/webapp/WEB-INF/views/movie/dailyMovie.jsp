@@ -6,7 +6,7 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>MySQL 데이터 표시 및 D3 차트</title>
+<title>상영작 통계 조회</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 /* 테이블 스타일링 */
@@ -40,9 +40,35 @@ tr:nth-child(even) {
 	left: 50%;
 	background-color: #ffffff;
 }
+#dataBox{
+max-width: 1024px;
+	text-align: center;
+	margin: auto;
+}
 </style>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
 </head>
 <body>
+	<%@ include file="../header.jsp"%>
+	<main>
+	<div class="container">
+		<div class="topnav">
+			<a href="/board">메인 화면</a>
+			<a href="#">공지 사항</a> 
+			<a href="#">자유게시판</a> 
+			<a href="#">영화 평점</a> 
+			<a class="active" href="#">상영작 통계 조회</a> 
+			<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
+		</div>
+		<br />
+		<button class="button">회원 정보 관리</button>
+		<button class="button">설정</button>
+	</div>
+	
+	<div id="dataBox">
 	<label for="food-select">선택:</label>
 	<select id="food-select" onchange="updateData()">
 		<option value="">전체</option>
@@ -70,9 +96,10 @@ tr:nth-child(even) {
 		}
 		%>
 	</select>
+	<br>
 
 	<svg id="chart"></svg>
-	
+	<br>
 	<table id="data-table">
 		<tr>
 			<th>당일 관객</th>
@@ -112,7 +139,9 @@ tr:nth-child(even) {
 		}
 		%>
 	</table>
-
+</div>
+	</main>
+	<%@ include file="../footer.jsp"%>
 
 	<script>
               // 초기 데이터 배열
