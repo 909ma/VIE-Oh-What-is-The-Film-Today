@@ -1,0 +1,219 @@
+{
+  "movieInfoResult": {
+    "movieInfo": {
+      "movieCd": "20226411",
+      "movieNm": "범죄도시3",
+      "movieNmEn": "THE ROUNDUP : NO WAY OUT",
+      "movieNmOg": "",
+      "showTm": "105",
+      "prdtYear": "2022",
+      "openDt": "20230531",
+      "prdtStatNm": "개봉",
+      "typeNm": "장편",
+      "nations": [{ "nationNm": "한국" }],
+      "genres": [{ "genreNm": "범죄" }, { "genreNm": "액션" }],
+      "directors": [{ "peopleNm": "이상용", "peopleNmEn": "Lee Sang-yong" }],
+      "actors": [
+        {
+          "peopleNm": "마동석",
+          "peopleNmEn": "Don LEE",
+          "cast": "마석도",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "이준혁",
+          "peopleNmEn": "LEE Jun-hyuk",
+          "cast": "주성철",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "아오키 무네타카",
+          "peopleNmEn": "Munetaka Aoki",
+          "cast": "리키",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "이범수",
+          "peopleNmEn": "LEE Beom-su",
+          "cast": "장태수",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "김민재",
+          "peopleNmEn": "KIM Min-jae",
+          "cast": "김만재",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "이지훈",
+          "peopleNmEn": "LEE Ji-hoon",
+          "cast": "양종수",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "김도건",
+          "peopleNmEn": "",
+          "cast": "정다윗",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "고규필",
+          "peopleNmEn": "KO Gyu-pil",
+          "cast": "초롱이",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "전석호",
+          "peopleNmEn": "JEON Suk-ho",
+          "cast": "김양호",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "안세호",
+          "peopleNmEn": "",
+          "cast": "토모",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "한규원",
+          "peopleNmEn": "",
+          "cast": "김용국",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "최우준",
+          "peopleNmEn": "YOON Chung",
+          "cast": "이강호",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "최동구",
+          "peopleNmEn": "CHOI Dong-gu",
+          "cast": "황동구",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "이세호",
+          "peopleNmEn": "",
+          "cast": "공태일",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "이태규",
+          "peopleNmEn": "LEE Tae-gyu",
+          "cast": "마사",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "배누리",
+          "peopleNmEn": "BAE Nu-ri",
+          "cast": "미미",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "최광제",
+          "peopleNmEn": "CHOI Gwang-je",
+          "cast": "이상철",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "심영은",
+          "peopleNmEn": "SHIM Young-eun",
+          "cast": "진회장",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "김기호",
+          "peopleNmEn": "",
+          "cast": "백사장",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "고건한",
+          "peopleNmEn": "",
+          "cast": "스피드",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "신현용",
+          "peopleNmEn": "",
+          "cast": "자동문",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "쿠니무라 준",
+          "peopleNmEn": "Jun Kunimura",
+          "cast": "이치조 회장",
+          "castEn": ""
+        },
+        {
+          "peopleNm": "박지환",
+          "peopleNmEn": "PARK Ji-hwan",
+          "cast": "장이수",
+          "castEn": ""
+        }
+      ],
+      "showTypes": [
+        { "showTypeGroupNm": "2D", "showTypeNm": "디지털" },
+        { "showTypeGroupNm": "2D", "showTypeNm": "디지털 가치봄" },
+        { "showTypeGroupNm": "4D", "showTypeNm": "4D" },
+        { "showTypeGroupNm": "IMAX", "showTypeNm": "IMAX" }
+      ],
+      "companys": [
+        {
+          "companyCd": "20229048",
+          "companyNm": "주식회사 빅펀치픽쳐스",
+          "companyNmEn": "",
+          "companyPartNm": "제작사"
+        },
+        {
+          "companyCd": "20063279",
+          "companyNm": "(주)홍필름",
+          "companyNmEn": "Hong Film",
+          "companyPartNm": "제작사"
+        },
+        {
+          "companyCd": "20138935",
+          "companyNm": "(주)비에이엔터테인먼트",
+          "companyNmEn": "B.A. Entertainment",
+          "companyPartNm": "제작사"
+        },
+        {
+          "companyCd": "20202927",
+          "companyNm": "주식회사 에이비오엔터테인먼트",
+          "companyNmEn": "ABO Entertainment Co., Ltd.",
+          "companyPartNm": "배급사"
+        },
+        {
+          "companyCd": "20141469",
+          "companyNm": "플러스엠 엔터테인먼트",
+          "companyNmEn": "Plus M Entertainment",
+          "companyPartNm": "배급사"
+        },
+        {
+          "companyCd": "20202927",
+          "companyNm": "주식회사 에이비오엔터테인먼트",
+          "companyNmEn": "ABO Entertainment Co., Ltd.",
+          "companyPartNm": "제공"
+        }
+      ],
+      "audits": [
+        { "auditNo": "2023-MF01287 ", "watchGradeNm": "15세이상관람가" }
+      ],
+      "staffs": [
+        {
+          "peopleNm": "마동석",
+          "peopleNmEn": "Don LEE",
+          "staffRoleNm": "제작"
+        },
+        {
+          "peopleNm": "한지영",
+          "peopleNmEn": "Han Ji Yeong",
+          "staffRoleNm": "폴리"
+        },
+        { "peopleNm": "마동석", "peopleNmEn": "Don LEE", "staffRoleNm": "기획" }
+      ]
+    },
+    "source": "영화진흥위원회"
+  }
+}

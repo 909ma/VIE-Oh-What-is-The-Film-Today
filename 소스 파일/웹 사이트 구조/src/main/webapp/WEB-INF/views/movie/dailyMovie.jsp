@@ -36,94 +36,101 @@ tr:nth-child(even) {
 }
 
 #chart {
-	position: fixed;
 	bottom: 20px;
 	left: 50%;
-	transform: translateX(-50%);
 	background-color: #ffffff;
 }
 </style>
 </head>
 <body>
-	<label for="food-select">음식 선택:</label>
+	<label for="food-select">선택:</label>
 	<select id="food-select" onchange="updateData()">
 		<option value="">전체</option>
-		<% try { 
-			Class.forName("com.mysql.cj.jdbc.Driver"); 
-			String url = "jdbc:mysql://localhost/myproject"; 
-			String username = "root"; 
-			String password = "1234"; 
-			Connection connection = DriverManager.getConnection(url, username, password); 
-			Statement statement = connection.createStatement();
-			String sql = "SELECT DISTINCT name FROM practice";
-			ResultSet resultSet = statement.executeQuery(sql);
-			while (resultSet.next()) {
-				String name = resultSet.getString("name");
-		%>
-		<option value="<%=name%>"><%=name%></option>
-		<%  }
-			resultSet.close();
-			statement.close();
-			connection.close();
-			} catch
-      (Exception e) { e.printStackTrace(); } %>
-	</select>
-
-	<table id="data-table">
-		<tr>
-			<th>Amount</th>
-			<th>Name</th>
-			<th>Item Spec</th>
-			<th>Year</th>
-		</tr>
-		<% try {
+		<%
+			try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost/myproject";
 			String username = "root";
 			String password = "1234";
 			Connection connection = DriverManager.getConnection(url, username, password);
 			Statement statement = connection.createStatement();
-			String sql = "SELECT amount, name, itemspec, year FROM practice";
+			String sql = "SELECT DISTINCT movieNm FROM DailyMovie ORDER BY movieNm ASC";
 			ResultSet resultSet = statement.executeQuery(sql);
 			while (resultSet.next()) {
-				int amount = resultSet.getInt("amount");
-				String name = resultSet.getString("name");
-      			String itemspec = resultSet.getString("itemspec");
-      			int year = resultSet.getInt("year");
-      	%>
+				String name = resultSet.getString("movieNm");
+		%>
+		<option value="<%=name%>"><%=name%></option>
+		<%
+			}
+		resultSet.close();
+		statement.close();
+		connection.close();
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		%>
+	</select>
+
+	<svg id="chart"></svg>
+	
+	<table id="data-table">
+		<tr>
+			<th>당일 관객</th>
+			<th>영화</th>
+			<th>당일 매출</th>
+			<th>날짜</th>
+		</tr>
+		<%
+			try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url = "jdbc:mysql://localhost/myproject";
+			String username = "root";
+			String password = "1234";
+			Connection connection = DriverManager.getConnection(url, username, password);
+			Statement statement = connection.createStatement();
+			String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
+			ResultSet resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				int amount = resultSet.getInt("audiCnt");
+				String name = resultSet.getString("movieNm");
+				String itemspec = resultSet.getString("salesAmt");
+				int year = resultSet.getInt("targetDt");
+		%>
 		<tr class="data-row">
 			<td><%=String.valueOf(amount)%></td>
 			<td><%=name%></td>
 			<td><%=itemspec%></td>
 			<td><%=String.valueOf(year)%></td>
 		</tr>
-		<%  }
-			resultSet.close();
-			statement.close();
-			connection.close();
-			} catch
-      (Exception e) { e.printStackTrace(); } %>
+		<%
+			}
+		resultSet.close();
+		statement.close();
+		connection.close();
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		%>
 	</table>
 
-	<svg id="chart"></svg>
 
 	<script>
               // 초기 데이터 배열
               var originalData = [
                   <%try {
-      	Class.forName("com.mysql.cj.jdbc.Driver");
-      	String url = "jdbc:mysql://localhost/myproject";
-      	String username = "root";
-      	String password = "1234";
-      	Connection connection = DriverManager.getConnection(url, username, password);
-      	Statement statement = connection.createStatement();
-      	String sql = "SELECT amount, name, itemspec, year FROM practice";
-      	ResultSet resultSet = statement.executeQuery(sql);
-      	while (resultSet.next()) {
-      		int amount = resultSet.getInt("amount");
-      		String name = resultSet.getString("name");
-      		String itemspec = resultSet.getString("itemspec");
-      		int year = resultSet.getInt("year");%>
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	String url = "jdbc:mysql://localhost/myproject";
+	String username = "root";
+	String password = "1234";
+	Connection connection = DriverManager.getConnection(url, username, password);
+	Statement statement = connection.createStatement();
+	String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie  ORDER BY targetDt ASC";
+	ResultSet resultSet = statement.executeQuery(sql);
+	while (resultSet.next()) {
+		int amount = resultSet.getInt("audiCnt");
+		String name = resultSet.getString("movieNm");
+		String itemspec = resultSet.getString("salesAmt");
+		int year = resultSet.getInt("targetDt");%>
                   {
                       amount: <%=String.valueOf(amount)%>,
                       name: "<%=name%>",
@@ -131,13 +138,13 @@ tr:nth-child(even) {
                       year: <%=String.valueOf(year)%>
                   },
                   <%}
-      resultSet.close();
-      statement.close();
-      connection.close();
-      } catch (Exception e) {
-      e.printStackTrace();
-      }%>
-              ];
+			resultSet.close();
+			statement.close();
+			connection.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}%>
+			              ];
 
               // 초기 데이터로 테이블 생성
               var table = d3.select("#data-table");
@@ -245,7 +252,10 @@ tr:nth-child(even) {
                           .text(function(d) { return d.year; });
 
                       // 차트 업데이트
-                      y.domain([0, d3.max(filteredData, function(d) { return d.amount; })]);
+                      svg.select(".y-axis").remove(); // 기존의 y축 요소 제거
+                      svg.select(".x-axis").remove(); // 기존의 x축 요소 제거
+				        x.domain(filteredData.map(function(d) { return d.year; })); // x 축 도메인 업데이트
+				        y.domain([0, d3.max(filteredData, function(d) { return d.amount; })]); // y 축 도메인 업데이트
 
                       var chartBars = svg.selectAll(".bar")
                           .data(filteredData, function(d) { return d.year; });
@@ -266,7 +276,6 @@ tr:nth-child(even) {
                           .attr("y", function(d) { return y(d.amount); })
                           .attr("width", x.bandwidth())
                           .attr("height", function(d) { return height - y(d.amount); });
-                      svg.select(".y-axis").remove(); // 기존의 y축 요소 제거
 
                       svg.append("g")
                           .attr("class", "y-axis")
@@ -305,6 +314,8 @@ tr:nth-child(even) {
                           .data(originalData, function(d) { return d.year; });
 
                       chartBars.exit().remove();
+                      x.domain(originalData.map(function(d) { return d.year; })); // x 축 도메인 업데이트
+                      y.domain([0, d3.max(originalData, function(d) { return d.amount; })]); // y 축 도메인 업데이트
 
                       chartBars.enter()
                           .append("rect")

@@ -1,0 +1,13 @@
+테이블 이름 : DailyMovie
+
+number movieCd + targetDt int pk
+movieCd 영화의 대표코드 int
+movieNm 영화이름 varchar1000
+openDt 영화개봉일 varchar45
+rank 순위 int
+salesAmt 매출액 int
+salesAcc 누적매출액 int
+audiCnt 관객수 int
+audiAcc 누적관객수 int
+targetDt 날짜 int
+

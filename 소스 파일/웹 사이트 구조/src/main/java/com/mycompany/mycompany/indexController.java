@@ -17,4 +17,14 @@ public class indexController {
 		return new ModelAndView("/board/mainBoard");
 	}
 
+	@RequestMapping(value = "/dailyMovie", method = RequestMethod.GET)
+	public ModelAndView dailyMovie() {
+		return new ModelAndView("/movie/dailyMovie");
+	}
+
+	@RequestMapping(value = "/HowMuchDailyMovie", method = RequestMethod.GET)
+	public ModelAndView HowMuchDailyMovie() {
+		return new ModelAndView("/movie/HowMuchDailyMovie");
+	}
+
 }

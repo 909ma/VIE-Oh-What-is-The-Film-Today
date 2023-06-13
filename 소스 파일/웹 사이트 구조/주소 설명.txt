@@ -1,0 +1,6 @@
+index	홈페이지 메인 화면: 로그인과 회원가입 진행
+board	게시판 고르기 전 첫 화면: 포스터를 눌러 영화의 자세한 정보를 볼 수 있게 할 예정
+	movieDetail	영화 정보 상세보기 예정
+
+dailyMovie	일일 영화 관객수 출력(D3.js)
+HowMuchDailyMovie	일일 관객수 총합 출력(D3.js)
