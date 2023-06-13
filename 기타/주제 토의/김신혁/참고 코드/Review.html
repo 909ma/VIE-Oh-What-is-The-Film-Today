@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>분석</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <link rel="stylesheet" href="Review.css" />
+    <link
+      href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1>분석</h1>
+
+    <h2>선택 목록</h2>
+    <select id="achievementSelect" onchange="loadAchievementContent()">
+      <option value="" disabled selected>업적 선택</option>
+    </select>
+
+    <h2 id="achievementTitle"></h2>
+    <!--
+    <h2>스크린샷</h2>
+    <div id="screenshot-container">
+      <img id="screenshot" src="/image/메롱.png" alt="스크린샷 화면" />
+    </div>
+    -->
+    <h2>레이더 차트</h2>
+    <canvas id="radarChart"></canvas>
+    <br />
+    <div id="hiContent">
+      <div id="achievementContent"></div>
+    </div>
+    <script src="Review.js"></script>
+  </body>
+</html>

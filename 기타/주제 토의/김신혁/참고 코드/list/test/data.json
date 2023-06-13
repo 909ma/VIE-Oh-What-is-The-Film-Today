@@ -1,0 +1,20 @@
+{
+  "title": "Test",
+  "content": [
+    { "type": "text", "value": "테스트용입니다." },
+    { "type": "image", "value": "테스트1.jpg" },
+    { "type": "text", "value": "테스트용입니다.2" }
+  ],
+  "labels": [
+    { "name": "그래픽", "value": 3 },
+    { "name": "게임플레이", "value": 3 },
+    { "name": "스토리", "value": 3 },
+    { "name": "음향", "value": 3 },
+    { "name": "난이도 조절", "value": 3 },
+    { "name": "재미 요소", "value": 3 },
+    { "name": "다양성", "value": 3 },
+    { "name": "캐릭터 디자인", "value": 3 },
+    { "name": "게임 세계관", "value": 3 },
+    { "name": "멀티플레이어", "value": 3 }
+  ]
+}

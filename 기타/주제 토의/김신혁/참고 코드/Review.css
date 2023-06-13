@@ -1,0 +1,95 @@
+/* style.css */
+
+/* 전체 페이지 스타일 */
+* {
+  font-family: "NanumSquare";
+}
+body {
+  line-height: 1.5;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* 선택 가능한 업적 스타일 */
+#achievementSelect {
+  padding: 5px;
+  font-size: 16px;
+  margin: 0 auto; /* 가운데 정렬 */
+  display: block; /* 블록 요소로 설정하여 수평 가운데 정렬 적용 */
+}
+
+/* 업적 제목 스타일 */
+#achievementTitle {
+  font-size: 20px;
+  margin-top: 20px;
+  text-align: center; /* 가운데 정렬 */
+}
+
+/* 업적 내용 스타일 */
+#achievementContent {
+  margin-bottom: 20px;
+  /* text-align: center;  가운데 정렬 */
+  font-size: 32px;
+}
+
+#hiContent {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+/* 테이블 스타일 */
+table {
+  margin: auto; /* 가운데 정렬 */
+  margin-top: 20px; /* 위쪽 여백 조정 */
+  margin-bottom: 20px; /* 위쪽 여백 조정 */
+  width: auto; /* 테이블의 너비를 지정 (예: 50%) */
+}
+
+/* 스크린샷 이미지 스타일 */
+#screenshot-container {
+  max-width: 1024px;
+  margin: 0 auto 20px; /* 수평 가운데 정렬 */
+  display: flex;
+  justify-content: center;
+}
+
+#screenshot-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 레이더 차트 컨테이너 스타일 */
+#radarChart {
+  width: 100%;
+  max-width: 1024px;
+  height: 100%;
+  max-height: 1024px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#radarChart canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* 본문 중앙 사진 */
+.image-container {
+  text-align: center;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
