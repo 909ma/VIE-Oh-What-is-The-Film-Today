@@ -1,0 +1,10 @@
+TMDB
+
+https://www.themoviedb.org/settings/api
+https://developer.themoviedb.org/docs/image-basics
+
+
+------------------------------------------------------------
+kofic 영화진흥위원회
+
+https://www.kobis.or.kr/kobisopenapi/homepg/apiservice/searchServiceInfo.do
