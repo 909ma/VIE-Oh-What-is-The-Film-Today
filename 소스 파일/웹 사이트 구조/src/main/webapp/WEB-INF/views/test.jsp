@@ -131,7 +131,7 @@ function searchMovieByKoreanTitle(movieTitle, rank) {
 
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
+	<%@ include file="./header.jsp"%>
 	<main>
 	<div class="container">
 			<div class="topnav">
@@ -208,6 +208,6 @@ try {
 }
 %>
 	</main>
-	<%@ include file="../footer.jsp"%>
+	<%@ include file="./footer.jsp"%>
 </body>
 </html>

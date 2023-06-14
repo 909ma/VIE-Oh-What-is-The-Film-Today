@@ -7,6 +7,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class indexController {
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public ModelAndView test() {
+		return new ModelAndView("test");
+	}
+	
+
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index() {
 		return new ModelAndView("index");

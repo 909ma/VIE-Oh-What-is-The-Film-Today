@@ -10,17 +10,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인 화면</title>
-<style>
-/* 포스터 영역 */
-.poster {
-	display: flex;
-	justify-content: left;
-	align-items: center;
-	overflow: auto;
-}
+<title>Movie Posters</title>
 
-</style>
 <!-- jQuery 라이브러리 추가 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -126,27 +117,10 @@ function searchMovieByKoreanTitle(movieTitle, rank) {
 }
 </script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
 
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
-	<main>
-	<div class="container">
-			<div class="topnav">
-				<a class="active" href="#">메인 화면</a>
-				<a href="#">공지 사항</a>
-				<a href="#">자유게시판</a>
-				<a href="#">영화 평점</a>
-				<a href="/dailyMovie">상영작 통계 조회</a>
-				<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-			</div>
-			<br />
-			<button class="button">회원 정보 관리</button>
-			<button class="button">설정</button>
-		</div>
-<h1>Top10 영화</h1>
+<h1>영화 포스터</h1>
 
 <%
 // MySQL 데이터베이스 연결 정보
@@ -182,22 +156,20 @@ try {
     // 쿼리 실행
     ResultSet rs = pstmt.executeQuery();
 
-    out.print("<div class=\"poster\">");
     // 결과 출력
     while (rs.next()) {
         String movieNm = rs.getString("movieNm");
         int rank = rs.getInt("rank");
 
+        out.println("영화 이름: " + movieNm + "<br>");
+        out.println("순위: " + rank + "<br>");
 
         // 영화 포스터 이미지 출력
-        out.println("<img id='posterImage" + rank + "' src='' alt='포스터 없음' width='500'>");
+        out.println("<img id='posterImage" + rank + "' src='' alt='포스터 없음' width='500'><br><br>");
 
         // 영화 검색 함수 호출
         out.println("<script>searchMovie('" + movieNm + "', " + rank + ");</script>");
-//         out.println("영화 이름: " + movieNm + "<br>");
-//         out.println("순위: " + rank + "<br>");
     }
-    out.print("</div>");
 
     // 자원 해제
     rs.close();
@@ -207,7 +179,6 @@ try {
     e.printStackTrace();
 }
 %>
-	</main>
-	<%@ include file="../footer.jsp"%>
+
 </body>
 </html>
