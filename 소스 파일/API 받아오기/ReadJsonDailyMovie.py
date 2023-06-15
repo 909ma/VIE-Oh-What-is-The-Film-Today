@@ -23,7 +23,7 @@ import pymysql
 """
 # 파일 이름 규칙에 따라 연도 리스트 생성
 start_date = "20230101"
-end_date = "20230430"
+end_date = "20230613"
 day_list = generate_date_range(start_date, end_date)
 
 # 연도별로 파일을 읽고 처리
