@@ -259,9 +259,12 @@ ul.staff-list li .name {
 	<main>
 		<div class="container">
 			<div class="topnav">
-				<a class="active" href="#">메인 화면</a> <a href="#">공지 사항</a> <a
-					href="#">자유게시판</a> <a href="#">영화 평점</a> <a href="/dailyMovie">상영작
-					통계 조회</a> <a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
+				<a class="active" href="/board">메인 화면</a>
+				<a href="#">공지 사항</a> 
+				<a href="#">자유게시판</a> 
+				<a href="#">영화 평점</a> 
+				<a href="/dailyMovie">상영작 통계 조회</a> 
+				<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
 			</div>
 			<br />
 			<button class="button">회원 정보 관리</button>
