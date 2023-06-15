@@ -1,13 +1,13 @@
 테이블 이름 : DailyMovie
 
-movieCd 영화의 대표코드 varchar100 pk
-number movieCd + targetDt BIGINT
-movieNm 영화이름 varchar1000
-openDt 영화개봉일 varchar45
-rank 순위 int
-salesAmt 매출액 BIGINT
-salesAcc 누적매출액 BIGINT
-audiCnt 관객수 BIGINT
-audiAcc 누적관객수 BIGINT
-targetDt 날짜 BIGINT
+movieCd 	number(영화의 대표코드) + targetDt	BIGINT		PK
+number		영화의 대표코드				varchar100
+movieNm		영화이름				varchar1000
+openDt		영화개봉일				varchar45
+rank		순위					int
+salesAmt	매출액					BIGINT
+salesAcc	누적매출액				BIGINT
+audiCnt		관객수					BIGINT
+audiAcc		누적관객수				BIGINT
+targetDt	날짜					BIGINT
 
