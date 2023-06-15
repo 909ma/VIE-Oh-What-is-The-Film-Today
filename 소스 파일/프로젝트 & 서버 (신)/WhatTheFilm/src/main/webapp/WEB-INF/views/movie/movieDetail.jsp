@@ -80,6 +80,14 @@ ul.staff-list li .role {
 ul.staff-list li .name {
 	margin-left: 10px;
 }
+    #movieBox {
+        width: 1024px;
+        margin: 0 auto; /* 가로 중앙 정렬 */
+    }
+    #posterImage {
+        display: block;
+        margin: 0 auto;
+    }
 </style>
 
     <style>
@@ -259,7 +267,9 @@ ul.staff-list li .name {
 			<button class="button">회원 정보 관리</button>
 			<button class="button">설정</button>
 		</div>
-		<h1>Movie Detail</h1>
+		<div id = "movieBox">
+		<br><br><br><br>
+		<!-- <h1>Movie Detail</h1> -->
 		<%
 		// 전달받은 number 파라미터 값 추출
 		int number = Integer.parseInt(request.getParameter("number"));
@@ -394,6 +404,7 @@ ul.staff-list li .name {
                 <li><%= staff.get("staffRoleNm") %> - <%= staff.get("peopleNm") %> (<%= staff.get("peopleNmEn") %>)</li>
             <% } %>
         </ul>
+    </div>
     </div>
 	</main>
 	<%@ include file="../footer.jsp"%>
