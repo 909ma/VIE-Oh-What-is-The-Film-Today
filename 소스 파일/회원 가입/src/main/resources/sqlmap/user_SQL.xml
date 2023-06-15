@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="UserNumber">
+    <![CDATA[
+    insert into user
+    (LoginID, Password, Nickname, Gender, BirthYear)
+    select
+    #{LoginID}, #{Password}, #{Nickname}, #{Gender}, #{BirthYear}
+    from dual
+    where not exists (
+        select 1
+        from user
+        where LoginID = #{LoginID} or Nickname = #{Nickname}
+    )
+    ]]>
+</insert>
+
+<select id="checkDuplicate" parameterType="hashMap" resultType="java.lang.Integer">
+    <![CDATA[
+    select count(*) from user where LoginID = #{LoginID} or Nickname = #{Nickname}
+    ]]>
+</select>
+</mapper>
