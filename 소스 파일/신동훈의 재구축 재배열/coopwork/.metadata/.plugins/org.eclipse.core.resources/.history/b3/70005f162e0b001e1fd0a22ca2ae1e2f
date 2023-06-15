@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hospital">
+	<!-- 아이디 중복 확인 -->
+	<select id="id_check" resultType="Integer">
+		<![CDATA[
+			select count(*) from member where id=#{id}
+		]]>
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="hashMap">
+		<![CDATA[
+			insert into member 
+			(name, id, pw, gender, email, phone, birth, post, addr, pt_code, m_code, jpo_code) 
+			values 
+			(#{name}, #{id}, #{pw}, #{gender}, #{email}, #{phone}, #{birth}, #{post}, #{addr}, #{pt_code}, #{m_code}, #{jpo_code})
+		]]>
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="login" resultType="com.myspring.member.MemberDTO">
+		<![CDATA[
+			select * from member where id=#{id} and pw=#{pw}
+		]]>
+	</select>
+	
+	<!-- 회원 상세 화면 -->
+	<!-- select * from member where id=#{id} -->
+	<select id="detail" resultType="com.myspring.member.MemberDTO">
+		<![CDATA[
+			select member.name, id, gender, email, phone, birth, post, addr, ptype.name pt_code, major.name m_code, jposition.name jpo_code 
+			from member 
+			join ptype on member.pt_code = ptype.pt_code 
+			join major on member.m_code = major.m_code 
+			join jposition on member.jpo_code = jposition.jpo_code 
+			where id=#{id}
+		]]>
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="modify" parameterType="hashMap">
+		<![CDATA[
+			update member set 
+			name=#{name}, pw=#{pw}, gender=#{gender}, email=#{email}, phone=#{phone}, birth=#{birth}, post=#{post}, addr=#{addr}, pt_code=#{pt_code}, m_code=#{m_code}, jpo_code=#{jpo_code} 
+			where id=#{id}
+		]]>
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="delete">
+		<![CDATA[
+			delete from member where id=#{id}
+		]]>
+	</delete>
+	
+	<!-- 의료진 목록 -->
+	<select id="staff_list" resultType="com.myspring.member.MemberDTO">
+		<![CDATA[
+			select member.name, gender, major.name m_code, jposition.name jpo_code, email, phone 
+			from member 
+			join major on member.m_code = major.m_code 
+			join jposition on member.jpo_code = jposition.jpo_code 
+			where member.m_code=#{m_code}
+		]]>
+	</select>
+	
+	
+	<!-- 게시판 목록 -->
+	<select id="notice_list" parameterType="hashMap" resultType="hashMap">
+		<![CDATA[
+			select * from notice 
+			where 1 = 1 
+		 ]]>
+		<if test="keyword!=null and keyword!=''">
+			and (title like CONCAT('%',#{keyword},'%') )
+		</if>
+		<choose>
+			<when test="skipCount==null">
+				limit 0,5
+			</when>
+			<when test="skipCount!=null">
+				limit ${skipCount}, 5
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 게시글 상세 내용 -->
+	<select id="notice_detail" parameterType="hashMap" resultType="hashMap">
+		<![CDATA[
+			select * from notice 
+			where title=#{title}
+		]]>
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="notice_delete">
+		<![CDATA[
+			delete from notice where bno=#{bno}
+		]]>
+	</delete> 
+	
+	<!-- 게시글 추가 -->
+	<insert id="notice_create" parameterType="hashMap" useGeneratedKeys="true" keyProperty="bno">  
+    	<![CDATA[
+    		insert into notice
+    		(title, content) 
+    		values 
+    		(#{title}, #{content})
+    	]]>
+	</insert>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="notice_read" parameterType="hashMap">
+		update notice set bHit=bHit+1 where bno=#{bno}
+	</update>
+	
+	<!-- 게시글 내용 수정 -->
+	<update id="notice_modify" parameterType="hashMap">
+		<![CDATA[
+			update notice set 
+			title=#{title}, content=#{content} 
+			where bno=#{bno}
+		]]>
+	</update>
+	
+	<!-- 게시판 글의 총 개수 or 검색된 글의 총 개수 -->
+	<select id="notice_count" parameterType="hashMap" resultType="int">
+		 <![CDATA[
+			 select count(*) from notice 
+			 where 1=1 
+		 ]]>
+		<if test="keyword!=null and keyword!=''">
+			and (title like CONCAT('%',#{keyword},'%') )
+		</if>
+	</select>
+	
+</mapper>
