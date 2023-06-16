@@ -24,8 +24,8 @@ import os
 
 import json
 
-start_date = "20230613"
-end_date = "20230613"
+start_date = "20230614"
+end_date = "20230614"
 day_list = generate_date_range(start_date, end_date)
 
 base_url = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
