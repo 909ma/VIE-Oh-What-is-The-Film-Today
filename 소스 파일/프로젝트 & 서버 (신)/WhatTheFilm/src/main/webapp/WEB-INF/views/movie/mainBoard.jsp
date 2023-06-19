@@ -128,7 +128,7 @@ function searchMovieByKoreanTitle(movieTitle, rank) {
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>

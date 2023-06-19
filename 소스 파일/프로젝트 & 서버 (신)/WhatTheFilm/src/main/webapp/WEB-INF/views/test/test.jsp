@@ -20,8 +20,9 @@
       background-color: #f2f2f2;
     }
   </style>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
   <%@ include file="../header.jsp"%>
