@@ -1,12 +1,14 @@
-CREATE TABLE BOOK_MEMBER(
-  memberId VARCHAR(50),
-  memberPw VARCHAR(100) NOT NULL,
-  memberName VARCHAR(30) NOT NULL,
-  memberMail VARCHAR(100) NOT NULL,
-  memberAddr1 VARCHAR(100) NOT NULL,
-  memberAddr2 VARCHAR(100) NOT NULL,
-  memberAddr3 VARCHAR(100) NOT NULL,
-  adminCk int NOT NULL,
-  regDate DATE NOT NULL,
-  PRIMARY KEY(memberId)
-);
+<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="UserNumber">
+    <![CDATA[
+    insert into user
+    (LoginID, Password, Gender, BirthYear)
+    select
+    #{LoginID}, #{Password}, #{Gender}, #{BirthYear}
+    from dual
+    where not exists (
+        select 1
+        from user
+        where LoginID = #{LoginID}
+    )
+    ]]>
+</insert>
