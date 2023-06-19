@@ -11,7 +11,7 @@ public class TestController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ModelAndView testPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("test");
+        modelAndView.setViewName("/test/test");
         return modelAndView;
     }
 }

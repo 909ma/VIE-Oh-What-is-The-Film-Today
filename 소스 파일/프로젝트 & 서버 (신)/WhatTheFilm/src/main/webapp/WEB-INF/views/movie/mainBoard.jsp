@@ -132,7 +132,6 @@ function searchMovieByKoreanTitle(movieTitle, rank) {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	<main>
 	<div class="container">
 		<div class="topnav">
 			<a class="active" href="/board">메인 화면</a>
@@ -144,6 +143,8 @@ function searchMovieByKoreanTitle(movieTitle, rank) {
 			<a href="/SearchMovie">영화 찾기</a>
 		</div>
 	</div>
+	
+	<main>
 <h1>Top10 영화</h1>
 
 <%

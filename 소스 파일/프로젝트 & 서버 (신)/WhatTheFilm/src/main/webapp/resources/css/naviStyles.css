@@ -2,7 +2,7 @@
 
 /* Main container */
 .container {
-	max-width: 800px;
+	max-width: 1024px;
 	margin: 0 auto;
 	padding: 20px;
 	background-color: #f5f5f5;
