@@ -54,7 +54,6 @@ max-width: 1024px;
 	<%@ include file="../header.jsp"%>
 	<main>
 	<div class="container">
-	<div class="container">
 		<div class="topnav">
 			<a href="/board">메인 화면</a>
 			<a href="/Announcement">공지 사항</a> 
@@ -64,10 +63,6 @@ max-width: 1024px;
 			<a class="active" href="/HowMuchDailyMovie">개봉작 통계 조회</a>
 			<a href="/SearchMovie">영화 찾기</a>
 		</div>
-	</div>
-		<br />
-		<button class="button">회원 정보 관리</button>
-		<button class="button">설정</button>
 	</div>
 	
 	<div id="dataBox">
