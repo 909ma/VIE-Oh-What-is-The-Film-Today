@@ -14,11 +14,4 @@ public class IndexController {
         modelAndView.setViewName("index"); // JSP 파일의 경로 설정
         return modelAndView;
     }
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public ModelAndView testPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("test"); // JSP 파일의 경로 설정
-        return modelAndView;
-    }
 }

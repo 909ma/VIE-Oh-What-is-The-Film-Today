@@ -35,4 +35,11 @@ public class MovieController {
         modelAndView.setViewName("movie/HowMuchDailyMovie");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/SearchMovie", method = RequestMethod.GET)
+    public ModelAndView SearchMoviePage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("movie/SearchMovie");
+        return modelAndView;
+    }
 }
