@@ -49,5 +49,12 @@ public class MemberController {
 		return mav;
 	}
     
+	//로그인 화면
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView loginPage() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("member/login"); // JSP 파일 경로 및 파일명
+		return modelAndView;
+	}
     
 }
