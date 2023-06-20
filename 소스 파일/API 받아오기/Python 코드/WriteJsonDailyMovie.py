@@ -22,7 +22,7 @@ def generate_date_range(start_date, end_date):
     return date_list
 
 
-start_date = "20230614"
+start_date = "20120128"
 end_date = "20230614"
 day_list = generate_date_range(start_date, end_date)
 
@@ -32,8 +32,10 @@ output_folder = "./output/DailyMovie/"
 os.makedirs(output_folder, exist_ok=True)
 for targetDt in day_list:
     params = {
-        "key": "f5eef3421c602c6cb7ea224104795888",
+        "key": "242670267f53f0939f64bf65a6bdce00",
         # 이거 쓰면 안 될 거 같은 키 : f5eef3421c602c6cb7ea224104795888
+        # 1번키 : ce7448dc379b23c7211a7097cbe56e54
+        # 2번키 : 242670267f53f0939f64bf65a6bdce00
         "targetDt": str(targetDt)
     }
 
@@ -45,3 +47,6 @@ for targetDt in day_list:
 
     with open(output_path, "w", encoding="utf-8") as file:
         json.dump(data, file, ensure_ascii=False)
+
+    print("now : ", end="")
+    print(targetDt)
