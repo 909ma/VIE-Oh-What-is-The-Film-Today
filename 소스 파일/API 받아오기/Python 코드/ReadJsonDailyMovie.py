@@ -22,7 +22,7 @@ import pymysql
 생성된 api 데이터 파일로부터 MySQL 연동
 """
 # 파일 이름 규칙에 따라 연도 리스트 생성
-start_date = "20230614"
+start_date = "20031111"
 end_date = "20230614"
 day_list = generate_date_range(start_date, end_date)
 

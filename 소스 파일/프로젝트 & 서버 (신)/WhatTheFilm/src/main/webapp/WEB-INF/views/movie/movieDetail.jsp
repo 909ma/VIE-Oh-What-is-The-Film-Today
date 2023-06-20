@@ -249,10 +249,9 @@ ul.staff-list li .name {
     </script>
 
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<div class="container">

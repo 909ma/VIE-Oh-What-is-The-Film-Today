@@ -13,6 +13,7 @@
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <body>
 	<%@ include file="./header.jsp"%>
 	<main>

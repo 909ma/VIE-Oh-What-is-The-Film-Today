@@ -1,50 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page
-	import="java.sql.Connection,
-java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet" %>
 <%@ page import="java.sql.ResultSetMetaData" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<title>개봉작 통계 조회</title>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<style>
-/* 차트 스타일링 */
-.bar {
-	fill: #000000;
-}
+  <meta charset="UTF-8" />
+  <title>개봉작 통계 조회</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    /* 차트 스타일링 */
+    .bar {
+      fill: #000000;
+    }
 
-.bar:hover {
-	fill: darkblue;
-}
+    .bar:hover {
+      fill: darkblue;
+    }
 
-#chart {
-	bottom: 20px;
-	left: 50%;
-	background-color: #ffffff;
-}
+    #chart {
+      bottom: 20px;
+      left: 50%;
+      background-color: #ffffff;
+    }
 
-#chart {
-	width: 100%; /* 가로 길이를 100%로 설정 */
-	
-}
+    #chart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-#dataBox{
-	max-width: 1024px;
-	text-align: center;
-	margin: auto;
-}
+    #dataBox {
+      max-width: 1024px;
+      text-align: center;
+      margin: auto;
+    }
 
-/*테이블 */
+    a.movie-title {
+      color: black;
+      text-decoration: none;
+    }
+
+    /* 테이블 */
     table {
       border-collapse: collapse;
       width: 100%;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid black;
       padding: 8px;
       text-align: left;
@@ -53,11 +57,23 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
     th {
       background-color: #f2f2f2;
     }
-</style>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+
+    #searchBox {
+      margin-top: 20px;
+    }
+
+    #searchBox input[type="text"] {
+      padding: 5px;
+      width: 300px;
+    }
+
+    #searchBox input[type="submit"] {
+      padding: 5px 10px;
+    }
+  </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -76,16 +92,28 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 	
 	<main>
 	
-	<div id="dataBox">
-		<div id="chart-container">
-			<svg id="chart"></svg>
-		</div>
-	</div>
-	    <%
+  <div id="dataBox">
+  <br><br>
+    <div id="chart-container">
+      <svg id="chart"></svg>
+    </div>
+
+    <div id="searchBox">
+      <form action="/SearchMovie" method="GET">
+        <input type="text" name="searchKeyword" placeholder="영화 제목을 입력하세요">
+        <input type="submit" value="검색"> 
+        <br><br><br>
+      </form>
+    </div>
+	
+	<%
       // 데이터베이스 연결 설정
       String url = "jdbc:mysql://localhost:3306/myproject"; // 데이터베이스 URL과 이름으로 수정
       String username = "root";
       String password = "1234";
+
+      // 검색어 가져오기
+      String searchKeyword = request.getParameter("searchKeyword");
 
       try {
         // 드라이버 로드
@@ -95,7 +123,15 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
         Connection connection = DriverManager.getConnection(url, username, password);
 
         // SQL 쿼리 실행
-        String query = "SELECT number, movieNm, MAX(openDt) AS maxOpenDt, MAX(salesAcc) AS maxSalesAcc, MAX(audiAcc) AS maxAudiAcc FROM dailymovie GROUP BY movieNm, number ORDER BY movieNm;";
+        String query = "SELECT number, movieNm, MAX(openDt) AS maxOpenDt, MAX(salesAcc) AS maxSalesAcc, MAX(audiAcc) AS maxAudiAcc FROM dailymovie";
+        
+        // 검색어가 입력되었을 경우 WHERE 절 추가
+        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+          query += " WHERE movieNm LIKE '%" + searchKeyword + "%'";
+        }
+        
+        query += " GROUP BY movieNm, number ORDER BY movieNm;";
+        
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
 
@@ -115,11 +151,11 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 
         // 테이블 내용 생성
         while (resultSet.next()) {
-          String movieNumber = resultSet.getString("number");  // 영화 번호 가져오기
-          String movieTitle = resultSet.getString("movieNm");  // 영화 제목 가져오기
+          String movieNumber = resultSet.getString("number"); // 영화 번호 가져오기
+          String movieTitle = resultSet.getString("movieNm"); // 영화 제목 가져오기
           out.println("<tr>");
           out.println("<td>" + movieNumber + "</td>");
-          out.println("<td><a href='movieDetail?number=" + movieNumber + "'>" + movieTitle + "</a></td>");  // 영화 제목에 링크 추가
+          out.println("<td><a class='movie-title' href='movieDetail?number=" + movieNumber + "'>" + movieTitle + "</a></td>");// 영화 제목에 링크 추가
           out.println("<td>" + resultSet.getString("maxOpenDt") + "</td>");
           out.println("<td>" + resultSet.getString("maxSalesAcc") + "</td>");
           out.println("<td>" + resultSet.getString("maxAudiAcc") + "</td>");
@@ -135,7 +171,7 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
         e.printStackTrace();
       }
     %>
-	</main>
+</main>
 	<%@ include file="../footer.jsp"%>
 	<script>
         // 초기 데이터 배열
@@ -161,91 +197,70 @@ connection.close();
 e.printStackTrace();
 }%>
         ];
+		
+		// 초기 데이터로 차트 생성
+      var chartData = originalData;
 
-        // 초기 데이터로 차트 생성
-        var chartData = originalData;
+      var margin = { top: 20, right: 20, bottom: 30, left: 40 };
+      var width = 500 - margin.left - margin.right;
+      var height = 300 - margin.top - margin.bottom;
 
-        var margin = { top: 20, right: 20, bottom: 30, left: 40 };
-        var width = 500 - margin.left - margin.right;
-        var height = 300 - margin.top - margin.bottom;
+      var svg = d3.select("#chart")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+		
+		
+		      // 초기 데이터로 차트 생성
+      var chartData = originalData;
 
-        var svg = d3.select("#chart")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      var margin = { top: 20, right: 20, bottom: 30, left: 40 };
+      var width = 500 - margin.left - margin.right;
+      var height = 300 - margin.top - margin.bottom;
 
-        // 기존의 세로축 요소 제거
-        svg.select(".y-axis").remove();
+      var svg = d3.select("#chart")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        var x = d3.scaleBand()
-            .domain(chartData.map(function(d) { return d.targetDt; }))
-            .range([0, width])
-            .padding(0.1);
+      // 기존의 세로축 요소 제거
+      svg.select(".y-axis").remove();
 
-        var y = d3.scaleLinear()
-            .domain([0, d3.max(chartData, function(d) { return d.totalAudiCnt; })])
-            .range([height, 0]);
+      var x = d3.scaleBand()
+        .domain(chartData.map(function(d) { return d.targetDt; }))
+        .range([0, width])
+        .padding(0.1);
 
-        svg.selectAll(".bar")
-            .data(chartData)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d) { return x(d.targetDt); })
-            .attr("y", function(d) { return y(d.totalAudiCnt); })
-            .attr("width", x.bandwidth())
-            .attr("height", function(d) { return height - y(d.totalAudiCnt); });
+      var y = d3.scaleLinear()
+        .domain([0, d3.max(chartData, function(d) { return d.totalAudiCnt; })])
+        .range([height, 0]);
 
-        var xAxis = d3.axisBottom(x);
+      var xAxis = svg.append("g")
+        .attr("class", "x-axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
 
-        var yAxis = d3.axisLeft(y);
+      var yAxis = svg.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(y));
 
-        svg.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-        svg.append("g")
-            .attr("class", "y-axis")
-            .call(yAxis);
-
-        // 데이터 업데이트 함수
-        function updateChart(data) {
-            // 새로운 데이터로 차트 업데이트
-            var bars = svg.selectAll(".bar")
-                .data(data, function(d) { return d.targetDt; });
-
-            bars.enter().append("rect")
-                .attr("class", "bar")
-                .merge(bars)
-                .transition()
-                .duration(500)
-                .attr("x", function(d) { return x(d.targetDt); })
-                .attr("y", function(d) { return y(d.totalAudiCnt); })
-                .attr("width", x.bandwidth())
-                .attr("height", function(d) { return height - y(d.totalAudiCnt); });
-
-            bars.exit().remove();
-
-            // 세로축 업데이트
-            svg.select(".y-axis")
-                .transition()
-                .duration(500)
-                .call(yAxis);
-        }
-
-        // 데이터 필터링 함수
-        function filterData(minValue, maxValue) {
-            var filteredData = originalData.filter(function(d) {
-                return d.totalAudiCnt >= minValue && d.totalAudiCnt <= maxValue;
-            });
-
-            updateChart(filteredData);
-        }
-
-        // 초기 차트 표시
-        updateChart(chartData);
-	</script>
+      // 막대 생성
+      svg.selectAll(".bar")
+        .data(chartData)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return x(d.targetDt); })
+        .attr("y", function(d) { return y(d.totalAudiCnt); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d) { return height - y(d.totalAudiCnt); });
+    </script>
+  </div>
 </body>
 </html>
 
+
+  

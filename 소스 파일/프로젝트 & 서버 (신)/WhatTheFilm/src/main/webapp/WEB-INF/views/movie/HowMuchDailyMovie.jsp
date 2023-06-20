@@ -46,15 +46,13 @@ max-width: 1024px;
 	margin: auto;
 }
 </style>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
 	<main>
-	<div class="container">
 	<div class="container">
 		<div class="topnav">
 			<a href="/board">메인 화면</a>
@@ -65,10 +63,6 @@ max-width: 1024px;
 			<a class="active" href="/HowMuchDailyMovie">개봉작 통계 조회</a>
 			<a href="/SearchMovie">영화 찾기</a>
 		</div>
-	</div>
-		<br />
-		<button class="button">회원 정보 관리</button>
-		<button class="button">설정</button>
 	</div>
 	
 	<div id="dataBox">
