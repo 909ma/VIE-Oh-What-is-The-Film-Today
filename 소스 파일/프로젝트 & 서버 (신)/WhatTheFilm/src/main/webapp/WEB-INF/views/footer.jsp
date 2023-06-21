@@ -39,7 +39,7 @@
 			<div class="row">
 				<div class="footer_info">
 					<h2>
-						<img src="" assets/img/logo_footer.png" alt="vie">
+						<img src="${pageContext.request.contextPath}/resources/image/main_logo(black stic).png" alt="vie">
 					</h2>
 					<!--  ul>li*7>a[#] -->
 					<ul>
