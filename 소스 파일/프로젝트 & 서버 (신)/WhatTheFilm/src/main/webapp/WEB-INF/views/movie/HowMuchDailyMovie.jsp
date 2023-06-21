@@ -103,7 +103,7 @@ tr:nth-child(even) {
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM HowMuchDailyMovie ORDER BY audiCnt DESC";
+					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM HowMuchDailyMovie ORDER BY targetDt DESC";
 					ResultSet resultSet = statement.executeQuery(sql);
 					while (resultSet.next()) {
 						int amount = resultSet.getInt("audiCnt");
