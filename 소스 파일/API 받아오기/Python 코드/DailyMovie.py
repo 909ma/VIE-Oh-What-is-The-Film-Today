@@ -26,6 +26,7 @@ day_list = generate_date_range(start_date, end_date)
 
 base_url = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
 output_folder = "./output/DailyMovie/"
+
 # 폴더 생성
 os.makedirs(output_folder, exist_ok=True)
 for targetDt in day_list:
