@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.Connection,
 java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,29 +26,33 @@ tr:nth-child(even) {
 }
 
 /* 차트 스타일링 */
-.bar {
-	fill: #000000;
+.arc {
+  fill-opacity: 0.8;
 }
 
-.bar:hover {
-	fill: darkblue;
+.arc:hover {
+  fill-opacity: 1;
 }
 
 #chart {
-	bottom: 20px;
-	left: 50%;
-	background-color: #ffffff;
+  max-width: 500px;
+  height: 300px;
+  margin: 30px auto;
 }
+
 #dataBox{
-max-width: 1024px;
+	max-width: 1024px;
 	text-align: center;
 	margin: auto;
 }
+.data-row.highlighted {
+  background-color: yellow;
+}
+
 </style>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -57,53 +60,26 @@ max-width: 1024px;
 	<div class="container">
 		<div class="topnav">
 			<a href="/board">메인 화면</a>
-			<a href="#">공지 사항</a> 
-			<a href="#">자유게시판</a> 
-			<a href="#">영화 평점</a> 
-			<a class="active" href="#">상영작 통계 조회</a> 
+			<a href="/Announcement">공지 사항</a> 
+			<a href="/freeboard">자유게시판</a> 
+			<a href="/recommend">영화 추천</a> 
+			<a class="active" href="/dailyMovie">상영작 통계 조회</a> 
 			<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
+			<a href="/SearchMovie">영화 찾기</a>
 		</div>
-		<br />
-		<button class="button">회원 정보 관리</button>
-		<button class="button">설정</button>
 	</div>
-	
-	<div id="dataBox">
-	<label for="food-select">선택:</label>
-	<select id="food-select" onchange="updateData()">
-		<option value="">전체</option>
-		<%
-			try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/myproject";
-			String username = "root";
-			String password = "1234";
-			Connection connection = DriverManager.getConnection(url, username, password);
-			Statement statement = connection.createStatement();
-			String sql = "SELECT DISTINCT movieNm FROM DailyMovie ORDER BY movieNm ASC";
-			ResultSet resultSet = statement.executeQuery(sql);
-			while (resultSet.next()) {
-				String name = resultSet.getString("movieNm");
-		%>
-		<option value="<%=name%>"><%=name%></option>
-		<%
-			}
-		resultSet.close();
-		statement.close();
-		connection.close();
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-		%>
-	</select>
+<div id="dataBox">
+	<label for="date-select">날짜:</label>
+<input type="date" id="date-select" onchange="updateData(); updateTable();" onload="setDefaultDate()" />
 	<br>
 
-	<svg id="chart"></svg>
+	<div id="chart"></div>
 	<br>
 	<table id="data-table">
 		<tr>
-			<th>당일 관객</th>
-			<th>영화</th>
+			<th>순위</th>
+			<th>당일 관객수</th>
+			<th>영화 제목</th>
 			<th>당일 매출</th>
 			<th>날짜</th>
 		</tr>
@@ -117,6 +93,7 @@ max-width: 1024px;
 			Statement statement = connection.createStatement();
 			String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
 			ResultSet resultSet = statement.executeQuery(sql);
+			int rank = 1;
 			while (resultSet.next()) {
 				int amount = resultSet.getInt("audiCnt");
 				String name = resultSet.getString("movieNm");
@@ -124,12 +101,15 @@ max-width: 1024px;
 				int year = resultSet.getInt("targetDt");
 		%>
 		<tr class="data-row">
+			<td><%=rank%></td>
 			<td><%=String.valueOf(amount)%></td>
 			<td><%=name%></td>
 			<td><%=itemspec%></td>
 			<td><%=String.valueOf(year)%></td>
 		</tr>
+		
 		<%
+				rank++;
 			}
 		resultSet.close();
 		statement.close();
@@ -142,226 +122,240 @@ max-width: 1024px;
 </div>
 	</main>
 	<%@ include file="../footer.jsp"%>
+<script>
+    // 초기 데이터 배열
+    var originalData = [
+        <%try {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    String url = "jdbc:mysql://localhost/myproject";
+    String username = "root";
+    String password = "1234";
+    Connection connection = DriverManager.getConnection(url, username, password);
+    Statement statement = connection.createStatement();
+    String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
+    ResultSet resultSet = statement.executeQuery(sql);
+    int rank = 1;
+    while (resultSet.next()) {
+        int amount = resultSet.getInt("audiCnt");
+        String name = resultSet.getString("movieNm");
+        String itemspec = resultSet.getString("salesAmt");
+        int year = resultSet.getInt("targetDt");
+        %>
+        {amount: <%=amount%>, name: '<%=name%>', itemspec: '<%=itemspec%>', year: <%=year%>},
+        <%}
+    resultSet.close();
+    statement.close();
+    connection.close();
+} catch (Exception e) {
+    e.printStackTrace();
+}%>
+    ];
 
-	<script>
-              // 초기 데이터 배열
-              var originalData = [
-                  <%try {
-	Class.forName("com.mysql.cj.jdbc.Driver");
-	String url = "jdbc:mysql://localhost/myproject";
-	String username = "root";
-	String password = "1234";
-	Connection connection = DriverManager.getConnection(url, username, password);
-	Statement statement = connection.createStatement();
-	String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie  ORDER BY targetDt ASC";
-	ResultSet resultSet = statement.executeQuery(sql);
-	while (resultSet.next()) {
-		int amount = resultSet.getInt("audiCnt");
-		String name = resultSet.getString("movieNm");
-		String itemspec = resultSet.getString("salesAmt");
-		int year = resultSet.getInt("targetDt");%>
-                  {
-                      amount: <%=String.valueOf(amount)%>,
-                      name: "<%=name%>",
-                      itemspec: "<%=itemspec%>",
-                      year: <%=String.valueOf(year)%>
-                  },
-                  <%}
-			resultSet.close();
-			statement.close();
-			connection.close();
-			} catch (Exception e) {
-			e.printStackTrace();
-			}%>
-			              ];
+    // 도넛 차트 생성을 위한 함수
+    var svg = d3.select("#chart")
+        .append("svg")
+        .attr("width", 500)
+        .attr("height", 300)
+        .append("g")
+        .attr("transform", "translate(" + 250 + "," + 150 + ")");
 
-              // 초기 데이터로 테이블 생성
-              var table = d3.select("#data-table");
+    function createDonutChart(data) {
+        var width = 500;
+        var height = 300;
+        var radius = Math.min(width, height) / 2;
 
-              var rows = table.selectAll(".data-row")
-                  .data(originalData)
-                  .enter()
-                  .append("tr")
-                  .attr("class", "data-row");
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-              rows.append("td")
-                  .text(function(d) { return d.amount; });
+        var pie = d3.pie()
+            .value(function(d) { return d.amount; })
+            .sort(null);
 
-              rows.append("td")
-                  .text(function(d) { return d.name; });
+        var arc = d3.arc()
+            .innerRadius(radius * 0.6)
+            .outerRadius(radius);
 
-              rows.append("td")
-                  .text(function(d) { return d.itemspec; });
+        var arcs = svg.selectAll("arc")
+            .data(pie(data))
+            .enter()
+            .append("g")
+            .attr("class", "arc");
 
-              rows.append("td")
-                  .text(function(d) { return d.year; });
+arcs.append("path")
+  .attr("d", arc)
+  .attr("fill", function(d, i) { return color(i); })
+  .attr("fill-opacity", 0.8)
+  .attr("data-index", function(d, i) { return i; }) // 인덱스 값을 저장하는 속성 추가
+  .on("click", function() {
+    var dataIndex = d3.select(this).attr("data-index");
+    highlightTableRow(dataIndex);
+  });
 
-           // 초기 데이터로 차트 생성
-              var chartData = originalData;
+        arcs.append("text")
+  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+  .attr("text-anchor", "middle");
+    }
+	
 
-              var margin = { top: 20, right: 20, bottom: 30, left: 40 };
-              var width = 500 - margin.left - margin.right;
-              var height = 300 - margin.top - margin.bottom;
+    // 전날 데이터 필터링
+    var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 1);
+    var previousDate = currentDate.toISOString().slice(0, 10);
 
-              var svg = d3.select("#chart")
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var filteredData = originalData.filter(function(d) {
+        return d.year === parseInt(previousDate.replaceAll("-", ""));
+    });
+
+    // 초기 도넛 차트 생성
+    createDonutChart(filteredData);
+
+    
+    // 어제의 날짜를 가져오는 함수
+    function getYesterdayDate() {
+      var today = new Date();
+      var yesterday = new Date(today);
+      yesterday.setDate(today.getDate() - 1);
+      return yesterday.toISOString().slice(0, 10);
+    }
+    
+    // 기본 날짜 설정
+    function setDefaultDate1() {
+      var yesterday = getYesterdayDate();
+      document.getElementById("date-select").value = yesterday;
+    }
+    
+    // 기본 날짜 설정
+    function setDefaultDate() {
+        var today = new Date().toISOString().slice(0, 10);
+        document.getElementById("date-select").value = today;
+    }
+ // 데이터 가져오기 함수
+    function fetchData() {
+      var selectedDate = document.getElementById("date-select").value;
+      
+      // AJAX 요청
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var responseData = JSON.parse(xhr.responseText);
+          updateTable(responseData); // 테이블 갱신 함수 호출
+        }
+      };
+      
+      // 서버의 Java 코드로 요청 보내기
+      xhr.open("GET", "getData.jsp?date=" + selectedDate, true);
+      xhr.send();
+    }
+
+ // 테이블 갱신 함수
+    function updateTable() {
+      var table = document.getElementById("data-table");
+      table.innerHTML = ""; // 기존 테이블 내용 초기화
+
+      var selectedDate = document.getElementById("date-select").value;
+      var filteredData = originalData.filter(function(d) {
+        return d.year === parseInt(selectedDate.replaceAll("-", ""));
+      });
+
+      // 테이블 헤더 생성
+      var headerRow = document.createElement("tr");
+      var rankHeader = document.createElement("th");
+      rankHeader.textContent = "순위";
+      var amountHeader = document.createElement("th");
+      amountHeader.textContent = "당일 관객수";
+      var nameHeader = document.createElement("th");
+      nameHeader.textContent = "영화 제목";
+      var itemspecHeader = document.createElement("th");
+      itemspecHeader.textContent = "당일 매출";
+      var yearHeader = document.createElement("th");
+      yearHeader.textContent = "날짜";
+
+      headerRow.appendChild(rankHeader);
+      headerRow.appendChild(amountHeader);
+      headerRow.appendChild(nameHeader);
+      headerRow.appendChild(itemspecHeader);
+      headerRow.appendChild(yearHeader);
+
+      table.appendChild(headerRow);
+
+   // 데이터를 테이블에 추가
+      for (var i = 0; i < filteredData.length; i++) {
+        var row = document.createElement('tr');
+		 row.className = 'data-row'; // 클래스 이름 추가
+        var rankCell = document.createElement("td");
+        rankCell.textContent = i + 1; // 순위 데이터 추가 (1부터 시작)
+        var amountCell = document.createElement("td");
+        amountCell.textContent = filteredData[i].amount.toLocaleString() + "명"; // "명"을 추가하여 표시
+        var nameCell = document.createElement("td");
+        nameCell.textContent = filteredData[i].name;
+        var itemspecCell = document.createElement("td");
+        itemspecCell.textContent = parseFloat(filteredData[i].itemspec).toLocaleString() + "원"; // 쉼표 포함된 형식으로 변환 후 "원"을 추가하여 표시
+        var yearCell = document.createElement("td");
+        yearCell.textContent = String(filteredData[i].year);
+
+        row.appendChild(rankCell);
+        row.appendChild(amountCell);
+        row.appendChild(nameCell);
+        row.appendChild(itemspecCell);
+        row.appendChild(yearCell);
+
+        table.appendChild(row);
+      }
+
+    }
 
 
-              // 기존의 세로축 요소 제거
-              svg.select(".y-axis").remove();
+function highlightRow(row) {
+  var rows = document.getElementsByClassName('data-row');
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].classList.remove('highlighted');
+  }
+  row.classList.add('highlighted');
+}
+function highlightTableRow(index) {
+  var rows = document.getElementsByClassName("data-row");
+  for (var i = 0; i < rows.length; i++) {
+    if (i === parseInt(index)) {
+      rows[i].classList.add("highlighted");
+    } else {
+      rows[i].classList.remove("highlighted");
+    }
+  }
+}
 
-              var x = d3.scaleBand()
-                  .domain(chartData.map(function(d) { return d.year; }))
-                  .range([0, width])
-                  .padding(0.1);
+var chartSlices = document.querySelectorAll(".arc path");
+for (var i = 0; i < chartSlices.length; i++) {
+  chartSlices[i].addEventListener("click", function() {
+    var index = parseInt(this.getAttribute("data-index"));
+    highlightTableRow(index);
+	 row.addEventListener('click', function() {
+    highlightRow(this); // 클릭한 행을 전달하여 highlightRow() 함수 호출
+  });
 
-              var y = d3.scaleLinear()
-                  .domain([0, d3.max(chartData, function(d) { return d.amount; })])
-                  .range([height, 0]);
-
-              svg.selectAll(".bar")
-                  .data(chartData)
-                  .enter().append("rect")
-                  .attr("class", "bar")
-                  .attr("x", function(d) { return x(d.year); })
-                  .attr("y", function(d) { return y(d.amount); })
-                  .attr("width", x.bandwidth())
-                  .attr("height", function(d) { return height - y(d.amount); });
-
-              svg.append("g")
-                  .attr("class", "x-axis")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(d3.axisBottom(x));
-
-              svg.append("g")
-                  .attr("class", "y-axis")
-                  .call(d3.axisLeft(y));
+  table.appendChild(row);
+  });
+}
 
 
-              // 데이터 갱신 함수
-              function updateData() {
-                  var selectedFood = document.getElementById("food-select").value;
 
-                  // 선택된 음식에 따라 테이블과 차트 데이터 필터링
-                  if (selectedFood) {
-                      var filteredData = originalData.filter(function(d) {
-                          return d.name === selectedFood;
-                      });
 
-                      // 테이블 업데이트
-                      var tableRows = table.selectAll(".data-row")
-                          .data(filteredData, function(d) { return d.year; });
 
-                      tableRows.exit().remove();
 
-                      var newRows = tableRows.enter()
-                          .append("tr")
-                          .attr("class", "data-row");
 
-                      newRows.append("td");
-                      newRows.append("td");
-                      newRows.append("td");
-                      newRows.append("td");
+    // 데이터 필터링 및 차트 업데이트
+    function updateData() {
+        var selectedDate = document.getElementById("date-select").value;
+        var filteredData = originalData.filter(function(d) {
+            return d.year === parseInt(selectedDate.replaceAll("-", ""));
+        });
 
-                      tableRows = newRows.merge(tableRows);
+        svg.selectAll("*").remove();
 
-                      tableRows.select("td:nth-child(1)")
-                          .text(function(d) { return d.amount; });
+        createDonutChart(filteredData);
+    }
+    
+    // 페이지 로드 시 기본 날짜 설정
+    setDefaultDate1();
 
-                      tableRows.select("td:nth-child(2)")
-                          .text(function(d) { return d.name; });
-
-                      tableRows.select("td:nth-child(3)")
-                          .text(function(d) { return d.itemspec; });
-
-                      tableRows.select("td:nth-child(4)")
-                          .text(function(d) { return d.year; });
-
-                      // 차트 업데이트
-                      svg.select(".y-axis").remove(); // 기존의 y축 요소 제거
-                      svg.select(".x-axis").remove(); // 기존의 x축 요소 제거
-				        x.domain(filteredData.map(function(d) { return d.year; })); // x 축 도메인 업데이트
-				        y.domain([0, d3.max(filteredData, function(d) { return d.amount; })]); // y 축 도메인 업데이트
-
-                      var chartBars = svg.selectAll(".bar")
-                          .data(filteredData, function(d) { return d.year; });
-
-                      chartBars.exit().remove();
-
-                      chartBars.enter()
-                          .append("rect")
-                          .attr("class", "bar")
-                          .attr("x", function(d) { return x(d.year); })
-                          .attr("y", function(d) { return y(d.amount); })
-                          .attr("width", x.bandwidth())
-                          .attr("height", function(d) { return height - y(d.amount); })
-                          .merge(chartBars)
-                          .transition()
-                          .duration(500)
-                          .attr("x", function(d) { return x(d.year); })
-                          .attr("y", function(d) { return y(d.amount); })
-                          .attr("width", x.bandwidth())
-                          .attr("height", function(d) { return height - y(d.amount); });
-
-                      svg.append("g")
-                          .attr("class", "y-axis")
-                          .call(d3.axisLeft(y));
-                  } else {
-                      // 선택된 음식이 없을 때 모든 데이터 표시
-                      var tableRows = table.selectAll(".data-row")
-                          .data(originalData, function(d) { return d.year; });
-
-                      tableRows.exit().remove();
-
-                      var newRows = tableRows.enter()
-                          .append("tr")
-                          .attr("class", "data-row");
-
-                      newRows.append("td");
-                      newRows.append("td");
-                      newRows.append("td");
-                      newRows.append("td");
-
-                      tableRows = newRows.merge(tableRows);
-
-                      tableRows.select("td:nth-child(1)")
-                          .text(function(d) { return d.amount; });
-
-                      tableRows.select("td:nth-child(2)")
-                          .text(function(d) { return d.name; });
-
-                      tableRows.select("td:nth-child(3)")
-                          .text(function(d) { return d.itemspec; });
-
-                      tableRows.select("td:nth-child(4)")
-                          .text(function(d) { return d.year; });
-
-                      var chartBars = svg.selectAll(".bar")
-                          .data(originalData, function(d) { return d.year; });
-
-                      chartBars.exit().remove();
-                      x.domain(originalData.map(function(d) { return d.year; })); // x 축 도메인 업데이트
-                      y.domain([0, d3.max(originalData, function(d) { return d.amount; })]); // y 축 도메인 업데이트
-
-                      chartBars.enter()
-                          .append("rect")
-                          .attr("class", "bar")
-                          .attr("x", function(d) { return x(d.year); })
-                          .attr("y", function(d) { return y(d.amount); })
-                          .attr("width", x.bandwidth())
-                          .attr("height", function(d) { return height - y(d.amount); })
-                          .merge(chartBars)
-                          .transition()
-                          .duration(500)
-                          .attr("x", function(d) { return x(d.year); })
-                          .attr("y", function(d) { return y(d.amount); })
-                          .attr("width", x.bandwidth())
-                          .attr("height", function(d) { return height - y(d.amount); });
-                  }
-              }
-    </script>
+</script>
 </body>
 </html>

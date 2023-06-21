@@ -128,24 +128,23 @@ function searchMovieByKoreanTitle(movieTitle, rank) {
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	<main>
 	<div class="container">
-			<div class="topnav">
-				<a class="active" href="#">메인 화면</a>
-				<a href="#">공지 사항</a>
-				<a href="#">자유게시판</a>
-				<a href="#">영화 평점</a>
-				<a href="/dailyMovie">상영작 통계 조회</a>
-				<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-			</div>
-			<br />
-			<button class="button">회원 정보 관리</button>
-			<button class="button">설정</button>
+		<div class="topnav">
+			<a class="active" href="/board">메인 화면</a>
+			<a href="/Announcement">공지 사항</a> 
+			<a href="/freeboard">자유게시판</a> 
+			<a href="/recommend">영화 추천</a> 
+			<a href="/dailyMovie">상영작 통계 조회</a> 
+			<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
+			<a href="/SearchMovie">영화 찾기</a>
 		</div>
+	</div>
+	
+	<main>
 <h1>Top10 영화</h1>
 
 <%
@@ -189,8 +188,8 @@ try {
         int rank = rs.getInt("rank");
 
 
-        // 영화 포스터 이미지 출력
-        out.println("<img id='posterImage" + rank + "' src='' alt='포스터 없음' width='500'>");
+     // 영화 포스터 이미지 출력
+        out.println("<a href='movieDetail?number=" + rs.getInt("number") + "'><img id='posterImage" + rank + "' src='' alt='포스터 없음' width='500'></a>");
 
         // 영화 검색 함수 호출
         out.println("<script>searchMovie('" + movieNm + "', " + rank + ");</script>");
