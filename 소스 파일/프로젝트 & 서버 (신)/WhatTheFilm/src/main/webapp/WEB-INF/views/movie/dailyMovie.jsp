@@ -27,28 +27,28 @@ tr:nth-child(even) {
 
 /* 차트 스타일링 */
 .arc {
-  fill-opacity: 0.8;
+	fill-opacity: 0.8;
 }
 
 .arc:hover {
-  fill-opacity: 1;
+	fill-opacity: 1;
 }
 
 #chart {
-  max-width: 500px;
-  height: 300px;
-  margin: 30px auto;
+	max-width: 500px;
+	height: 300px;
+	margin: 30px auto;
 }
 
-#dataBox{
+#dataBox {
 	max-width: 1024px;
 	text-align: center;
 	margin: auto;
 }
-.data-row.highlighted {
-  background-color: yellow;
-}
 
+.data-row.highlighted {
+	background-color: yellow;
+}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
@@ -57,97 +57,94 @@ tr:nth-child(even) {
 <body>
 	<%@ include file="../header.jsp"%>
 	<main>
-	<div class="container">
-		<div class="topnav">
-			<a href="/board">메인 화면</a>
-			<a href="/Announcement">공지 사항</a> 
-			<a href="/freeboard">자유게시판</a> 
-			<a href="/recommend">영화 추천</a> 
-			<a class="active" href="/dailyMovie">상영작 통계 조회</a> 
-			<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-			<a href="/SearchMovie">영화 찾기</a>
+		<div class="container">
+			<div class="topnav">
+				<a href="/board">메인 화면</a>
+				<a href="/Announcement">공지 사항</a>
+				<a href="/freeboard">자유게시판</a>
+				<a href="/recommend?audiacc=5000000">영화 추천</a>
+				<a class="active" href="/dailyMovie">상영작 통계 조회</a>
+				<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
+				<a href="/SearchMovie">영화 찾기</a>
+			</div>
 		</div>
-	</div>
-<div id="dataBox">
-	<label for="date-select">날짜:</label>
-<input type="date" id="date-select" onchange="updateData(); updateTable();" onload="setDefaultDate()" />
-	<br>
+		<div id="dataBox">
+			<label for="date-select">날짜:</label> <input type="date" id="date-select" onchange="updateData(); updateTable();" onload="setDefaultDate()" /> <br>
 
-	<div id="chart"></div>
-	<br>
-	<table id="data-table">
-		<tr>
-			<th>순위</th>
-			<th>당일 관객수</th>
-			<th>영화 제목</th>
-			<th>당일 매출</th>
-			<th>날짜</th>
-		</tr>
-		<%
-			try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/myproject";
-			String username = "root";
-			String password = "1234";
-			Connection connection = DriverManager.getConnection(url, username, password);
-			Statement statement = connection.createStatement();
-			String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
-			ResultSet resultSet = statement.executeQuery(sql);
-			int rank = 1;
-			while (resultSet.next()) {
-				int amount = resultSet.getInt("audiCnt");
-				String name = resultSet.getString("movieNm");
-				String itemspec = resultSet.getString("salesAmt");
-				int year = resultSet.getInt("targetDt");
-		%>
-		<tr class="data-row">
-			<td><%=rank%></td>
-			<td><%=String.valueOf(amount)%></td>
-			<td><%=name%></td>
-			<td><%=itemspec%></td>
-			<td><%=String.valueOf(year)%></td>
-		</tr>
-		
-		<%
+			<div id="chart"></div>
+			<br>
+			<table id="data-table">
+				<tr>
+					<th>순위</th>
+					<th>당일 관객수</th>
+					<th>영화 제목</th>
+					<th>당일 매출</th>
+					<th>날짜</th>
+				</tr>
+				<%
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					String url = "jdbc:mysql://localhost/myproject";
+					String username = "root";
+					String password = "1234";
+					Connection connection = DriverManager.getConnection(url, username, password);
+					Statement statement = connection.createStatement();
+					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
+					ResultSet resultSet = statement.executeQuery(sql);
+					int rank = 1;
+					while (resultSet.next()) {
+						int amount = resultSet.getInt("audiCnt");
+						String name = resultSet.getString("movieNm");
+						String itemspec = resultSet.getString("salesAmt");
+						int year = resultSet.getInt("targetDt");
+				%>
+				<tr class="data-row">
+					<td><%=rank%></td>
+					<td><%=String.valueOf(amount)%></td>
+					<td><%=name%></td>
+					<td><%=itemspec%></td>
+					<td><%=String.valueOf(year)%></td>
+				</tr>
+
+				<%
 				rank++;
-			}
-		resultSet.close();
-		statement.close();
-		connection.close();
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-		%>
-	</table>
-</div>
+				}
+				resultSet.close();
+				statement.close();
+				connection.close();
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+				%>
+			</table>
+		</div>
 	</main>
 	<%@ include file="../footer.jsp"%>
-<script>
+	<script>
     // 초기 데이터 배열
     var originalData = [
         <%try {
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    String url = "jdbc:mysql://localhost/myproject";
-    String username = "root";
-    String password = "1234";
-    Connection connection = DriverManager.getConnection(url, username, password);
-    Statement statement = connection.createStatement();
-    String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
-    ResultSet resultSet = statement.executeQuery(sql);
-    int rank = 1;
-    while (resultSet.next()) {
-        int amount = resultSet.getInt("audiCnt");
-        String name = resultSet.getString("movieNm");
-        String itemspec = resultSet.getString("salesAmt");
-        int year = resultSet.getInt("targetDt");
-        %>
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	String url = "jdbc:mysql://localhost/myproject";
+	String username = "root";
+	String password = "1234";
+	Connection connection = DriverManager.getConnection(url, username, password);
+	Statement statement = connection.createStatement();
+	String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
+	ResultSet resultSet = statement.executeQuery(sql);
+	int rank = 1;
+	while (resultSet.next()) {
+		int amount = resultSet.getInt("audiCnt");
+		String name = resultSet.getString("movieNm");
+		String itemspec = resultSet.getString("salesAmt");
+		int year = resultSet.getInt("targetDt");%>
         {amount: <%=amount%>, name: '<%=name%>', itemspec: '<%=itemspec%>', year: <%=year%>},
         <%}
-    resultSet.close();
-    statement.close();
-    connection.close();
+resultSet.close();
+statement.close();
+connection.close();
 } catch (Exception e) {
-    e.printStackTrace();
+e.printStackTrace();
 }%>
     ];
 

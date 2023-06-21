@@ -42,4 +42,11 @@ public class MovieController {
         modelAndView.setViewName("movie/SearchMovie");
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/recommend", method = RequestMethod.GET)
+    public ModelAndView recommendPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("movie/recommend");
+        return modelAndView;
+    }
 }

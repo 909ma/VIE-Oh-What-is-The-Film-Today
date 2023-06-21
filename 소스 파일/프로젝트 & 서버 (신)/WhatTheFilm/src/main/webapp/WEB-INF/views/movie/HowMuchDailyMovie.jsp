@@ -40,8 +40,9 @@ tr:nth-child(even) {
 	left: 50%;
 	background-color: #ffffff;
 }
-#dataBox{
-max-width: 1024px;
+
+#dataBox {
+	max-width: 1024px;
 	text-align: center;
 	margin: auto;
 }
@@ -53,90 +54,88 @@ max-width: 1024px;
 <body>
 	<%@ include file="../header.jsp"%>
 	<main>
-	<div class="container">
-		<div class="topnav">
-			<a href="/board">메인 화면</a>
-			<a href="/Announcement">공지 사항</a> 
-			<a href="/freeboard">자유게시판</a> 
-			<a href="/recommend">영화 추천</a> 
-			<a href="/dailyMovie">상영작 통계 조회</a> 
-			<a class="active" href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-			<a href="/SearchMovie">영화 찾기</a>
+		<div class="container">
+			<div class="topnav">
+				<a href="/board">메인 화면</a>
+				<a href="/Announcement">공지 사항</a>
+				<a href="/freeboard">자유게시판</a>
+				<a href="/recommend?audiacc=5000000">영화 추천</a>
+				<a href="/dailyMovie">상영작 통계 조회</a>
+				<a class="active" href="/HowMuchDailyMovie">개봉작 통계 조회</a>
+				<a href="/SearchMovie">영화 찾기</a>
+			</div>
 		</div>
-	</div>
-	
-	<div id="dataBox">
-	<label for="food-select">선택:</label>
-	<select id="food-select" onchange="updateData()">
-		<option value="">전체</option>
-		<%
-			try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/myproject";
-			String username = "root";
-			String password = "1234";
-			Connection connection = DriverManager.getConnection(url, username, password);
-			Statement statement = connection.createStatement();
-			String sql = "SELECT DISTINCT movieNm FROM DailyMovie ORDER BY movieNm ASC";
-			ResultSet resultSet = statement.executeQuery(sql);
-			while (resultSet.next()) {
-				String name = resultSet.getString("movieNm");
-		%>
-		<option value="<%=name%>"><%=name%></option>
-		<%
-			}
-		resultSet.close();
-		statement.close();
-		connection.close();
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-		%>
-	</select>
-	<br>
 
-	<svg id="chart"></svg>
-	<br>
-	<table id="data-table">
-		<tr>
-			<th>당일 관객</th>
-			<th>영화</th>
-			<th>당일 매출</th>
-			<th>날짜</th>
-		</tr>
-		<%
-			try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/myproject";
-			String username = "root";
-			String password = "1234";
-			Connection connection = DriverManager.getConnection(url, username, password);
-			Statement statement = connection.createStatement();
-			String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
-			ResultSet resultSet = statement.executeQuery(sql);
-			while (resultSet.next()) {
-				int amount = resultSet.getInt("audiCnt");
-				String name = resultSet.getString("movieNm");
-				String itemspec = resultSet.getString("salesAmt");
-				int year = resultSet.getInt("targetDt");
-		%>
-		<tr class="data-row">
-			<td><%=String.valueOf(amount)%></td>
-			<td><%=name%></td>
-			<td><%=itemspec%></td>
-			<td><%=String.valueOf(year)%></td>
-		</tr>
-		<%
-			}
-		resultSet.close();
-		statement.close();
-		connection.close();
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-		%>
-	</table>
-</div>
+		<div id="dataBox">
+			<label for="food-select">선택:</label> <select id="food-select" onchange="updateData()">
+				<option value="">전체</option>
+				<%
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					String url = "jdbc:mysql://localhost/myproject";
+					String username = "root";
+					String password = "1234";
+					Connection connection = DriverManager.getConnection(url, username, password);
+					Statement statement = connection.createStatement();
+					String sql = "SELECT DISTINCT movieNm FROM DailyMovie ORDER BY movieNm ASC";
+					ResultSet resultSet = statement.executeQuery(sql);
+					while (resultSet.next()) {
+						String name = resultSet.getString("movieNm");
+				%>
+				<option value="<%=name%>"><%=name%></option>
+				<%
+				}
+				resultSet.close();
+				statement.close();
+				connection.close();
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+				%>
+			</select> <br>
+
+			<svg id="chart"></svg>
+			<br>
+			<table id="data-table">
+				<tr>
+					<th>당일 관객</th>
+					<th>영화</th>
+					<th>당일 매출</th>
+					<th>날짜</th>
+				</tr>
+				<%
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					String url = "jdbc:mysql://localhost/myproject";
+					String username = "root";
+					String password = "1234";
+					Connection connection = DriverManager.getConnection(url, username, password);
+					Statement statement = connection.createStatement();
+					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
+					ResultSet resultSet = statement.executeQuery(sql);
+					while (resultSet.next()) {
+						int amount = resultSet.getInt("audiCnt");
+						String name = resultSet.getString("movieNm");
+						String itemspec = resultSet.getString("salesAmt");
+						int year = resultSet.getInt("targetDt");
+				%>
+				<tr class="data-row">
+					<td><%=String.valueOf(amount)%></td>
+					<td><%=name%></td>
+					<td><%=itemspec%></td>
+					<td><%=String.valueOf(year)%></td>
+				</tr>
+				<%
+				}
+				resultSet.close();
+				statement.close();
+				connection.close();
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+				%>
+			</table>
+		</div>
 	</main>
 	<%@ include file="../footer.jsp"%>
 
@@ -164,12 +163,12 @@ max-width: 1024px;
                       year: <%=String.valueOf(year)%>
                   },
                   <%}
-			resultSet.close();
-			statement.close();
-			connection.close();
-			} catch (Exception e) {
-			e.printStackTrace();
-			}%>
+resultSet.close();
+statement.close();
+connection.close();
+} catch (Exception e) {
+e.printStackTrace();
+}%>
 			              ];
 
               // 초기 데이터로 테이블 생성
