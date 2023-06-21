@@ -37,7 +37,7 @@ tr:nth-child(even) {
 #chart {
   max-width: 500px;
   height: 300px;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 #dataBox{
@@ -45,6 +45,10 @@ tr:nth-child(even) {
 	text-align: center;
 	margin: auto;
 }
+.data-row.highlighted {
+  background-color: yellow;
+}
+
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
@@ -103,6 +107,7 @@ tr:nth-child(even) {
 			<td><%=itemspec%></td>
 			<td><%=String.valueOf(year)%></td>
 		</tr>
+		
 		<%
 				rank++;
 			}
@@ -175,18 +180,21 @@ tr:nth-child(even) {
             .append("g")
             .attr("class", "arc");
 
-        arcs.append("path")
-            .attr("d", arc)
-            .attr("fill", function(d, i) { return color(i); })
-            .attr("fill-opacity", 0.8)
-            .on("mouseover", function(d) { d3.select(this).attr("fill-opacity", 1); })
-            .on("mouseout", function(d) { d3.select(this).attr("fill-opacity", 0.8); });
+arcs.append("path")
+  .attr("d", arc)
+  .attr("fill", function(d, i) { return color(i); })
+  .attr("fill-opacity", 0.8)
+  .attr("data-index", function(d, i) { return i; }) // 인덱스 값을 저장하는 속성 추가
+  .on("click", function() {
+    var dataIndex = d3.select(this).attr("data-index");
+    highlightTableRow(dataIndex);
+  });
 
         arcs.append("text")
-            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-            .attr("text-anchor", "middle")
-            .text(function(d) { return d.data.name; });
+  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+  .attr("text-anchor", "middle");
     }
+	
 
     // 전날 데이터 필터링
     var currentDate = new Date();
@@ -269,17 +277,18 @@ tr:nth-child(even) {
 
       table.appendChild(headerRow);
 
-      // 데이터를 테이블에 추가
+   // 데이터를 테이블에 추가
       for (var i = 0; i < filteredData.length; i++) {
-        var row = document.createElement("tr");
+        var row = document.createElement('tr');
+		 row.className = 'data-row'; // 클래스 이름 추가
         var rankCell = document.createElement("td");
-        rankCell.textContent = filteredData[i].rank;
+        rankCell.textContent = i + 1; // 순위 데이터 추가 (1부터 시작)
         var amountCell = document.createElement("td");
-        amountCell.textContent = String(filteredData[i].amount);
+        amountCell.textContent = filteredData[i].amount.toLocaleString() + "명"; // "명"을 추가하여 표시
         var nameCell = document.createElement("td");
         nameCell.textContent = filteredData[i].name;
         var itemspecCell = document.createElement("td");
-        itemspecCell.textContent = filteredData[i].itemspec;
+        itemspecCell.textContent = parseFloat(filteredData[i].itemspec).toLocaleString() + "원"; // 쉼표 포함된 형식으로 변환 후 "원"을 추가하여 표시
         var yearCell = document.createElement("td");
         yearCell.textContent = String(filteredData[i].year);
 
@@ -291,7 +300,42 @@ tr:nth-child(even) {
 
         table.appendChild(row);
       }
+
     }
+
+
+function highlightRow(row) {
+  var rows = document.getElementsByClassName('data-row');
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].classList.remove('highlighted');
+  }
+  row.classList.add('highlighted');
+}
+function highlightTableRow(index) {
+  var rows = document.getElementsByClassName("data-row");
+  for (var i = 0; i < rows.length; i++) {
+    if (i === parseInt(index)) {
+      rows[i].classList.add("highlighted");
+    } else {
+      rows[i].classList.remove("highlighted");
+    }
+  }
+}
+
+var chartSlices = document.querySelectorAll(".arc path");
+for (var i = 0; i < chartSlices.length; i++) {
+  chartSlices[i].addEventListener("click", function() {
+    var index = parseInt(this.getAttribute("data-index"));
+    highlightTableRow(index);
+	 row.addEventListener('click', function() {
+    highlightRow(this); // 클릭한 행을 전달하여 highlightRow() 함수 호출
+  });
+
+  table.appendChild(row);
+  });
+}
+
+
 
 
 

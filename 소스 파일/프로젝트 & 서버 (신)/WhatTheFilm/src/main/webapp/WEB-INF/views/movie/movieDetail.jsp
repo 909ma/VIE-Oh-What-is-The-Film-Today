@@ -118,6 +118,10 @@ ul.staff-list li .name {
             height: 1px;
             background-color: #000000;
         }
+        
+         .active {
+    font-weight: bold;
+  }
     </style>
 
 
@@ -234,19 +238,34 @@ ul.staff-list li .name {
 	}
 </script>
 
-    <script>
-        function toggleSection(sectionId) {
-            var sections = document.getElementsByClassName("movie-section");
-            for (var i = 0; i < sections.length; i++) {
-                var section = sections[i];
-                if (section.id === sectionId) {
-                    section.style.display = "block";
-                } else {
-                    section.style.display = "none";
-                }
-            }
-        }
-    </script>
+<script>
+  var activeButton = null;
+  
+  // 페이지 로드 시 초기 설정
+  window.onload = function() {
+    var movieInfoButton = document.getElementById("movie-info-btn");
+    toggleSection(movieInfoButton, 'movie-info');
+  }
+
+  function toggleSection(button, sectionId) {
+    var sections = document.getElementsByClassName("movie-section");
+    for (var i = 0; i < sections.length; i++) {
+      var section = sections[i];
+      if (section.id === sectionId) {
+        section.style.display = "block";
+      } else {
+        section.style.display = "none";
+      }
+    }
+
+    if (activeButton !== null) {
+      activeButton.classList.remove("active");
+    }
+
+    button.classList.add("active");
+    activeButton = button;
+  }
+</script>
 
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
@@ -317,12 +336,12 @@ ul.staff-list li .name {
 		<h2><%=movieNm%>
 			(<%=prdtYear%>)
 		</h2>
-    <div class="buttons-container">
-        <button onclick="toggleSection('movie-info')">영화 정보</button>
-        <button onclick="toggleSection('actors')">감독/출연</button>
-        <button onclick="toggleSection('companys')">제작/배급사</button>
-        <button onclick="toggleSection('staffs')">스텝</button>
-    </div>
+   <div class="buttons-container">
+  <button id="movie-info-btn" onclick="toggleSection(this, 'movie-info')">영화 정보</button>
+  <button onclick="toggleSection(this, 'actors')">감독/출연</button>
+  <button onclick="toggleSection(this, 'companys')">제작/배급사</button>
+  <button onclick="toggleSection(this, 'staffs')">스텝</button>
+</div>
 
     <div id="movie-info" class="movie-section">
         <p>영문 제목: <%= movieNmEn %></p>
