@@ -1,0 +1,8 @@
+DB 확장에 따른 변경 정리
+  DB를 최근 1년간의 데이터가 아니라 2003년도부터의 정보를 담으려 합니다. 이에 따라 새로운 뷰를 만듭니다.
+
+-- 개봉작 통계 조회
+CREATE VIEW HowMuchDailyMovie AS SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY targetDt DESC LIMIT 3650;
+SELECT * FROM HowMuchDailyMovie;
+
+HowMuchDailyMovie 라는 뷰를 만들어서 개봉작 통계 조회 페이지에서 1년 간의 정보를 제공합니다.

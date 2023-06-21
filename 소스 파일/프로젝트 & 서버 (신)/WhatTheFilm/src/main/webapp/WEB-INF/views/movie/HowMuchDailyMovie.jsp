@@ -6,7 +6,7 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>상영작 통계 조회</title>
+<title>개봉작 통계 조회</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 /* 테이블 스타일링 */
@@ -53,18 +53,8 @@ tr:nth-child(even) {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
+	<%@ include file="../navi.jsp"%>
 	<main>
-		<div class="container">
-			<div class="topnav">
-				<a href="/board">메인 화면</a>
-				<a href="/Announcement">공지 사항</a>
-				<a href="/freeboard">자유게시판</a>
-				<a href="/recommend?audiacc=5000000">영화 추천</a>
-				<a href="/dailyMovie">상영작 통계 조회</a>
-				<a class="active" href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-				<a href="/SearchMovie">영화 찾기</a>
-			</div>
-		</div>
 
 		<div id="dataBox">
 			<label for="food-select">선택:</label> <select id="food-select" onchange="updateData()">
@@ -77,7 +67,7 @@ tr:nth-child(even) {
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT DISTINCT movieNm FROM DailyMovie ORDER BY movieNm ASC";
+					String sql = "SELECT DISTINCT movieNm FROM HowMuchDailyMovie ORDER BY movieNm ASC";
 					ResultSet resultSet = statement.executeQuery(sql);
 					while (resultSet.next()) {
 						String name = resultSet.getString("movieNm");
@@ -95,6 +85,7 @@ tr:nth-child(even) {
 			</select> <br>
 
 			<svg id="chart"></svg>
+			<h4>국내 영화 시장 1년 지표</h4>
 			<br>
 			<table id="data-table">
 				<tr>
@@ -111,7 +102,7 @@ tr:nth-child(even) {
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
+					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM HowMuchDailyMovie ORDER BY audiCnt DESC";
 					ResultSet resultSet = statement.executeQuery(sql);
 					while (resultSet.next()) {
 						int amount = resultSet.getInt("audiCnt");
@@ -149,7 +140,7 @@ tr:nth-child(even) {
 	String password = "1234";
 	Connection connection = DriverManager.getConnection(url, username, password);
 	Statement statement = connection.createStatement();
-	String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie  ORDER BY targetDt ASC";
+	String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM HowMuchDailyMovie  ORDER BY targetDt ASC";
 	ResultSet resultSet = statement.executeQuery(sql);
 	while (resultSet.next()) {
 		int amount = resultSet.getInt("audiCnt");
@@ -196,7 +187,7 @@ e.printStackTrace();
               var chartData = originalData;
 
               var margin = { top: 20, right: 20, bottom: 30, left: 40 };
-              var width = 500 - margin.left - margin.right;
+              var width = 1024;
               var height = 300 - margin.top - margin.bottom;
 
               var svg = d3.select("#chart")

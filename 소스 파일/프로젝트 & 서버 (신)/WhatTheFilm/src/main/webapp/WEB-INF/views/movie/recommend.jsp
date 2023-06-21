@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Movie List</title>
+<title>영화 추천</title>
 <style>
 table {
 	border-collapse: collapse;
@@ -30,23 +30,13 @@ th {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	<div class="container">
-		<div class="topnav">
-			<a href="/board">메인 화면</a>
-			<a href="/Announcement">공지 사항</a>
-			<a href="/freeboard">자유게시판</a>
-			<a class="active" href="/recommend?audiacc=5000000">영화 추천</a>
-			<a href="/dailyMovie">상영작 통계 조회</a>
-			<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-			<a href="/SearchMovie">영화 찾기</a>
-		</div>
-	</div>
+	<%@ include file="../navi.jsp"%>
 
 	<main>
 		<h1>영화 추천 리스트</h1>
 		<h3>너무 낮은 값을 입력하면 데이터의 양이 많아서 오래 걸립니다.</h3>
 		<form method="GET">
-			<label for="audiacc">관객 수 기준:</label> <input type="number" id="audiacc" name="audiacc"> <input type="submit" value="검색">
+			<label for="audiacc">관객 수 기준:</label> <input type="number" placeholder="10000000" id="audiacc" name="audiacc"> <input type="submit" value="검색">
 		</form>
 		<table>
 			<tr>

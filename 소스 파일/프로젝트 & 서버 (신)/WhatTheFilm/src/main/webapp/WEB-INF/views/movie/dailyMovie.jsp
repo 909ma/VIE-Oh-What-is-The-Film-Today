@@ -49,6 +49,9 @@ tr:nth-child(even) {
 .data-row.highlighted {
 	background-color: yellow;
 }
+h4{
+	text-align: center;
+}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
@@ -56,18 +59,9 @@ tr:nth-child(even) {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
+	<%@ include file="../navi.jsp"%>
 	<main>
-		<div class="container">
-			<div class="topnav">
-				<a href="/board">메인 화면</a>
-				<a href="/Announcement">공지 사항</a>
-				<a href="/freeboard">자유게시판</a>
-				<a href="/recommend?audiacc=5000000">영화 추천</a>
-				<a class="active" href="/dailyMovie">상영작 통계 조회</a>
-				<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-				<a href="/SearchMovie">영화 찾기</a>
-			</div>
-		</div>
+		<h4>최근 100일 상영작 통계</h4>
 		<div id="dataBox">
 			<label for="date-select">날짜:</label> <input type="date" id="date-select" onchange="updateData(); updateTable();" onload="setDefaultDate()" /> <br>
 
@@ -89,7 +83,7 @@ tr:nth-child(even) {
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
+					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY targetDt DESC LIMIT 1000";
 					ResultSet resultSet = statement.executeQuery(sql);
 					int rank = 1;
 					while (resultSet.next()) {
@@ -130,7 +124,7 @@ tr:nth-child(even) {
 	String password = "1234";
 	Connection connection = DriverManager.getConnection(url, username, password);
 	Statement statement = connection.createStatement();
-	String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY audiCnt DESC";
+	String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY targetDt DESC LIMIT 1000";
 	ResultSet resultSet = statement.executeQuery(sql);
 	int rank = 1;
 	while (resultSet.next()) {

@@ -11,7 +11,7 @@ public class AnnouncementController {
     @RequestMapping(value = "/Announcement", method = RequestMethod.GET)
     public ModelAndView showIndexPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Announcement/Announcement"); // JSP 파일의 경로 설정
+        modelAndView.setViewName("announcement/announcement"); // JSP 파일의 경로 설정
         return modelAndView;
     }
 }

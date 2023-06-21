@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>개봉작 통계 조회</title>
+<title>영화 찾기</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 /* 차트 스타일링 */
@@ -76,33 +76,20 @@ th {
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-
-	<div class="container">
-		<div class="topnav">
-			<a href="/board">메인 화면</a>
-			<a href="/Announcement">공지 사항</a>
-			<a href="/freeboard">자유게시판</a>
-			<a href="/recommend?audiacc=5000000">영화 추천</a>
-			<a href="/dailyMovie">상영작 통계 조회</a>
-			<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-			<a class="active" href="/SearchMovie">영화 찾기</a>
-		</div>
-	</div>
+	<%@ include file="../navi.jsp"%>
 
 	<main>
 
 		<div id="dataBox">
-			<br>
-			<br>
+			<br> <br>
 			<div id="chart-container">
 				<svg id="chart"></svg>
 			</div>
+			<h4>국내 영화 시장 동향</h4>
 
 			<div id="searchBox">
 				<form action="/SearchMovie" method="GET">
-					<input type="text" name="searchKeyword" placeholder="영화 제목을 입력하세요"> <input type="submit" value="검색"> <br>
-					<br>
-					<br>
+					<input type="text" name="searchKeyword" placeholder="영화 제목을 입력하세요"> <input type="submit" value="검색"> <br> <br> <br>
 				</form>
 			</div>
 
@@ -176,81 +163,66 @@ th {
 	</main>
 	<%@ include file="../footer.jsp"%>
 	<script>
-        // 초기 데이터 배열
-        var originalData = [
-            <%try {
+    // 초기 데이터 배열
+    var originalData = [
+        <%try {
 	Class.forName("com.mysql.cj.jdbc.Driver");
 	Connection connection = DriverManager.getConnection(url, username, password);
 	Statement statement = connection.createStatement();
-	String sql = "SELECT targetDt, SUM(audiCnt) AS totalAudiCnt FROM DailyMovie GROUP BY targetDt ORDER BY targetDt ASC";
+	String sql = "SELECT DATE_FORMAT(targetDt, '%Y-%m') AS month, SUM(audiCnt) AS totalAudiCnt FROM DailyMovie GROUP BY DATE_FORMAT(targetDt, '%Y-%m') ORDER BY DATE_FORMAT(targetDt, '%Y-%m') ASC";
 	ResultSet resultSet = statement.executeQuery(sql);
 	while (resultSet.next()) {
 		int totalAudiCnt = resultSet.getInt("totalAudiCnt");
-		int targetDt = resultSet.getInt("targetDt");%>
-            {
-                totalAudiCnt: <%=String.valueOf(totalAudiCnt)%>,
-                targetDt: <%=String.valueOf(targetDt)%>
-            },
-            <%}
+		String targetDt = resultSet.getString("month");%>
+        {
+            totalAudiCnt: <%=String.valueOf(totalAudiCnt)%>,
+            targetDt: "<%=targetDt%>"
+        },
+        <%}
 resultSet.close();
 statement.close();
 connection.close();
 } catch (Exception e) {
 e.printStackTrace();
 }%>
-        ];
+    ];
 		
-		// 초기 데이터로 차트 생성
-      var chartData = originalData;
+    // 초기 데이터로 차트 생성
+    var chartData = originalData;
 
-      var margin = { top: 20, right: 20, bottom: 30, left: 40 };
-      var width = 500 - margin.left - margin.right;
-      var height = 300 - margin.top - margin.bottom;
+    var margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    var width = 1024;
+    var height = 300 - margin.top - margin.bottom;
 
-      var svg = d3.select("#chart")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-		
-		
-		
-		      // 초기 데이터로 차트 생성
-      var chartData = originalData;
-
-      var margin = { top: 20, right: 20, bottom: 30, left: 40 };
-      var width = 500 - margin.left - margin.right;
-      var height = 300 - margin.top - margin.bottom;
-
-      var svg = d3.select("#chart")
+    var svg = d3.select("#chart")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      // 기존의 세로축 요소 제거
-      svg.select(".y-axis").remove();
+    // 기존의 세로축 요소 제거
+    svg.select(".y-axis").remove();
 
-      var x = d3.scaleBand()
+    var x = d3.scaleBand()
         .domain(chartData.map(function(d) { return d.targetDt; }))
         .range([0, width])
         .padding(0.1);
 
-      var y = d3.scaleLinear()
+    var y = d3.scaleLinear()
         .domain([0, d3.max(chartData, function(d) { return d.totalAudiCnt; })])
         .range([height, 0]);
 
-      var xAxis = svg.append("g")
+    var xAxis = svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
-      var yAxis = svg.append("g")
+    var yAxis = svg.append("g")
         .attr("class", "y-axis")
         .call(d3.axisLeft(y));
 
-      // 막대 생성
-      svg.selectAll(".bar")
+    // 막대 생성
+    svg.selectAll(".bar")
         .data(chartData)
         .enter()
         .append("rect")
@@ -259,8 +231,8 @@ e.printStackTrace();
         .attr("y", function(d) { return y(d.totalAudiCnt); })
         .attr("width", x.bandwidth())
         .attr("height", function(d) { return height - y(d.totalAudiCnt); });
-    </script>
-	</div>
+</script>
+
 </body>
 </html>
 
