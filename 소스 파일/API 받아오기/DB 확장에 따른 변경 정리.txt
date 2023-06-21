@@ -6,3 +6,12 @@ CREATE VIEW HowMuchDailyMovie AS SELECT audiCnt, movieNm, salesAmt, targetDt FRO
 SELECT * FROM HowMuchDailyMovie;
 
 HowMuchDailyMovie 라는 뷰를 만들어서 개봉작 통계 조회 페이지에서 1년 간의 정보를 제공합니다.
+
+-- 상영작 통계 조회
+CREATE VIEW MovieChart AS 
+SELECT audiCnt, movieNm, salesAmt, targetDt
+FROM DailyMovie
+ORDER BY targetDt DESC
+LIMIT 1000;
+
+SELECT * FROM MovieChart ORDER BY audiCnt DESC;

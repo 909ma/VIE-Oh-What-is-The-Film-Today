@@ -49,8 +49,7 @@ tr:nth-child(even) {
 .data-row.highlighted {
 	background-color: yellow;
 }
-
-h4 {
+h4{
 	text-align: center;
 }
 </style>
@@ -59,7 +58,7 @@ h4 {
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
-	<%@ include file="../logoutBar.jsp"%>
+<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
 	<%@ include file="../navi.jsp"%>
 	<main>
@@ -85,7 +84,7 @@ h4 {
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY targetDt DESC LIMIT 1000";
+					String sql = "SELECT * FROM MovieChart ORDER BY audiCnt DESC";
 					ResultSet resultSet = statement.executeQuery(sql);
 					int rank = 1;
 					while (resultSet.next()) {
@@ -126,7 +125,7 @@ h4 {
 	String password = "1234";
 	Connection connection = DriverManager.getConnection(url, username, password);
 	Statement statement = connection.createStatement();
-	String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM DailyMovie ORDER BY targetDt DESC LIMIT 1000";
+	String sql = "SELECT * FROM MovieChart ORDER BY audiCnt DESC";
 	ResultSet resultSet = statement.executeQuery(sql);
 	int rank = 1;
 	while (resultSet.next()) {
