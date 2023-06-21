@@ -75,6 +75,7 @@ th {
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
+	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
 	<%@ include file="../navi.jsp"%>
 

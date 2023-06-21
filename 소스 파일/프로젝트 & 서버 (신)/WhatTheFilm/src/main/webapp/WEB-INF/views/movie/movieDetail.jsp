@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, java.io.*, java.net.*, com.fasterxml.jackson.databind.ObjectMapper"%>
-<%@ include file="../header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -271,17 +270,9 @@ ul.staff-list li .name {
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
-	<div class="container">
-		<div class="topnav">
-			<a href="/board">메인 화면</a>
-			<a href="/Announcement">공지 사항</a>
-			<a href="/freeboard">자유게시판</a>
-			<a href="/recommend?audiacc=5000000">영화 추천</a>
-			<a href="/dailyMovie">상영작 통계 조회</a>
-			<a href="/HowMuchDailyMovie">개봉작 통계 조회</a>
-			<a href="/SearchMovie">영화 찾기</a>
-		</div>
-	</div>
+	<%@ include file="../logoutBar.jsp"%>
+	<%@ include file="../header.jsp"%>
+	<%@ include file="../navi.jsp"%>
 	<main>
 
 		<div id="movieBox">

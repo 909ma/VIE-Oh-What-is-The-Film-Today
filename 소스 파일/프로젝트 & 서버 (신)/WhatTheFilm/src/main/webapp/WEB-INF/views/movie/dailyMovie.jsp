@@ -49,7 +49,8 @@ tr:nth-child(even) {
 .data-row.highlighted {
 	background-color: yellow;
 }
-h4{
+
+h4 {
 	text-align: center;
 }
 </style>
@@ -58,6 +59,7 @@ h4{
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
+	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
 	<%@ include file="../navi.jsp"%>
 	<main>
