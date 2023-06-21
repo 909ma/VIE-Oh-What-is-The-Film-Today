@@ -49,7 +49,8 @@ tr:nth-child(even) {
 .data-row.highlighted {
 	background-color: yellow;
 }
-h4{
+
+h4 {
 	text-align: center;
 }
 </style>
@@ -58,7 +59,7 @@ h4{
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
-<%@ include file="../logoutBar.jsp"%>
+	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
 	<%@ include file="../navi.jsp"%>
 	<main>
@@ -143,7 +144,7 @@ e.printStackTrace();
 }%>
     ];
 
-    // 도넛 차트 생성을 위한 함수
+ // 도넛 차트 생성을 위한 함수
     var svg = d3.select("#chart")
         .append("svg")
         .attr("width", 500)
@@ -152,40 +153,71 @@ e.printStackTrace();
         .attr("transform", "translate(" + 250 + "," + 150 + ")");
 
     function createDonutChart(data) {
-        var width = 500;
-        var height = 300;
-        var radius = Math.min(width, height) / 2;
+      var width = 500;
+      var height = 300;
+      var radius = Math.min(width, height) / 2;
 
-        var color = d3.scaleOrdinal(d3.schemeCategory10);
+      var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-        var pie = d3.pie()
-            .value(function(d) { return d.amount; })
-            .sort(null);
+      var pie = d3.pie()
+        .value(function(d) { return d.amount; })
+        .sort(null);
 
-        var arc = d3.arc()
-            .innerRadius(radius * 0.6)
-            .outerRadius(radius);
+      var arc = d3.arc()
+        .innerRadius(radius * 0.6)
+        .outerRadius(radius);
 
-        var arcs = svg.selectAll("arc")
-            .data(pie(data))
-            .enter()
-            .append("g")
-            .attr("class", "arc");
+      var arcs = svg.selectAll("arc")
+        .data(pie(data))
+        .enter()
+        .append("g")
+        .attr("class", "arc");
 
-arcs.append("path")
-  .attr("d", arc)
-  .attr("fill", function(d, i) { return color(i); })
-  .attr("fill-opacity", 0.8)
-  .attr("data-index", function(d, i) { return i; }) // 인덱스 값을 저장하는 속성 추가
-  .on("click", function() {
-    var dataIndex = d3.select(this).attr("data-index");
-    highlightTableRow(dataIndex);
-  });
+      arcs.append("path")
+        .attr("d", arc)
+        .attr("fill", function(d, i) { return color(i); })
+        .attr("fill-opacity", 0.8)
+        .attr("data-index", function(d, i) { return i; })
+        .on("click", function(event, d) {
+          var dataIndex = d3.select(this).attr("data-index");
+          highlightTableRow(dataIndex);
+          showMovieTitle(d.data.name);
+          highlightArc(this);
+        });
 
-        arcs.append("text")
-  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-  .attr("text-anchor", "middle");
+      arcs.append("text")
+        .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+        .attr("text-anchor", "middle");
     }
+
+    // 클릭한 칸의 색상을 변경하는 함수
+    function highlightArc(element) {
+      svg.selectAll(".arc path")
+        .attr("fill-opacity", 0.8)
+        .attr("stroke", "none");
+
+      d3.select(element)
+        .attr("fill-opacity", 1)
+        .attr("stroke", "black")
+        .attr("stroke-width", 2);
+    }
+
+    // 영화 제목을 원형 차트 중앙에 표시하는 함수
+    function showMovieTitle(movieName) {
+      var centerX = 0;
+      var centerY = 0;
+
+      svg.selectAll(".movie-title").remove();
+
+      svg.append("text")
+        .attr("class", "movie-title")
+        .attr("x", centerX)
+        .attr("y", centerY)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .text(movieName);
+    }
+
 	
 
     // 전날 데이터 필터링
@@ -295,7 +327,8 @@ arcs.append("path")
 
     }
 
-
+ // 클릭한 행을 강조 표시하는 함수
+ 
 function highlightRow(row) {
   var rows = document.getElementsByClassName('data-row');
   for (var i = 0; i < rows.length; i++) {
@@ -326,12 +359,6 @@ for (var i = 0; i < chartSlices.length; i++) {
   table.appendChild(row);
   });
 }
-
-
-
-
-
-
 
     // 데이터 필터링 및 차트 업데이트
     function updateData() {
