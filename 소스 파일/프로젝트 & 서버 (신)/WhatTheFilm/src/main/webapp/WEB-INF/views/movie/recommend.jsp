@@ -23,7 +23,6 @@ th, td {
 th {
 	background-color: #f2f2f2;
 }
-
 #dataBox {
 	max-width: 1024px;
 	text-align: center;
@@ -39,8 +38,8 @@ th {
 	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
 	<%@ include file="../navi.jsp"%>
-
-<div id="dataBox">
+	
+	<div id="dataBox">
 
 	<main>
 		<h1>영화 추천 리스트</h1>
