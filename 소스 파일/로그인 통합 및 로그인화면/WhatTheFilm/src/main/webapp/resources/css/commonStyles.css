@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+#header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+<!--
+레이아웃-->footer {
+	background: #211f1f;
+}
+
+<!--
+푸터-->#footer_sns {
+	position: absolute;
+	right: 17px;
+	top: 33px;
+	z-index: 1;
+}
+
+#footer_sns {
+	background-color: #352c2c;
+	height: auto;
+}
+
+#footer_sns li {
+	display: inline-block; margin: 0 2px;
+}
+
+#footer_sns li a {
+	display: block;
+	width: 36px;
+	height: 36px;
+	
+}
+
+#footer_sns li.s1 {
+	background-position: 0 -375px;
+}
+
+#footer_sns li.s2 {
+	background-position: -36px -375px;
+}
+
+#footer_sns li.s3 {
+	background-position: -72px -375px;
+}
+
+#footer_sns li.s4 {
+	background-position: -108px -375px;
+}
+
+#footer_sns li.s5 {
+	background-position: -144px -375px;
+}
+
+#footer_sns li.s1:hover {
+	background-position: 0 -411px;
+}
+
+#footer_sns li.s2:hover {
+	background-position: -36px -411px;
+}
+
+#footer_sns li.s3:hover {
+	background-position: -72px -411px;
+}
+
+#footer_sns li.s4:hover {
+	background-position: -108px -411px;
+}
+
+#footer_sns li.s5:hover {
+	background-position: -144px -411px;
+}
+
+#footer_sns .tel {
+	text-align: center;
+	padding-top: 5px;
+}
+
+#footer_sns .tel a {
+	color: #8f8f8f;
+	font-size: 15px;
+}
+
+#footer_sns .tel a em {
+	color: #8f8f8f;
+}
+
+.footer_info {
+	padding: 50px 0;
+	width: 80%;
+	margin: auto;
+}
+
+.footer_info h2 img {
+	width: 150px;
+}
+
+.footer_info ul {
+	padding: 15px 0;
+}
+
+.footer_info li {
+	position: relative;
+	display: inline;
+	padding-right: 16px;
+	white-space: nowrap;
+	display: inline;
+}
+
+.footer_info li :after {
+	content: "";
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 1px;
+	height: 11px;
+	background: #8f8f8f;
+}
+
+.footer_info li:last-child :after {
+	width: 0;
+	height: 0;
+}
+
+.footer_info li a {
+	color: #8f8f8f;
+}
+
+.footer_info address p {
+	color: #8f8f8f;
+	padding-bottom: 15px;
+}
+
+footer {
+	text-align: center;
+	padding: 10px;
+	background-color: #f5f5f5;
+	color: #999999;
+	font-size: 14px;
+}
+
+@media ( max-width : 960px) {
+	.footer_sns {
+		position: static;
+		text-align: center;
+		background: #352c2c;
+		padding-bottom: 15px;
+	}
+	.footer_sns .tel {
+		display: none;
+	}
+	.footer-info {
+		width: 100%;
+		text-align: center;
+	}
+}
