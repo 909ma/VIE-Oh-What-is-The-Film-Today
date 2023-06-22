@@ -1,0 +1,11 @@
+CREATE TABLE `user` (
+  `member_id` bigint NOT NULL AUTO_INCREMENT,
+  `loginid` varchar(255) NOT NULL,
+  `password` varchar(70) NOT NULL,
+  `gender` enum('남성','여성') NOT NULL,
+  `birthyear` char(6) NOT NULL,
+  `nickname` varchar(45) NOT NULL,
+  `manager` int NOT NULL,
+  `regdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`member_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
