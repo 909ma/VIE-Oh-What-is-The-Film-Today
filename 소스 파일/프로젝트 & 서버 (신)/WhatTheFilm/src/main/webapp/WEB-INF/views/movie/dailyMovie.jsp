@@ -309,7 +309,7 @@ e.printStackTrace();
         var itemspecCell = document.createElement("td");
         itemspecCell.textContent = parseFloat(filteredData[i].itemspec).toLocaleString() + "원"; // 쉼표 포함된 형식으로 변환 후 "원"을 추가하여 표시
         var yearCell = document.createElement("td");
-        yearCell.textContent = String(filteredData[i].year);
+        yearCell.textContent = String(filteredData[i].year).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
 
         row.appendChild(rankCell);
         row.appendChild(amountCell);
