@@ -29,6 +29,14 @@
     SELECT password FROM user where loginid=#{loginid}
     ]]>
 	</select>
-
+	
+	<!-- 회원정보 수정 -->
+	<update id="edit_user" parameterType="hashMap">
+	<![CDATA[
+    UPDATE `user`
+	SET password = #{password}, `birthyear` = #{birthyear}, `nickname` = #{nickname}
+	WHERE `loginid` = #{loginid}
+    ]]>	
+	</update>
 
 </mapper>

@@ -23,12 +23,6 @@ th, td {
 th {
 	background-color: #f2f2f2;
 }
-#dataBox {
-	max-width: 1024px;
-	text-align: center;
-	margin: auto;
-}
-
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
@@ -38,8 +32,6 @@ th {
 	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
 	<%@ include file="../navi.jsp"%>
-	
-	<div id="dataBox">
 
 	<main>
 		<h1>영화 추천 리스트</h1>
@@ -47,7 +39,6 @@ th {
 		<form method="GET">
 			<label for="audiacc">관객 수 기준:</label> <input type="number" placeholder="10000000" id="audiacc" name="audiacc"> <input type="submit" value="검색">
 		</form>
-		<br><br>
 		<table>
 			<tr>
 				<th>영화</th>
@@ -174,7 +165,7 @@ th {
 										String formattedRating = String.format("%.1f", rating);
 			%>
 			<tr>
-				<td><a href="movieDetail?number=<%=number%>"style="text-decoration: none; color: black;"><%=movieNm%></a></td>
+				<td><a href="movieDetail?number=<%=number%>"><%=movieNm%></a></td>
 				<td><%=formattedAudiacc%> 명</td>
 				<td><%=openDt%></td>
 				<td><%=formattedRating%></td>
@@ -254,7 +245,6 @@ th {
 			}
 			%>
 		</table>
-		</div>
 	</main>
 	<%@ include file="../footer.jsp"%>
 </body>

@@ -13,6 +13,9 @@ public interface MemberService {
 	boolean login(Map<String, Object> map);
 
 	Map<String, Object> login_ok(Map<String, Object> map);
+
+
+	boolean edituser(Map<String, Object> map);
 	
 
 }

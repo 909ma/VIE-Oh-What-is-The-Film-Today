@@ -146,8 +146,8 @@ th {
 					out.println(
 					"<td><a class='movie-title' href='movieDetail?number=" + movieNumber + "'>" + movieTitle + "</a></td>");// 영화 제목에 링크 추가
 					out.println("<td>" + resultSet.getString("maxOpenDt") + "</td>");
-					out.println("<td>" + addCommas(resultSet.getString("maxSalesAcc")) +  "원" + "</td>");
-					out.println("<td>" + addCommas(resultSet.getString("maxAudiAcc")) +  "명" + "</td>");
+					out.println("<td>" + resultSet.getString("maxSalesAcc") + "</td>");
+					out.println("<td>" + resultSet.getString("maxAudiAcc") + "</td>");
 					out.println("</tr>");
 				}
 				out.println("</table>");
@@ -160,17 +160,7 @@ th {
 				e.printStackTrace();
 			}
 			%>
-			
-			<%!
-			// 쉼표를 추가하여 숫자 형식을 변환하는 함수
-				public String addCommas(String number) {
-				if (number == null) {
-				return "";
-				}
-				return String.format("%,d", Long.parseLong(number));
-				}
-			%>
-	
+		
 	</main>
 	<%@ include file="../footer.jsp"%>
 	<script>

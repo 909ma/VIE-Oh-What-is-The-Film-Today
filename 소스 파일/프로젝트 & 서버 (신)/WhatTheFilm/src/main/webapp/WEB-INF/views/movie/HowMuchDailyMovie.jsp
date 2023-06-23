@@ -103,19 +103,19 @@ tr:nth-child(even) {
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT audiCnt, movieNm, FORMAT(salesAmt, 0) AS formattedAmt, DATE_FORMAT(targetDt, '%Y-%m-%d') AS formattedDt FROM HowMuchDailyMovie ORDER BY targetDt DESC";
+					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM HowMuchDailyMovie ORDER BY targetDt DESC";
 					ResultSet resultSet = statement.executeQuery(sql);
 					while (resultSet.next()) {
 						int amount = resultSet.getInt("audiCnt");
 						String name = resultSet.getString("movieNm");
-						String formattedAmt = resultSet.getString("formattedAmt") + "원";
-						String formattedDt = resultSet.getString("formattedDt");
+						String itemspec = resultSet.getString("salesAmt");
+						int year = resultSet.getInt("targetDt");
 				%>
 				<tr class="data-row">
-					<td><%=String.format("%,d",amount) + "명"%></td>
+					<td><%=String.valueOf(amount)%></td>
 					<td><%=name%></td>
-					<td><%=formattedAmt %></td>
-					<td><%=formattedDt%></td>
+					<td><%=itemspec%></td>
+					<td><%=String.valueOf(year)%></td>
 				</tr>
 				<%
 				}

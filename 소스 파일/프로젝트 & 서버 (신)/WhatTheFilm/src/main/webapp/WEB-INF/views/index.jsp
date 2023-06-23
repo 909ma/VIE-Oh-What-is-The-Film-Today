@@ -24,8 +24,8 @@
 		<p>회원가입 또는 로그인하여 계속 진행하세요.</p>
 
 		<div>
-			<button onclick="location.href='회원가입페이지.html'">회원가입</button>
-			<button onclick="location.href='로그인페이지.html'">로그인</button>
+			<button onclick="location.href='/register'">회원가입</button>
+			<button onclick="location.href='/login'">로그인</button>
 		</div>
 	</main>
 

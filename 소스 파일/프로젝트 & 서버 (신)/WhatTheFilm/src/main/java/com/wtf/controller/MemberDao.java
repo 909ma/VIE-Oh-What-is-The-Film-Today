@@ -14,23 +14,27 @@ public class MemberDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	//È¸¿ø°¡ÀÔ
+	//?Ù¬Ù¯Ý:ÙVÙ®??
 	public int insert(Map<String, Object> map) {
 		return this.sqlSessionTemplate.insert("member.insert", map);
 	}
-	//¾ÆÀÌµð Áßº¹È®ÀÎ
+	//ÜúÜ¡???Ý3 ?Ý<Ü¬Ý˜?Ùç??
 	public int countByLoginId(String loginId) {
 		return this.sqlSessionTemplate.selectOne("member.countByLoginId", loginId);
 	}
-	//´Ð³×ÀÓ Áßº¹È®ÀÎ
+	//Ù¥Ü¢ÝšÙO?? ?Ý<Ü¬Ý˜?Ùç??
 	public int countByNickname(String nickname) {
 		return this.sqlSessionTemplate.selectOne("member.countByNickname", nickname);
 	}
-	//·Î±×ÀÎ ±â´É±¸ÇöÇÏ±â
+	//Ù4?ÙNÙO?? ÙN?Ù¥?ÙNÙ¬????ÙN?
 	public Map<String, Object> Login_Check(Map<String, Object> map){
 		 return this.sqlSessionTemplate.selectOne("member.login_ok", map);
 		 
 	 }
+	//ÒA¶¥¸÷¥¡ ®¸÷
+	public  int editUser(Map<String, Object> map) {
+		return this.sqlSessionTemplate.update("member.edit_user", map);
+	}
 
 }
 	

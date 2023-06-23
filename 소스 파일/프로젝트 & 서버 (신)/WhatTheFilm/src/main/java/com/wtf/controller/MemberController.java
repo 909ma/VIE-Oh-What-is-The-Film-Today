@@ -90,7 +90,7 @@ public class MemberController {
 					
 					HttpSession session = request.getSession();
 					session.setAttribute("loginid", map.get("loginid"));
-					mav.setViewName("redirect:/index");
+					mav.setViewName("redirect:/board");
 					
 				} else {
 					mav.setViewName("redirect:/register");
@@ -108,7 +108,30 @@ public class MemberController {
 
 	}
 	
-	
+    // 로그아웃 처리
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/index"; // 로그아웃 후 로그인 페이지로 리다이렉트
+    }
 
+    // 회원정보 수정 처리
+    @RequestMapping(value = "/edituser", method = RequestMethod.GET)
+    public ModelAndView editUserPost(@RequestParam Map<String, Object> map) {
+    	ModelAndView mav = new ModelAndView();
+    	boolean isUpdateSuccess = this.memberService.edituser(map);
+    	if(isUpdateSuccess) {
+    		mav.setViewName("redirect:/board");
+    	}else {
+    		mav=this.editUserPost(map);
+    	}  	
+    	return mav;
+    }
+    
+    //
+    
 }
     
