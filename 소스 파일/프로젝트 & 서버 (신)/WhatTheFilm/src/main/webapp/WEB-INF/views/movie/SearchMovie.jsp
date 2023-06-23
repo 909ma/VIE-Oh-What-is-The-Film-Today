@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page
+	import="java.sql.Connection, java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 <%@ page import="java.sql.ResultSetMetaData"%>
 
 <!DOCTYPE html>
@@ -41,20 +43,51 @@ a.movie-title {
 	text-decoration: none;
 }
 
+/* 테이블 컨테이너 */
+#table-container {
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
 /* 테이블 */
 table {
 	border-collapse: collapse;
 	width: 100%;
+	table-layout: fixed; /* 테이블 너비 고정 */
+	white-space: nowrap;
 }
 
 th, td {
 	border: 1px solid black;
 	padding: 8px;
 	text-align: left;
+	white-space: nowrap; /* 영화 제목 줄바꿈 방지 */
+	overflow: hidden;
+	text-overflow: ellipsis; /* 제목이 길 경우 "..."으로 표시 */
 }
 
 th {
 	background-color: #f2f2f2;
+}
+
+th.movie-code {
+	width: 7%;
+}
+
+th.movie-title {
+	width: 40%;
+}
+
+th.release-date {
+	width: 7%;
+}
+
+th.total-sales {
+	width: 12%;
+}
+
+th.total-audience {
+	width: 7%;
 }
 
 #searchBox {
@@ -70,9 +103,12 @@ th {
 	padding: 5px 10px;
 }
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../logoutBar.jsp"%>
@@ -90,7 +126,8 @@ th {
 
 			<div id="searchBox">
 				<form action="/SearchMovie" method="GET">
-					<input type="text" name="searchKeyword" placeholder="영화 제목을 입력하세요"> <input type="submit" value="검색"> <br> <br> <br>
+					<input type="text" name="searchKeyword" placeholder="영화 제목을 입력하세요">
+					<input type="submit" value="검색"> <br> <br> <br>
 				</form>
 			</div>
 
@@ -130,11 +167,11 @@ th {
 
 				// 테이블 헤더 생성
 				out.println("<tr>");
-				out.println("<th>영화코드</th>");
-				out.println("<th>제목</th>");
-				out.println("<th>개봉일</th>");
-				out.println("<th>누적 매출</th>");
-				out.println("<th>누적 관객</th>");
+				out.println("<th class=\"movie-code\">영화코드</th>");
+				out.println("<th class=\"movie-title\">제목</th>");
+				out.println("<th class=\"release-date\">개봉일</th>");
+				out.println("<th class=\"total-sales\">누적 매출</th>");
+				out.println("<th class=\"total-audience\">누적 관객</th>");
 				out.println("</tr>");
 
 				// 테이블 내용 생성
@@ -146,8 +183,8 @@ th {
 					out.println(
 					"<td><a class='movie-title' href='movieDetail?number=" + movieNumber + "'>" + movieTitle + "</a></td>");// 영화 제목에 링크 추가
 					out.println("<td>" + resultSet.getString("maxOpenDt") + "</td>");
-					out.println("<td>" + resultSet.getString("maxSalesAcc") + "</td>");
-					out.println("<td>" + resultSet.getString("maxAudiAcc") + "</td>");
+					out.println("<td>" + addCommas(resultSet.getString("maxSalesAcc")) + "원" + "</td>");
+					out.println("<td>" + addCommas(resultSet.getString("maxAudiAcc")) + "명" + "</td>");
 					out.println("</tr>");
 				}
 				out.println("</table>");
@@ -160,7 +197,14 @@ th {
 				e.printStackTrace();
 			}
 			%>
-		
+
+			<%!// 쉼표를 추가하여 숫자 형식을 변환하는 함수
+	public String addCommas(String number) {
+		if (number == null) {
+			return "";
+		}
+		return String.format("%,d", Long.parseLong(number));
+	}%>
 	</main>
 	<%@ include file="../footer.jsp"%>
 	<script>

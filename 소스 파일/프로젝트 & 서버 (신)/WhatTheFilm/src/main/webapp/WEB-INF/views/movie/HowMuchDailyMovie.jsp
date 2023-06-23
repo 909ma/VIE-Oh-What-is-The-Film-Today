@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection,
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page
+	import="java.sql.Connection,
 java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 
 <!DOCTYPE html>
@@ -47,9 +49,12 @@ tr:nth-child(even) {
 	margin: auto;
 }
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../logoutBar.jsp"%>
@@ -58,7 +63,8 @@ tr:nth-child(even) {
 	<main>
 
 		<div id="dataBox">
-			<label for="food-select">선택:</label> <select id="food-select" onchange="updateData()">
+			<label for="food-select">선택:</label> <select id="food-select"
+				onchange="updateData()">
 				<option value="">전체</option>
 				<%
 				try {
@@ -103,19 +109,19 @@ tr:nth-child(even) {
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT audiCnt, movieNm, salesAmt, targetDt FROM HowMuchDailyMovie ORDER BY targetDt DESC";
+					String sql = "SELECT audiCnt, movieNm, FORMAT(salesAmt, 0) AS formattedAmt, DATE_FORMAT(targetDt, '%Y-%m-%d') AS formattedDt FROM HowMuchDailyMovie ORDER BY targetDt DESC";
 					ResultSet resultSet = statement.executeQuery(sql);
 					while (resultSet.next()) {
 						int amount = resultSet.getInt("audiCnt");
 						String name = resultSet.getString("movieNm");
-						String itemspec = resultSet.getString("salesAmt");
-						int year = resultSet.getInt("targetDt");
+						String formattedAmt = resultSet.getString("formattedAmt") + "원";
+						String formattedDt = resultSet.getString("formattedDt");
 				%>
 				<tr class="data-row">
-					<td><%=String.valueOf(amount)%></td>
+					<td><%=String.format("%,d", amount) + "명"%></td>
 					<td><%=name%></td>
-					<td><%=itemspec%></td>
-					<td><%=String.valueOf(year)%></td>
+					<td><%=formattedAmt%></td>
+					<td><%=formattedDt%></td>
 				</tr>
 				<%
 				}
