@@ -71,4 +71,10 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return this.memberDao.Login_Check(map);
 	}
+
+	@Override
+	public boolean edituser(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
