@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!-- nav.jsp -->
+<%
+    // 현재 페이지의 경로를 가져옵니다.
+    String currentPage = request.getRequestURI();
+
+    // 각 메뉴의 링크와 텍스트를 배열로 정의합니다.
+    String[][] menuItems = {
+        { "/board", "메인 화면" },
+        { "/Announcement", "공지 사항" },
+        { "/freeboard", "자유게시판" },
+        { "/recommend?audiacc=5000000", "영화 추천" },
+        { "/dailyMovie", "상영작 통계 조회" },
+        { "/HowMuchDailyMovie", "개봉작 통계 조회" },
+        { "/SearchMovie", "영화 찾기" }
+    };
+%>
+
+<div class="topnav">
+    <%-- 메뉴 아이템을 반복문으로 생성하고 현재 페이지에 해당하는 메뉴에 class="active"를 적용합니다. --%>
+    <% for (String[] menuItem : menuItems) { %>
+        <a href="<%= menuItem[0] %>" <% if (currentPage.equals(menuItem[0])) { %>class="active"<% } %>>
+            <%= menuItem[1] %>
+        </a>
+    <% } %>
+</div>

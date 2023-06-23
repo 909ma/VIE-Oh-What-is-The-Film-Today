@@ -1,0 +1,37 @@
+package com.wtf.controller;
+
+import java.util.Map;
+
+public class MemberServiceImpl implements MemberService {
+
+	@Override
+	public String create(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isLoginIdDuplicated(String loginId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isNicknameDuplicated(String nickname) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean login(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Map<String, Object> login_ok(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

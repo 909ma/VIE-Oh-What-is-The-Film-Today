@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!-- nav.jsp -->
+<%
+    String currentPage = request.getRequestURI();
+    String contextPath = request.getContextPath();
+
+    String[][] menuItems = {
+        { "/board", "메인 화면" },
+        { "/Announcement", "공지 사항" },
+        { "/freeboard", "자유게시판" },
+        { "/recommend?audiacc=5000000", "영화 추천" },
+        { "/dailyMovie", "상영작 통계 조회" },
+        { "/HowMuchDailyMovie", "개봉작 통계 조회" },
+        { "/SearchMovie", "영화 찾기" }
+    };
+%>
+
+<div class="topnav">
+    <% for (String[] menuItem : menuItems) { %>
+        <a href="<%= contextPath + menuItem[0] %>" <% if (currentPage.startsWith(contextPath + menuItem[0])) { %>class="active"<% } %>>
+            <%= menuItem[1] %>
+        </a>
+    <% } %>
+</div>
+
+
