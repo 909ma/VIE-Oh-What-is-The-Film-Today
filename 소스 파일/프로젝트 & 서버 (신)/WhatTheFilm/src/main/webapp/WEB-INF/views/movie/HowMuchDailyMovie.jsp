@@ -179,13 +179,13 @@ e.printStackTrace();
                   .attr("class", "data-row");
 
               rows.append("td")
-                  .text(function(d) { return d.amount; });
+                  .text(function(d) { return numberWithCommas(d.amount) + " 명"; });
 
               rows.append("td")
                   .text(function(d) { return d.name; });
 
               rows.append("td")
-                  .text(function(d) { return d.itemspec; });
+                  .text(function(d) { return numberWithCommas(d.itemspec) + " 원"; });
 
               rows.append("td")
                   .text(function(d) { return d.year; });
@@ -263,16 +263,25 @@ e.printStackTrace();
                       tableRows = newRows.merge(tableRows);
 
                       tableRows.select("td:nth-child(1)")
-                          .text(function(d) { return d.amount; });
+                           .text(function(d) { return numberWithCommas(d.amount) + " 명"; });
 
                       tableRows.select("td:nth-child(2)")
                           .text(function(d) { return d.name; });
 
                       tableRows.select("td:nth-child(3)")
-                          .text(function(d) { return d.itemspec; });
+                           .text(function(d) { return numberWithCommas(d.itemspec) + " 원"; });
 
                       tableRows.select("td:nth-child(4)")
-                          .text(function(d) { return d.year; });
+                          .text(function(d) {
+        var year = d.year.toString();
+        var formattedDate = year.substr(0, 4) + "-" + year.substr(4, 2) + "-" + year.substr(6, 2);
+        return formattedDate;
+    });
+                      
+                   // 숫자에 쉼표(,) 추가하는 함수
+                      function numberWithCommas(x) {
+                          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      }
 
                       // 차트 업데이트
                       svg.select(".y-axis").remove(); // 기존의 y축 요소 제거
@@ -322,16 +331,20 @@ e.printStackTrace();
                       tableRows = newRows.merge(tableRows);
 
                       tableRows.select("td:nth-child(1)")
-                          .text(function(d) { return d.amount; });
+                          .text(function(d) { return numberWithCommas(d.amount) + "명"; });
 
                       tableRows.select("td:nth-child(2)")
                           .text(function(d) { return d.name; });
 
                       tableRows.select("td:nth-child(3)")
-                          .text(function(d) { return d.itemspec; });
+                           .text(function(d) { return numberWithCommas(d.itemspec) + "원"; });
 
                       tableRows.select("td:nth-child(4)")
-                          .text(function(d) { return d.year; });
+                          .text(function(d) {
+        var year = d.year.toString();
+        var formattedDate = year.substr(0, 4) + "-" + year.substr(4, 2) + "-" + year.substr(6, 2);
+        return formattedDate;
+    });
 
                       var chartBars = svg.selectAll(".bar")
                           .data(originalData, function(d) { return d.year; });
@@ -354,6 +367,11 @@ e.printStackTrace();
                           .attr("y", function(d) { return y(d.amount); })
                           .attr("width", x.bandwidth())
                           .attr("height", function(d) { return height - y(d.amount); });
+                      
+                   // 숫자에 쉼표 추가 함수
+                      function numberWithCommas(x) {
+                          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      }
                   }
               }
     </script>
