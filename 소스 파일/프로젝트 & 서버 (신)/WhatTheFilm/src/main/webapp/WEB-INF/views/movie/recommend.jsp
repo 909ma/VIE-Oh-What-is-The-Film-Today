@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page
-	import="java.sql.*, java.io.BufferedReader, java.io.InputStreamReader, java.net.HttpURLConnection, java.net.URL"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, java.io.BufferedReader, java.io.InputStreamReader, java.net.HttpURLConnection, java.net.URL"%>
 <%@ page import="org.json.JSONArray"%>
 <%@ page import="org.json.JSONObject"%>
 
@@ -9,7 +7,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영화 추천</title>
+<title>VIE: 영화 평점</title>
+<!--fontawesome추가  -->
+<script src="https://kit.fontawesome.com/8dbcba5bdb.js" crossorigin="anonymous"></script>
+
+<!-- 웹 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout_base.css">
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.smooth-scroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/rollmain.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/swiper.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.js"></script>
 <style>
 table {
 	border-collapse: collapse;
@@ -32,17 +52,10 @@ th {
 	margin: auto;
 }
 </style>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
-	<%@ include file="../navi.jsp"%>
 
 	<div id="dataBox">
 
@@ -50,12 +63,9 @@ th {
 			<h1>영화 추천 리스트</h1>
 			<h3>너무 낮은 값을 입력하면 데이터의 양이 많아서 오래 걸립니다.</h3>
 			<form method="GET">
-				<label for="audiacc">관객 수 기준:</label> <input type="number"
-					placeholder="10000000" id="audiacc" name="audiacc"> <input
-					type="submit" value="검색">
+				<label for="audiacc">관객 수 기준:</label> <input type="number" placeholder="10000000" id="audiacc" name="audiacc"> <input type="submit" value="검색">
 			</form>
-			<br>
-			<br>
+			<br> <br>
 			<table>
 				<tr>
 					<th>영화</th>
@@ -182,8 +192,7 @@ th {
 											String formattedRating = String.format("%.1f", rating);
 				%>
 				<tr>
-					<td><a href="movieDetail?number=<%=number%>"
-						style="text-decoration: none; color: black;"><%=movieNm%></a></td>
+					<td><a href="movieDetail?number=<%=number%>" style="text-decoration: none; color: black;"><%=movieNm%></a></td>
 					<td><%=formattedAudiacc%> 명</td>
 					<td><%=openDt%></td>
 					<td><%=formattedRating%></td>

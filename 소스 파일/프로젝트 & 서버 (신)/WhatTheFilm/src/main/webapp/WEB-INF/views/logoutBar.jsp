@@ -6,12 +6,13 @@
         left: 0;
         width: 100%;
         height: 30px;
-        background-color: #222222;
+        background-color: rgba(34, 34, 34, 0.5); /* 투명한 검정색(알파 값: 0.5) */
         color: #ffffff;
         font-size: 12px;
         font-weight: bold;
         padding: 5px;
         box-sizing: border-box;
+        z-index: 9999;
     }
     
     #logout-bar a {
@@ -19,6 +20,8 @@
         text-decoration: none;
     }
 </style>
+
+
     
 <!-- 로그인 바의 일부 -->
 <div id="logout-bar">
