@@ -27,6 +27,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.js"></script>
 </head>
 <body>
+	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
 
 	<main>

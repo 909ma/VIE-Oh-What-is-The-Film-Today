@@ -28,6 +28,7 @@
 
 </head>
 <body>
+	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
 
 	<main>

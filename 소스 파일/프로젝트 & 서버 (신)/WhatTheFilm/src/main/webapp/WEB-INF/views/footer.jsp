@@ -53,12 +53,10 @@
 					</ul>
 					<address>
 						<p>41228 대구광역시 동구 동부로 121 3층 305호(신천동, 경북산업직업전문학교)</p>
-						<p>copyright © 2023 대구국비지원 무료교육센터 전국최초 베스트훈련기관 선정 경북산업직업전문학교. All Rights Reserved.</p>
+						<p>copyright © 2023 대구국비지원 무료교육센터 전국최초 베스트훈련기관 선정 경북산업직업전문학교, 아 오늘 영화 뭐 보지?. All Rights Reserved.</p>
 					</address>
 				</div>
 			</div>
 		</div>
-
 	</div>
-	<p>© 2023 아 오늘 영화 뭐 보지?. All rights reserved.</p>
 </footer>
