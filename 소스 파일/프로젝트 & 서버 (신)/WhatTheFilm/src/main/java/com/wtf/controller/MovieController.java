@@ -49,4 +49,11 @@ public class MovieController {
         modelAndView.setViewName("movie/recommend");
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/big3", method = RequestMethod.GET)
+    public ModelAndView BigThreeMoviePage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("movie/big3movie");
+        return modelAndView;
+    }
 }

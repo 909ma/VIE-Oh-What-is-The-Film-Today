@@ -25,7 +25,7 @@
 				<br><br>
 				<nav>
 					<ul class="gnb clear">
-						<li><a href="javascript:;" class="openAll1">BIG3</a></li>
+						<li><a href="/big3" class="openAll1">BIG3</a></li>
 						<li><a href="javascript:;" class="openAll2">자유게시판</a>
 							<div class="gnb_depth gnb_depth2_2">
 								<ul class="submenu_list">
