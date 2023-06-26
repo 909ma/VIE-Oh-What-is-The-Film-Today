@@ -31,35 +31,58 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.js"></script>
 
 <style>
-* {
-	text-align: center;
-}
+	#main-content {
+		margin: 50px auto;
+		width: 80%;
+		max-width: 600px;
+		text-align: center;
+	}
+	
+	#main-content h2 {
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+	
+	#main-content p {
+		font-size: 16px;
+		margin-bottom: 20px;
+	}
+	
+	#main-content div {
+		margin-top: 30px;
+	}
+	
+	#main-content button {
+		padding: 10px 20px;
+		font-size: 16px;
+		background-color: #007bff;
+		color: #fff;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		margin-right: 10px;
+	}
+	
+	#main-content button:hover {
+		background-color: #0056b3;
+	}
 </style>
 </head>
 <body>
+	<%@ include file="./header.jsp"%>
+	<main id="main-content">
+		<h2>
+			<img src="${pageContext.request.contextPath}/resources/image/main_logo(black stic).png" alt="vie" width="300px" height="300px">
+		</h2>
+		<h2>환영합니다!</h2>
+		<p>회원가입 또는 로그인하여 계속 진행하세요.</p>
 
-	<!---------- ----- ----->
-	<ul class="skipnavi">
-		<li><a href="#container">본문내용</a></li>
-	</ul>
-	<!-- wrap -->
-	<div id="wrap">
-		<!---------- ----- ----->
-		<%@ include file="./header.jsp"%>
-		<main>
+		<div>
+			<button onclick="location.href='/register'">회원가입</button>
+			<button onclick="location.href='/login'">로그인</button>
+		</div>
+	</main>
+	<%@ include file="./footer.jsp"%>
 
-			<h2>
-				<img src="${pageContext.request.contextPath}/resources/image/main_logo(black stic).png" alt="vie" width="300px" height="300px">
-			</h2>
-			<h2>환영합니다!</h2>
-			<p>회원가입 또는 로그인하여 계속 진행하세요.</p>
-
-			<div>
-				<button onclick="location.href='/register'">회원가입</button>
-				<button onclick="location.href='/login'">로그인</button>
-			</div>
-		</main>
-
-		<%@ include file="./footer.jsp"%>
 </body>
 </html>
