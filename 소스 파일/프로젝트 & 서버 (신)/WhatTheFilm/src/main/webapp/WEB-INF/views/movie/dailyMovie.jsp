@@ -103,21 +103,22 @@ h4 {
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT * FROM MovieChart ORDER BY audiCnt DESC";
+					String sql = "SELECT * FROM MovieChart WHERE targetDt = DATE_SUB(CURDATE(), INTERVAL 1 DAY) ORDER BY audiCnt DESC";
 					ResultSet resultSet = statement.executeQuery(sql);
 					int rank = 1;
 					while (resultSet.next()) {
 						int amount = resultSet.getInt("audiCnt");
 						String name = resultSet.getString("movieNm");
 						String itemspec = resultSet.getString("salesAmt");
-						int year = resultSet.getInt("targetDt");
+						String targetDt = resultSet.getString("targetDt");
+				        targetDt = targetDt.substring(0, 4) + "-" + targetDt.substring(4, 6) + "-" + targetDt.substring(6, 8);
 				%>
 				<tr class="data-row">
 					<td><%=rank%></td>
-					<td><%=String.valueOf(amount)%></td>
+					<td><%=String.format("%,d", amount)%>명</td>
 					<td><%=name%></td>
-					<td><%=itemspec%></td>
-					<td><%=String.valueOf(year)%></td>
+					<td><%=String.format("%,d", Integer.parseInt(itemspec))%>원</td>
+					<td><%=targetDt%></td>
 				</tr>
 
 				<%
