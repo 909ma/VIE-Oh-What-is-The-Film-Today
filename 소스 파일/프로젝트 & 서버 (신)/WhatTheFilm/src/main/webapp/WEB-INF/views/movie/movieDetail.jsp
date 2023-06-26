@@ -336,6 +336,7 @@ ul.staff-list li .name {
 			out.println("<script>searchMovie('" + movieNm + "');</script>");
 			%>
 
+			<br><br>
 			<h2><%=movieNm%>
 				(<%=prdtYear%>)
 			</h2>
@@ -357,7 +358,7 @@ ul.staff-list li .name {
 				<p>
 					개봉일:
 					<%=openDt%></p>
-				<h3>장르</h3>
+				<br><h3>장르</h3>
 				<ul>
 					<%
 					for (Map<String, String> genre : genres) {
@@ -367,7 +368,7 @@ ul.staff-list li .name {
 					}
 					%>
 				</ul>
-				<h3>상영 형식</h3>
+				<br><h3>상영 형식</h3>
 				<ul>
 					<%
 					for (Map<String, String> showType : showTypes) {
@@ -377,7 +378,7 @@ ul.staff-list li .name {
 					}
 					%>
 				</ul>
-				<h3>등급</h3>
+				<br><h3>등급</h3>
 				<ul>
 					<%
 					for (Map<String, String> audit : audits) {
@@ -401,7 +402,7 @@ ul.staff-list li .name {
 					%>
 				</ul>
 
-				<h3>출연</h3>
+				<br><h3>출연</h3>
 				<table>
 					<tr>
 						<th>이름</th>
@@ -463,7 +464,7 @@ ul.staff-list li .name {
 				</ul>
 			</div>
 		</div>
-	</main>
+	</main><br>
 	<%@ include file="../footer.jsp"%>
 </body>
 </html>
