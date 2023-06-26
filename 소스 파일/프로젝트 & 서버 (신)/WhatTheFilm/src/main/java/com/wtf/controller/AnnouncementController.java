@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AnnouncementController {
 
-    @RequestMapping(value = "/Announcement", method = RequestMethod.GET)
+    @RequestMapping(value = "/announcement", method = RequestMethod.GET)
     public ModelAndView showIndexPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("announcement/announcement"); // JSP 파일의 경로 설정
