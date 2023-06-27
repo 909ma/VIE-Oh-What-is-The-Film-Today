@@ -43,38 +43,38 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.js"></script>
 
 <style>
-	p {
-		text-align: center;
-	}
+p {
+	text-align: center;
+}
 
-    table {
-        width: auto;
-        max-width: 1024px;
-        border-collapse: collapse;
-        margin: auto;
-    }
-    
-	img {
-	    max-width: 100%;
-	}
+table {
+	width: auto;
+	max-width: 1024px;
+	border-collapse: collapse;
+	margin: auto;
+}
 
-    th, td {
-        padding: 10px;
-        text-align: center;
-        border: 1px solid #ccc;
-    }
+img {
+	max-width: 100%;
+}
 
-    th {
-        background-color: #f2f2f2;
-    }
+th, td {
+	padding: 10px;
+	text-align: center;
+	border: 1px solid #ccc;
+}
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
+th {
+	background-color: #f2f2f2;
+}
 
-    tr:hover {
-        background-color: #e6e6e6;
-    }
+tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+tr:hover {
+	background-color: #e6e6e6;
+}
 </style>
 
 <script>
@@ -276,15 +276,15 @@
 				<%
 				// JDBC 관련 설정
 				String dbUrl = "jdbc:mysql://localhost/myproject?useUnicode=true&characterEncoding=utf8";
-			
+
 				Connection conn1 = null;
 				Statement stmt1 = null;
 				ResultSet rs1 = null;
-			
+
 				try {
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					conn1 = DriverManager.getConnection(dbUrl, username, password);
-			
+
 					String sql = "SELECT * FROM myproject.dailymovie WHERE targetDt = ? ORDER BY `rank` LIMIT 3";
 
 					// PreparedStatement 생성
@@ -293,162 +293,165 @@
 
 					rs1 = pstmt1.executeQuery();
 
-			
 					while (rs1.next()) {
 						String movieNm = rs1.getString("movieNm");
 						int number = rs1.getInt("number"); // 영화의 고유 식별자
-			
+
 						// 영화 평점 조회
 						String api_key = "e2a56aa6721d47327a92acc02bfbddf3";
-			
+
 						// 영화명을 영문으로 검색하기 위해 API로부터 영문 제목 가져오기
-						String movieCdUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=f5eef3421c602c6cb7ea224104795888&movieCd=" + number;
-			
+						String movieCdUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=f5eef3421c602c6cb7ea224104795888&movieCd="
+						+ number;
+
 						HttpURLConnection movieCdConnection = null;
 						BufferedReader movieCdReader = null;
 						try {
-							URL movieCdApiUrl = new URL(movieCdUrl);
-							movieCdConnection = (HttpURLConnection) movieCdApiUrl.openConnection();
-							movieCdConnection.setRequestMethod("GET");
-			
-							int movieCdResponseCode = movieCdConnection.getResponseCode();
-							if (movieCdResponseCode == HttpURLConnection.HTTP_OK) {
-								movieCdReader = new BufferedReader(new InputStreamReader(movieCdConnection.getInputStream()));
-								String movieCdLine;
-								StringBuilder movieCdResponse = new StringBuilder();
-								while ((movieCdLine = movieCdReader.readLine()) != null) {
-									movieCdResponse.append(movieCdLine);
+					URL movieCdApiUrl = new URL(movieCdUrl);
+					movieCdConnection = (HttpURLConnection) movieCdApiUrl.openConnection();
+					movieCdConnection.setRequestMethod("GET");
+
+					int movieCdResponseCode = movieCdConnection.getResponseCode();
+					if (movieCdResponseCode == HttpURLConnection.HTTP_OK) {
+						movieCdReader = new BufferedReader(new InputStreamReader(movieCdConnection.getInputStream()));
+						String movieCdLine;
+						StringBuilder movieCdResponse = new StringBuilder();
+						while ((movieCdLine = movieCdReader.readLine()) != null) {
+							movieCdResponse.append(movieCdLine);
+						}
+
+						JSONObject movieCdData = new JSONObject(movieCdResponse.toString());
+						JSONObject movieInfoResult = movieCdData.getJSONObject("movieInfoResult");
+						JSONObject movieInfo = movieInfoResult.getJSONObject("movieInfo");
+						String movieNmEn = movieInfo.getString("movieNmEn");
+
+						// 영화 평점 조회
+						String movieName = movieNmEn.replace(" ", "%20");
+						String movieUrl = "https://api.themoviedb.org/3/search/movie?api_key=" + api_key + "&query="
+								+ movieName;
+
+						HttpURLConnection movieConnection = null;
+						BufferedReader movieReader = null;
+						try {
+							URL movieApiUrl = new URL(movieUrl);
+							movieConnection = (HttpURLConnection) movieApiUrl.openConnection();
+							movieConnection.setRequestMethod("GET");
+
+							int movieResponseCode = movieConnection.getResponseCode();
+							if (movieResponseCode == HttpURLConnection.HTTP_OK) {
+								movieReader = new BufferedReader(new InputStreamReader(movieConnection.getInputStream()));
+								String movieLine;
+								StringBuilder movieResponse = new StringBuilder();
+								while ((movieLine = movieReader.readLine()) != null) {
+									movieResponse.append(movieLine);
 								}
-			
-								JSONObject movieCdData = new JSONObject(movieCdResponse.toString());
-								JSONObject movieInfoResult = movieCdData.getJSONObject("movieInfoResult");
-								JSONObject movieInfo = movieInfoResult.getJSONObject("movieInfo");
-								String movieNmEn = movieInfo.getString("movieNmEn");
-			
-								// 영화 평점 조회
-								String movieName = movieNmEn.replace(" ", "%20");
-								String movieUrl = "https://api.themoviedb.org/3/search/movie?api_key=" + api_key + "&query=" + movieName;
-			
-								HttpURLConnection movieConnection = null;
-								BufferedReader movieReader = null;
-								try {
-									URL movieApiUrl = new URL(movieUrl);
-									movieConnection = (HttpURLConnection) movieApiUrl.openConnection();
-									movieConnection.setRequestMethod("GET");
-			
-									int movieResponseCode = movieConnection.getResponseCode();
-									if (movieResponseCode == HttpURLConnection.HTTP_OK) {
-										movieReader = new BufferedReader(new InputStreamReader(movieConnection.getInputStream()));
-										String movieLine;
-										StringBuilder movieResponse = new StringBuilder();
-										while ((movieLine = movieReader.readLine()) != null) {
-											movieResponse.append(movieLine);
-										}
-			
-										JSONObject searchResults = new JSONObject(movieResponse.toString());
-										int totalResults = searchResults.getInt("total_results");
-										if (totalResults > 0) {
-											JSONArray movies = searchResults.getJSONArray("results");
-											JSONObject movie = movies.getJSONObject(0);
-											int movieId = movie.getInt("id");
-			
-											String movieDetailUrl = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + api_key;
-			
-											HttpURLConnection detailConnection = null;
-											BufferedReader detailReader = null;
-											try {
-												URL detailApiUrl = new URL(movieDetailUrl);
-												detailConnection = (HttpURLConnection) detailApiUrl.openConnection();
-												detailConnection.setRequestMethod("GET");
-			
-												int detailResponseCode = detailConnection.getResponseCode();
-												if (detailResponseCode == HttpURLConnection.HTTP_OK) {
-													detailReader = new BufferedReader(new InputStreamReader(detailConnection.getInputStream()));
-													String detailLine;
-													StringBuilder detailResponse = new StringBuilder();
-													while ((detailLine = detailReader.readLine()) != null) {
-														detailResponse.append(detailLine);
-													}
-			
-													JSONObject movieData = new JSONObject(detailResponse.toString());
-													double rating = movieData.getDouble("vote_average");
-													String formattedRating = String.format("%.1f", rating);
-			%>
-								<td>평점 : <%=formattedRating%></td>
-			<%
-												} else {
-													// 영화 상세 정보 요청 실패
-													out.println("영화 상세 정보 요청에 실패하였습니다.");
-												}
-											} catch (Exception e) {
-												e.printStackTrace();
-											} finally {
-												if (detailReader != null) {
-													detailReader.close();
-												}
-												if (detailConnection != null) {
-													detailConnection.disconnect();
-												}
+
+								JSONObject searchResults = new JSONObject(movieResponse.toString());
+								int totalResults = searchResults.getInt("total_results");
+								if (totalResults > 0) {
+									JSONArray movies = searchResults.getJSONArray("results");
+									JSONObject movie = movies.getJSONObject(0);
+									int movieId = movie.getInt("id");
+
+									String movieDetailUrl = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key="
+											+ api_key;
+
+									HttpURLConnection detailConnection = null;
+									BufferedReader detailReader = null;
+									try {
+										URL detailApiUrl = new URL(movieDetailUrl);
+										detailConnection = (HttpURLConnection) detailApiUrl.openConnection();
+										detailConnection.setRequestMethod("GET");
+
+										int detailResponseCode = detailConnection.getResponseCode();
+										if (detailResponseCode == HttpURLConnection.HTTP_OK) {
+											detailReader = new BufferedReader(
+													new InputStreamReader(detailConnection.getInputStream()));
+											String detailLine;
+											StringBuilder detailResponse = new StringBuilder();
+											while ((detailLine = detailReader.readLine()) != null) {
+												detailResponse.append(detailLine);
 											}
-										} else {
-											// 영화 검색 결과 없음
-											out.println("'" + movieNm + "'에 대한 검색 결과가 없습니다.");
-										}
-									} else {
-										// 영화 검색 요청 실패
-										out.println("영화 검색 요청에 실패하였습니다.");
-									}
-								} catch (Exception e) {
-									e.printStackTrace();
-								} finally {
-									if (movieReader != null) {
-										movieReader.close();
-									}
-									if (movieConnection != null) {
-										movieConnection.disconnect();
-									}
-								}
-							} else {
-								// 영화 코드 검색 요청 실패
-								out.println("영화 코드 검색 요청에 실패하였습니다.");
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						} finally {
-							if (movieCdReader != null) {
-								movieCdReader.close();
-							}
-							if (movieCdConnection != null) {
-								movieCdConnection.disconnect();
-							}
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					if (rs1 != null) {
-						try {
-							rs1.close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
-					if (stmt1 != null) {
-						try {
-							stmt1.close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
-					if (conn1 != null) {
-						try {
-							conn1.close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
+
+											JSONObject movieData = new JSONObject(detailResponse.toString());
+											double rating = movieData.getDouble("vote_average");
+											String formattedRating = String.format("%.1f", rating);
+				%>
+				<td>평점 : <%=formattedRating%></td>
+				<%
+				} else {
+				// 영화 상세 정보 요청 실패
+				out.println("영화 상세 정보 요청에 실패하였습니다.");
 				}
-			%>
+				} catch (Exception e) {
+				e.printStackTrace();
+				} finally {
+				if (detailReader != null) {
+				detailReader.close();
+				}
+				if (detailConnection != null) {
+				detailConnection.disconnect();
+				}
+				}
+				} else {
+				// 영화 검색 결과 없음
+				out.println("'" + movieNm + "'에 대한 검색 결과가 없습니다.");
+				}
+				} else {
+				// 영화 검색 요청 실패
+				out.println("영화 검색 요청에 실패하였습니다.");
+				}
+				} catch (Exception e) {
+				e.printStackTrace();
+				} finally {
+				if (movieReader != null) {
+				movieReader.close();
+				}
+				if (movieConnection != null) {
+				movieConnection.disconnect();
+				}
+				}
+				} else {
+				// 영화 코드 검색 요청 실패
+				out.println("영화 코드 검색 요청에 실패하였습니다.");
+				}
+				} catch (Exception e) {
+				e.printStackTrace();
+				} finally {
+				if (movieCdReader != null) {
+				movieCdReader.close();
+				}
+				if (movieCdConnection != null) {
+				movieCdConnection.disconnect();
+				}
+				}
+				}
+				} catch (Exception e) {
+				e.printStackTrace();
+				} finally {
+				if (rs1 != null) {
+				try {
+				rs1.close();
+				} catch (SQLException e) {
+				e.printStackTrace();
+				}
+				}
+				if (stmt1 != null) {
+				try {
+				stmt1.close();
+				} catch (SQLException e) {
+				e.printStackTrace();
+				}
+				}
+				if (conn1 != null) {
+				try {
+				conn1.close();
+				} catch (SQLException e) {
+				e.printStackTrace();
+				}
+				}
+				}
+				%>
 
 			</tr>
 			<!-- 세 번째 줄 끝 -->
@@ -477,22 +480,23 @@
 					String inputDate = rs.getString("openDt");
 					String audiAcc = rs.getString("audiAcc");
 
-					SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
+					SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 					Date startDate = sdf1.parse(inputDate);
 
 					Calendar startCal = Calendar.getInstance();
 					startCal.setTime(startDate);
 
 					Calendar endCal = Calendar.getInstance();
+					endCal.setTime(new Date()); // 현재 날짜로 설정
 					endCal.add(Calendar.DAY_OF_MONTH, -1);
 
 					int daysBetween = 0;
-					while (startCal.before(endCal)) {
+					while (startCal.compareTo(endCal) <= 0) {
 						startCal.add(Calendar.DAY_OF_MONTH, 1);
 						daysBetween++;
 					}
 
-					double power = Double.parseDouble(audiAcc) / (daysBetween * 333333) * 100 * 100;
+					double power = Double.parseDouble(audiAcc) / (daysBetween * 333333) * 100;
 					DecimalFormat df = new DecimalFormat("###,###,###.00");
 					String formattedPower = df.format(power);
 
@@ -516,8 +520,8 @@
 			%>
 		</table>
 		<br>
-		<p>※영화 흥행력 : 이 추세로 한 달 뒤면 천만 영화 달성하는 정도를 100이라고 했을 때 현재 영화들의 추세 
-		<br>
+		<p>
+			※영화 흥행력 : 이 추세로 한 달 뒤면 천만 영화 달성하는 정도를 100이라고 했을 때 현재 영화들의 추세 <br>
 	</main>
 	<%@ include file="../footer.jsp"%>
 </body>
