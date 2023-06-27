@@ -5,8 +5,30 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>상영작 통계 조회</title>
+<title>VIE: 상영작 통계</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<!--fontawesome추가  -->
+<script src="https://kit.fontawesome.com/8dbcba5bdb.js" crossorigin="anonymous"></script>
+
+<!-- 웹 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout_base.css">
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.smooth-scroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/rollmain.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/swiper.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.js"></script>
 <style>
 /* 테이블 스타일링 */
 table {
@@ -49,18 +71,15 @@ tr:nth-child(even) {
 .data-row.highlighted {
 	background-color: yellow;
 }
-h4{
+
+h4 {
 	text-align: center;
 }
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
-<%@ include file="../logoutBar.jsp"%>
+	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
-	<%@ include file="../navi.jsp"%>
 	<main>
 		<h4>최근 100일 상영작 통계</h4>
 		<div id="dataBox">
@@ -84,21 +103,22 @@ h4{
 					String password = "1234";
 					Connection connection = DriverManager.getConnection(url, username, password);
 					Statement statement = connection.createStatement();
-					String sql = "SELECT * FROM MovieChart ORDER BY audiCnt DESC";
+					String sql = "SELECT * FROM MovieChart WHERE targetDt = DATE_SUB(CURDATE(), INTERVAL 1 DAY) ORDER BY audiCnt DESC";
 					ResultSet resultSet = statement.executeQuery(sql);
 					int rank = 1;
 					while (resultSet.next()) {
 						int amount = resultSet.getInt("audiCnt");
 						String name = resultSet.getString("movieNm");
 						String itemspec = resultSet.getString("salesAmt");
-						int year = resultSet.getInt("targetDt");
+						String targetDt = resultSet.getString("targetDt");
+				        targetDt = targetDt.substring(0, 4) + "-" + targetDt.substring(4, 6) + "-" + targetDt.substring(6, 8);
 				%>
 				<tr class="data-row">
 					<td><%=rank%></td>
-					<td><%=String.valueOf(amount)%></td>
+					<td><%=String.format("%,d", amount)%>명</td>
 					<td><%=name%></td>
-					<td><%=itemspec%></td>
-					<td><%=String.valueOf(year)%></td>
+					<td><%=String.format("%,d", Integer.parseInt(itemspec))%>원</td>
+					<td><%=targetDt%></td>
 				</tr>
 
 				<%

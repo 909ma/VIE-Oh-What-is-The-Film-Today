@@ -3,6 +3,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>VIE: 영화 상세정보</title>
+<!--fontawesome추가  -->
+<script src="https://kit.fontawesome.com/8dbcba5bdb.js" crossorigin="anonymous"></script>
+
+<!-- 웹 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout_base.css">
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.smooth-scroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/rollmain.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/swiper.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.js"></script>
 
 <style>
 h2 {
@@ -33,7 +57,6 @@ ul {
 	color: #333333;
 	font-size: 14px;
 	margin-bottom: 10px;
-	margin-left: 20px;
 }
 
 /* 테이블 스타일 */
@@ -92,12 +115,12 @@ ul.staff-list li .name {
 	display: none;
 }
 
-.buttons-container {
+.buttons-container-renamed {
 	margin-bottom: 20px;
 	position: relative;
 }
 
-.buttons-container button {
+.buttons-container-renamed button {
 	background-color: #ffffff;
 	border: none;
 	padding: 5px 10px;
@@ -106,7 +129,7 @@ ul.staff-list li .name {
 	cursor: pointer;
 }
 
-.buttons-container:after {
+.buttons-container-renamed:after {
 	content: "";
 	position: absolute;
 	bottom: -5px;
@@ -122,9 +145,7 @@ ul.staff-list li .name {
 </style>
 
 
-<meta charset="UTF-8">
-<title>Movie Detail</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 	function searchMovie(movieTitle) {
 		var apiKey = "e2a56aa6721d47327a92acc02bfbddf3"; // 본인의 API 키로 대체해야 합니다.
@@ -264,22 +285,14 @@ ul.staff-list li .name {
 	}
 </script>
 
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
-	<%@ include file="../navi.jsp"%>
 	<main>
 
 		<div id="movieBox">
-			<br>
-			<br>
-			<br>
-			<br>
+			<br> <br> <br> <br>
 			<!-- <h1>Movie Detail</h1> -->
 			<%
 			// 전달받은 number 파라미터 값 추출
@@ -323,10 +336,11 @@ ul.staff-list li .name {
 			out.println("<script>searchMovie('" + movieNm + "');</script>");
 			%>
 
+			<br><br>
 			<h2><%=movieNm%>
 				(<%=prdtYear%>)
 			</h2>
-			<div class="buttons-container">
+			<div class="buttons-container-renamed">
 				<button id="movie-info-btn" onclick="toggleSection(this, 'movie-info')">영화 정보</button>
 				<button onclick="toggleSection(this, 'actors')">감독/출연</button>
 				<button onclick="toggleSection(this, 'companys')">제작/배급사</button>
@@ -344,7 +358,7 @@ ul.staff-list li .name {
 				<p>
 					개봉일:
 					<%=openDt%></p>
-				<h3>장르</h3>
+				<br><h3>장르</h3>
 				<ul>
 					<%
 					for (Map<String, String> genre : genres) {
@@ -354,7 +368,7 @@ ul.staff-list li .name {
 					}
 					%>
 				</ul>
-				<h3>상영 형식</h3>
+				<br><h3>상영 형식</h3>
 				<ul>
 					<%
 					for (Map<String, String> showType : showTypes) {
@@ -364,7 +378,7 @@ ul.staff-list li .name {
 					}
 					%>
 				</ul>
-				<h3>등급</h3>
+				<br><h3>등급</h3>
 				<ul>
 					<%
 					for (Map<String, String> audit : audits) {
@@ -388,7 +402,7 @@ ul.staff-list li .name {
 					%>
 				</ul>
 
-				<h3>출연</h3>
+				<br><h3>출연</h3>
 				<table>
 					<tr>
 						<th>이름</th>
@@ -450,7 +464,7 @@ ul.staff-list li .name {
 				</ul>
 			</div>
 		</div>
-	</main>
+	</main><br>
 	<%@ include file="../footer.jsp"%>
 </body>
 </html>

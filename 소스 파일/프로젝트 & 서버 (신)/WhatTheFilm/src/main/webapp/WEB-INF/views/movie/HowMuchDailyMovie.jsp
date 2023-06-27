@@ -6,8 +6,31 @@ java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>개봉작 통계 조회</title>
+<title>VIE: 개봉작 통계</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<!--fontawesome추가  -->
+<script src="https://kit.fontawesome.com/8dbcba5bdb.js" crossorigin="anonymous"></script>
+
+<!-- 웹 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout_base.css">
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.smooth-scroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/rollmain.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/swiper.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.js"></script>
+
 <style>
 /* 테이블 스타일링 */
 table {
@@ -47,14 +70,10 @@ tr:nth-child(even) {
 	margin: auto;
 }
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
-	<%@ include file="../navi.jsp"%>
 	<main>
 
 		<div id="dataBox">
@@ -112,9 +131,9 @@ tr:nth-child(even) {
 						String formattedDt = resultSet.getString("formattedDt");
 				%>
 				<tr class="data-row">
-					<td><%=String.format("%,d",amount) + "명"%></td>
+					<td><%=String.format("%,d", amount) + "명"%></td>
 					<td><%=name%></td>
-					<td><%=formattedAmt %></td>
+					<td><%=formattedAmt%></td>
 					<td><%=formattedDt%></td>
 				</tr>
 				<%
@@ -173,13 +192,13 @@ e.printStackTrace();
                   .attr("class", "data-row");
 
               rows.append("td")
-                  .text(function(d) { return d.amount; });
+                  .text(function(d) { return numberWithCommas(d.amount) + " 명"; });
 
               rows.append("td")
                   .text(function(d) { return d.name; });
 
               rows.append("td")
-                  .text(function(d) { return d.itemspec; });
+                  .text(function(d) { return numberWithCommas(d.itemspec) + " 원"; });
 
               rows.append("td")
                   .text(function(d) { return d.year; });
@@ -257,16 +276,25 @@ e.printStackTrace();
                       tableRows = newRows.merge(tableRows);
 
                       tableRows.select("td:nth-child(1)")
-                          .text(function(d) { return d.amount; });
+                           .text(function(d) { return numberWithCommas(d.amount) + " 명"; });
 
                       tableRows.select("td:nth-child(2)")
                           .text(function(d) { return d.name; });
 
                       tableRows.select("td:nth-child(3)")
-                          .text(function(d) { return d.itemspec; });
+                           .text(function(d) { return numberWithCommas(d.itemspec) + " 원"; });
 
                       tableRows.select("td:nth-child(4)")
-                          .text(function(d) { return d.year; });
+                          .text(function(d) {
+        var year = d.year.toString();
+        var formattedDate = year.substr(0, 4) + "-" + year.substr(4, 2) + "-" + year.substr(6, 2);
+        return formattedDate;
+    });
+                      
+                   // 숫자에 쉼표(,) 추가하는 함수
+                      function numberWithCommas(x) {
+                          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      }
 
                       // 차트 업데이트
                       svg.select(".y-axis").remove(); // 기존의 y축 요소 제거
@@ -316,16 +344,20 @@ e.printStackTrace();
                       tableRows = newRows.merge(tableRows);
 
                       tableRows.select("td:nth-child(1)")
-                          .text(function(d) { return d.amount; });
+                          .text(function(d) { return numberWithCommas(d.amount) + "명"; });
 
                       tableRows.select("td:nth-child(2)")
                           .text(function(d) { return d.name; });
 
                       tableRows.select("td:nth-child(3)")
-                          .text(function(d) { return d.itemspec; });
+                           .text(function(d) { return numberWithCommas(d.itemspec) + "원"; });
 
                       tableRows.select("td:nth-child(4)")
-                          .text(function(d) { return d.year; });
+                          .text(function(d) {
+        var year = d.year.toString();
+        var formattedDate = year.substr(0, 4) + "-" + year.substr(4, 2) + "-" + year.substr(6, 2);
+        return formattedDate;
+    });
 
                       var chartBars = svg.selectAll(".bar")
                           .data(originalData, function(d) { return d.year; });
@@ -348,6 +380,11 @@ e.printStackTrace();
                           .attr("y", function(d) { return y(d.amount); })
                           .attr("width", x.bandwidth())
                           .attr("height", function(d) { return height - y(d.amount); });
+                      
+                   // 숫자에 쉼표 추가 함수
+                      function numberWithCommas(x) {
+                          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      }
                   }
               }
     </script>

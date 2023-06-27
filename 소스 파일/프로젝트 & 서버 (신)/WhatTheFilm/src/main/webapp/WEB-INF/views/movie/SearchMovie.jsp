@@ -1,13 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page
+	import="java.sql.Connection, java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet"%>
 <%@ page import="java.sql.ResultSetMetaData"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>영화 찾기</title>
+<title>VIE: 영화 찾기</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<!--fontawesome추가  -->
+<script src="https://kit.fontawesome.com/8dbcba5bdb.js" crossorigin="anonymous"></script>
+
+<!-- 웹 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/swiper.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout_base.css">
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.smooth-scroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/rollmain.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/swiper.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.easing.js"></script>
 <style>
 /* 차트 스타일링 */
 .bar {
@@ -41,20 +65,51 @@ a.movie-title {
 	text-decoration: none;
 }
 
+/* 테이블 컨테이너 */
+#table-container {
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
 /* 테이블 */
 table {
 	border-collapse: collapse;
 	width: 100%;
+	table-layout: fixed; /* 테이블 너비 고정 */
+	white-space: nowrap;
 }
 
 th, td {
 	border: 1px solid black;
 	padding: 8px;
 	text-align: left;
+	white-space: nowrap; /* 영화 제목 줄바꿈 방지 */
+	overflow: hidden;
+	text-overflow: ellipsis; /* 제목이 길 경우 "..."으로 표시 */
 }
 
 th {
 	background-color: #f2f2f2;
+}
+
+th.movie-code {
+	width: 7%;
+}
+
+th.movie-title {
+	width: 40%;
+}
+
+th.release-date {
+	width: 7%;
+}
+
+th.total-sales {
+	width: 12%;
+}
+
+th.total-audience {
+	width: 7%;
 }
 
 #searchBox {
@@ -70,14 +125,16 @@ th {
 	padding: 5px 10px;
 }
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/commonStyles.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/naviStyles.css">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/favicon.ico">
 </head>
 <body>
 	<%@ include file="../logoutBar.jsp"%>
 	<%@ include file="../header.jsp"%>
-	<%@ include file="../navi.jsp"%>
 
 	<main>
 
@@ -90,7 +147,8 @@ th {
 
 			<div id="searchBox">
 				<form action="/SearchMovie" method="GET">
-					<input type="text" name="searchKeyword" placeholder="영화 제목을 입력하세요"> <input type="submit" value="검색"> <br> <br> <br>
+					<input type="text" name="searchKeyword" placeholder="영화 제목을 입력하세요">
+					<input type="submit" value="검색"> <br> <br> <br>
 				</form>
 			</div>
 
@@ -130,11 +188,11 @@ th {
 
 				// 테이블 헤더 생성
 				out.println("<tr>");
-				out.println("<th>영화코드</th>");
-				out.println("<th>제목</th>");
-				out.println("<th>개봉일</th>");
-				out.println("<th>누적 매출</th>");
-				out.println("<th>누적 관객</th>");
+				out.println("<th class=\"movie-code\">영화코드</th>");
+				out.println("<th class=\"movie-title\">제목</th>");
+				out.println("<th class=\"release-date\">개봉일</th>");
+				out.println("<th class=\"total-sales\">누적 매출</th>");
+				out.println("<th class=\"total-audience\">누적 관객</th>");
 				out.println("</tr>");
 
 				// 테이블 내용 생성
@@ -146,8 +204,8 @@ th {
 					out.println(
 					"<td><a class='movie-title' href='movieDetail?number=" + movieNumber + "'>" + movieTitle + "</a></td>");// 영화 제목에 링크 추가
 					out.println("<td>" + resultSet.getString("maxOpenDt") + "</td>");
-					out.println("<td>" + addCommas(resultSet.getString("maxSalesAcc")) +  "원" + "</td>");
-					out.println("<td>" + addCommas(resultSet.getString("maxAudiAcc")) +  "명" + "</td>");
+					out.println("<td>" + addCommas(resultSet.getString("maxSalesAcc")) + "원" + "</td>");
+					out.println("<td>" + addCommas(resultSet.getString("maxAudiAcc")) + "명" + "</td>");
 					out.println("</tr>");
 				}
 				out.println("</table>");
@@ -160,17 +218,14 @@ th {
 				e.printStackTrace();
 			}
 			%>
-			
-			<%!
-			// 쉼표를 추가하여 숫자 형식을 변환하는 함수
-				public String addCommas(String number) {
-				if (number == null) {
-				return "";
-				}
-				return String.format("%,d", Long.parseLong(number));
-				}
-			%>
-	
+
+			<%!// 쉼표를 추가하여 숫자 형식을 변환하는 함수
+	public String addCommas(String number) {
+		if (number == null) {
+			return "";
+		}
+		return String.format("%,d", Long.parseLong(number));
+	}%>
 	</main>
 	<%@ include file="../footer.jsp"%>
 	<script>
