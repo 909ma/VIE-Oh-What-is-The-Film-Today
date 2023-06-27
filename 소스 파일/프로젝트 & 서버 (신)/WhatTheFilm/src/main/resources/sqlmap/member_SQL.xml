@@ -30,13 +30,19 @@
     ]]>
 	</select>
 	
-	<!-- 회원정보 수정 -->
-	<update id="edit_user" parameterType="hashMap">
+	
+	<!-- 회원정보 -->
+	<select id="select_detail" parameterType="hashMap" resultType="hashMap">
 	<![CDATA[
-    UPDATE `user`
-	SET password = #{password}, `birthyear` = #{birthyear}, `nickname` = #{nickname}
-	WHERE `loginid` = #{loginid}
-    ]]>	
+    SELECT loginid, gender, birthyear, nickname, regdate FROM user where loginid=#{loginid}
+    ]]>
+	</select>
+	
+	<update id="update" parameterType="hashMap">
+	<![CDATA[
+    update user set birthyear = #{birthyear_update}, nickname = #{nickname_update} where loginid=#{loginid_update}
+    ]]>
 	</update>
-
+	
+	
 </mapper>

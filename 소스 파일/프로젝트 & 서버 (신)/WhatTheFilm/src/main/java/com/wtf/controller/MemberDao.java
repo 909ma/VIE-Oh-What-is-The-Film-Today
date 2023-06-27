@@ -14,27 +14,32 @@ public class MemberDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	//?Ù¬Ù¯Ý:ÙVÙ®??
+	//ÒA¶¥ˆa·³
 	public int insert(Map<String, Object> map) {
 		return this.sqlSessionTemplate.insert("member.insert", map);
 	}
-	//ÜúÜ¡???Ý3 ?Ý<Ü¬Ý˜?Ùç??
+	//´a·¡—¡ ÑÂ·¥
 	public int countByLoginId(String loginId) {
 		return this.sqlSessionTemplate.selectOne("member.countByLoginId", loginId);
 	}
-	//Ù¥Ü¢ÝšÙO?? ?Ý<Ü¬Ý˜?Ùç??
+	//“¢‘A·± ÑÂ·¥
 	public int countByNickname(String nickname) {
 		return this.sqlSessionTemplate.selectOne("member.countByNickname", nickname);
 	}
-	//Ù4?ÙNÙO?? ÙN?Ù¥?ÙNÙ¬????ÙN?
+	//¡‹a·¥
 	public Map<String, Object> Login_Check(Map<String, Object> map){
-		 return this.sqlSessionTemplate.selectOne("member.login_ok", map);
-		 
+		 return this.sqlSessionTemplate.selectOne("member.login_ok", map);		 
 	 }
-	//ÒA¶¥¸÷¥¡ ®¸÷
-	public  int editUser(Map<String, Object> map) {
-		return this.sqlSessionTemplate.update("member.edit_user", map);
+	// a·¡ÍA·¡»¡
+	public Map<String, Object> selectDetail(Map<String, Object> map) {
+		System.out.println("member dao map : " + map);
+		return this.sqlSessionTemplate.selectOne("member.select_detail", map);
 	}
+	//¸÷¥¡ ®¸÷
+	public int update(Map<String, Object> map) {  
+		System.out.println("member ”aµ¡2 : " +map);
+		 return this.sqlSessionTemplate.update("member.update", map);  
+		 }  
 
 }
 	

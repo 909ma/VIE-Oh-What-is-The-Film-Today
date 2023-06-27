@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
+    //회원가입
     @Override
     public String create(Map<String, Object> map) {
 
@@ -40,6 +40,7 @@ public class MemberServiceImpl implements MemberService {
         String password = (String) map.get("password");
         String encodedPassword = passwordEncoder.encode(password);
         map.put("password", encodedPassword);
+        
 
         int affectRowCount = this.memberDao.insert(map);
         if (affectRowCount == 1) {
@@ -47,34 +48,45 @@ public class MemberServiceImpl implements MemberService {
         }
         return null;
     }
-    
+    //아이디 중복확인
     @Override
     public boolean isLoginIdDuplicated(String loginId) {
         int count = memberDao.countByLoginId(loginId);
         return count > 0;
     }
-
+    //닉네임 중복확인
     @Override
     public boolean isNicknameDuplicated(String nickname) {
         int count = memberDao.countByNickname(nickname);
         return count > 0;
     }
-
+    //로그인
 	@Override
 	public boolean login(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
+	//로그인
 	@Override
 	public Map<String, Object> login_ok(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return this.memberDao.Login_Check(map);
 	}
-
+   // 마이페이지
 	@Override
-	public boolean edituser(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return false;
+	public Map<String, Object> detail(Map<String, Object> map) {
+		
+		System.out.println("멤버서비스입플  디테일 = " + map);
+		return this.memberDao.selectDetail(map);
 	}
+	
+	@Override  
+	public boolean edit(Map<String, Object> map) {  
+		System.out.println("member 서비스 임플 : " +map);
+	int affectRowCount = this.memberDao.update(map);  
+	return affectRowCount == 1;  
+
+	}  
+	
+
 }

@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>정보수정</title>
     <style>
         /* CSS 스타일 추가 */
         body {
@@ -54,19 +54,43 @@
         input[type="submit"]:hover {
             background-color: #900;
         }
+
+        .password-mismatch {
+            color: red;
+            font-style: italic;
+        }
+
+        .olmessage {
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .olmessage-green {
+            color: green;
+        }
+
+        .olmessage-red {
+            color: red;
+        }
     </style>
+  
 </head>
 <body>
-    <h1>로그인</h1>
-    <form method="POST" action="/login">
+    <h1>정보수정</h1>
+    <form method="POST">
+
         <p>
-            아이디 : <input type="text" name="loginid" placeholder="아이디" />
+        	아이디 : <input type="text" name="loginid_update" value="${data.myloginid}">
+            닉네임 : <input type="text" name="nickname_update" value="${data.oldnickname}" id="nickname" placeholder="닉네임" />
+            <button id="overlappedNickName" type="button">중복확인</button>
+            <span id="nicknameMessage" class="olmessage"></span>
+        </p>
+        
+        <p>
+            생년월일 : <input type="number" name="birthyear_update" value="${data.oldbirthyear}" id="birthyear" placeholder="6자리로 입력하세요 ex)980911" />
         </p>
         <p>
-            비밀번호 : <input type="password" name="password" placeholder="비밀번호" />
-        </p>
-        <p>
-            <input type="submit" value="로그인" />
+            <input type="submit" value="수정" />
         </p>
     </form>
 </body>

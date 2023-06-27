@@ -32,7 +32,7 @@
         
     <!-- 기타 메뉴 항목들 -->
     <span id="logout" style="display: <%= session.getAttribute("loginid") != null ? "inline" : "none" %>"><a href="/logout">로그아웃</a></span> <!-- 로그아웃 링크 -->
-    <span id="update-profile" style="display: <%= session.getAttribute("loginid") != null ? "inline" : "none" %>"><a href="/update">내 정보 수정</a></span> <!-- 내 정보 수정 링크 -->
+    <span id="update-profile" style="display: <%= session.getAttribute("loginid") != null ? "inline" : "none" %>"><a href="/detail">내 정보</a></span> <!-- 내 정보 수정 링크 -->
 </div>
 
 <!-- 자바스크립트 -->

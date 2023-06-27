@@ -69,7 +69,7 @@
 					</li>
 					<li class="imglist1">
 						<div class="roll_content">
-							<a href="/board"> <img class="responsive-img" src="${pageContext.request.contextPath}/resources/image/head_spiderman.jpg" alt="2위" ></a>
+							<a href="/board"> <img class="responsive-img" src="${pageContext.request.contextPath}/resources/image/head_spiderman3.jpg" alt="2위" ></a>
 							<!-- <p class="roll_txtline">아 오늘 영화 뭐 보지?</p> -->
 						</div>
 					</li>
