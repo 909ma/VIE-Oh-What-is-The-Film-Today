@@ -25,22 +25,22 @@
 				<br><br>
 				<nav>
 					<ul class="gnb clear">
-						<li><a href="/big3" class="openAll1">BIG3</a></li>
-						<li><a href="javascript:;" class="openAll2">자유게시판</a>
+						<li><a href="/big3" class="openAll1"><i class="fa solid fa-ranking-star icon" aria-hidden="true" style="color:#white;font-size:25px;"></i>&nbsp;&nbsp;&nbsp;BIG3</a></li>
+						<li><a href="javascript:;" class="openAll2"><i class="fa-regular fa-clipboard icon" aria-hidden="true" style="color:#white;font-size:27px;"></i>&nbsp;자유게시판</a>
 							<div class="gnb_depth gnb_depth2_2">
 								<ul class="submenu_list">
 									<li><a href="/announcement/list">공지사항</a></li>
 									<li><a href="/freeboard">자유게시판</a></li>
 								</ul>
 							</div></li>
-						<li><a href="javascript:;" class="openAll3">영화투어</a>
+						<li><a href="javascript:;" class="openAll3"><i class="fa-solid fa-video icon" aria-hidden="true" style="color:#white;font-size:27px;"></i>&nbsp;영화투어</a>
 							<div class="gnb_depth gnb_depth2_3">
 								<ul class="submenu_list">
 									<li><a href="/SearchMovie">영화찾기</a></li>
 									<li><a href="/recommend?audiacc=10000000">영화평점</a></li>
 								</ul>
 							</div></li>
-						<li><a href="javascript:;" class="openAll4">영화조회</a>
+						<li><a href="javascript:;" class="openAll4"><i class="fa-solid fa-magnifying-glass icon" aria-hidden="true" style="color:#white;font-size:27px;"></i>&nbsp;영화조회</a>
 							<div class="gnb_depth gnb_depth2_4">
 								<ul class="submenu_list">
 									<li><a href="/dailyMovie">상영작통계</a></li>
@@ -50,7 +50,7 @@
 					</ul>
 				</nav>
 				<p class="closePop">
-					<a href="javascript:;">닫기</a>
+					<a href="javascript:;"></a>
 				</p>
 			</div>
 			<!-- //header_cont -->
@@ -63,20 +63,20 @@
 				<ul class="viewImgList">
 					<li class="imglist0">
 						<div class="roll_content">
-							<a href="/board"> <img class="responsive-img" src="${pageContext.request.contextPath}/resources/image/head_test1.jpg" alt="1위" ></a>
-							<p class="roll_txtline">경북산업직업전문학교</p>
+							<a href="/board"> <img class="responsive-img" src="${pageContext.request.contextPath}/resources/image/head_crimecity1.jpg" alt="1위" ></a>
+							<!-- <p class="roll_txtline">경북산업직업전문학교</p> -->
 						</div>
 					</li>
 					<li class="imglist1">
 						<div class="roll_content">
-							<a href="/board"> <img class="responsive-img" src="${pageContext.request.contextPath}/resources/image/head_test2.jpg" alt="2위" ></a>
-							<p class="roll_txtline">아 오늘 영화 뭐 보지?</p>
+							<a href="/board"> <img class="responsive-img" src="${pageContext.request.contextPath}/resources/image/head_spiderman.jpg" alt="2위" ></a>
+							<!-- <p class="roll_txtline">아 오늘 영화 뭐 보지?</p> -->
 						</div>
 					</li>
 					<li class="imglist2">
 						<div class="roll_content">
-							<a href="/board"> <img class="responsive-img" src="${pageContext.request.contextPath}/resources/image/head_test3.jpg" alt="3위" ></a>
-							<p class="roll_txtline">VIE</p>
+							<a href="/board"> <img class="responsive-img" src="${pageContext.request.contextPath}/resources/image/head_indiana3.jpg" alt="3위" ></a>
+							<!-- <p class="roll_txtline">VIE</p> -->
 						</div>
 					</li>
 				</ul>
@@ -97,13 +97,13 @@
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
-						<a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/image/head_test1.jpg" alt="..."></a>
+						<a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/image/head_crimecity1.jpg" alt="..."></a>
 					</div>
 					<div class="swiper-slide">
-						<a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/image/head_test2.jpg" alt="..."></a>
+						<a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/image/head_spiderman.jpg" alt="..."></a>
 					</div>
 					<div class="swiper-slide">
-						<a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/image/head_test3.jpg" alt="..."></a>
+						<a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/image/head_indiana3.jpg" alt="..."></a>
 					</div>
 				</div>
 				<div class="swiper-pagination"></div>

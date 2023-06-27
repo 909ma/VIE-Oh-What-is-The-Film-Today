@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="announcement">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
 
+<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="noticeId">
+    <![CDATA[
+    INSERT INTO notice(title, content) VALUES (#{title}, #{content})
+    ]]>
+</insert>
 
+<select id="selectDetail" parameterType="int" resultType="hashMap">
+    <![CDATA[
+    SELECT title, content, created_at,updated_at FROM notice WHERE id = #{noticeId}
+    ]]>
+</select>
+
+<update id="update" parameterType="hashMap">
+    <![CDATA[
+    UPDATE notice SET title = #{title}, content = #{content},updated_at =#{updated_at} WHERE id = #{noticeId}
+    ]]>
+</update>
+
+<delete id="delete" parameterType="int">
+    <![CDATA[
+    DELETE FROM notice WHERE id = #{noticeId}
+    ]]>
+</delete>
+
+<select id="countNoticeBoard" parameterType="hashMap" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) FROM notice WHERE 1=1 	]]>
+    <if test="keyword != null and keyword != ''">
+        AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+    </if>
+</select>
+
+<select id="selectList" parameterType="hashMap" resultType="hashMap">
+    <![CDATA[
+    SELECT id, title, content, created_at, updated_at FROM notice WHERE 1 = 1 	]]>
+    <if test="keyword != null and keyword != ''">
+        AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+    </if>
+    ORDER BY created_at DESC
+    <choose>
+        <when test="skipCount == null">
+            LIMIT 0, 10
+        </when>
+        <otherwise>
+            LIMIT ${skipCount}, 10
+        </otherwise>
+    </choose>
+</select>
 
 </mapper>

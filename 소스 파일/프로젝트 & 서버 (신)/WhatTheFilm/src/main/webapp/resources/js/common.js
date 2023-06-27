@@ -2,6 +2,8 @@ var isOver1 = false;
 
 var isOver2 = false;
 
+const LIMITWIDTH = 783
+
 function goHide1() {
 
 	if (!isOver1 && !isOver2) {
@@ -96,7 +98,9 @@ $(document).ready( function() {
 
 	$('.openAll1').mouseover(function(){
 
-		if ( parseInt($('header').css('width')) > 800 ) $('.gnb_depth2_1').fadeIn('fast');
+		console.log('openAll1')
+		console.log( parseInt($('header').css('width')) )
+		if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.gnb_depth2_1').fadeIn('fast');
 
 		isOver1 = true;
 
@@ -104,7 +108,7 @@ $(document).ready( function() {
 
     $('.openAll1').focus(function(){
 
-		if ( parseInt($('header').css('width')) > 800 ) $('.gnb_depth2_1').fadeIn('fast');
+		if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.gnb_depth2_1').fadeIn('fast');
 
 		isOver1 = true;
 
@@ -158,7 +162,7 @@ $(document).ready( function() {
 
 	$('.openAll2').mouseover(function(){
 
-		if ( parseInt($('header').css('width')) > 800 ) $('.gnb_depth2_2').fadeIn('fast');
+		if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.gnb_depth2_2').fadeIn('fast');
 
 		isOver11 = true;
 
@@ -166,7 +170,7 @@ $(document).ready( function() {
 
 	$('.openAll2').focus(function(){
 
-		if ( parseInt($('header').css('width')) > 800 ) $('.gnb_depth2_2').fadeIn('fast');
+		if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.gnb_depth2_2').fadeIn('fast');
 
 		isOver11 = true;
 
@@ -220,7 +224,7 @@ $(document).ready( function() {
 
 	$('.openAll3').mouseover(function(){
 
-		if ( parseInt($('header').css('width')) > 800 ) $('.gnb_depth2_3').fadeIn('fast');
+		if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.gnb_depth2_3').fadeIn('fast');
 
 		isOver111 = true;
 
@@ -228,7 +232,7 @@ $(document).ready( function() {
 
 	$('.openAll3').focus(function(){
 
-		if ( parseInt($('header').css('width')) > 800 ) $('.gnb_depth2_3').fadeIn('fast');
+		if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.gnb_depth2_3').fadeIn('fast');
 
 		isOver111 = true;
 
@@ -282,7 +286,7 @@ $(document).ready( function() {
 
 	$('.openAll4').mouseover(function(){
 
-		if ( parseInt($('header').css('width')) > 800 ) $('.gnb_depth2_4').fadeIn('fast');
+		if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.gnb_depth2_4').fadeIn('fast');
 
 		isOver1111 = true;
 
@@ -290,7 +294,7 @@ $(document).ready( function() {
 
 	$('.openAll4').focus(function(){
 
-		if ( parseInt($('header').css('width')) > 800 ) $('.gnb_depth2_4').fadeIn('fast');
+		if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.gnb_depth2_4').fadeIn('fast');
 
 		isOver1111 = true;
 
@@ -380,7 +384,7 @@ $(document).ready(function(){
 
     $(window).resize(function() {
 
-        if ( parseInt($('header').css('width')) > 800 ) $('.header_cont').show();
+        if ( parseInt($('header').css('width')) > LIMITWIDTH ) $('.header_cont').show();
 
     }); 
 
