@@ -161,7 +161,8 @@ footer {
 
 .responsive-img {
   width: 100%;
-  height: 550px; /* 원하는 고정 높이 값 */
+/*    원하는 고정 높이 값 */
+  height: 550px;
   object-fit: cover;
-  /* object-fit: no-repeat center; */
+  object-fit: no-repeat center;
 }

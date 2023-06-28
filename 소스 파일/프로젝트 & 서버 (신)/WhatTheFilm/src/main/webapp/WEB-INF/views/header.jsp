@@ -3,16 +3,16 @@
 <div id="wrap">
 	<header id="header">
 
-		<!--  <h1>
+		<h1>
 			<a href="#"> <em><img id="mainLogo"
-					src="${pageContext.request.contextPath}/resources/image/main logo.png"
-					alt="main logo" width="150" height="50" /></em>
+					src="${pageContext.request.contextPath}/resources/image/Logo_wh_removebg.png"
+					alt="main logo" width="170" height="150" /></em>
 
 			</a>
-		</h1>  -->
+		</h1>
 		<div class="header_area box_inner clear">
 			<h1>
-				<a href="javascript:;">VIE</a>
+				<a href="javascript:;"></a>
 			</h1>
 			<p class="openMOgnb">
 				<a href="#"><b class="hdd">메뉴열기</b> <span></span> <span></span>

@@ -72,7 +72,7 @@
 	<%@ include file="./header.jsp"%>
 	<main id="main-content">
 		<h2>
-			<img src="${pageContext.request.contextPath}/resources/image/main_logo(black stic).png" alt="vie" width="300px" height="300px">
+			<img src="${pageContext.request.contextPath}/resources/image/Logo_removebg1.jpg" alt="vie" >
 		</h2>
 		<h2>환영합니다!</h2>
 		<p>회원가입 또는 로그인하여 계속 진행하세요.</p>

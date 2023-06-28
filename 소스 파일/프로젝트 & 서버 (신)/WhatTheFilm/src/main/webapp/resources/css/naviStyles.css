@@ -129,7 +129,6 @@ hr {display:none;}
 header {position:absolute; left:0; top:0; width:100%; height:113px; background:rgba(0,0,0,0.5); z-index:100;}
 header .header_area {/*position:relative;*/}
 header .header_area h1 {float:left; padding:45px 0 0;}
-header .header_area h1 a {display:block; width:270px; height:71px; text-indent:-9999px; overflow:hidden; background:url(../img/logo.png) no-repeat;}
 header .header_area .openMOgnb {display:none;}
 .header_cont {float:right; width:780px;}
 .header_cont .util {text-align: right; padding-top:10px;}
@@ -157,9 +156,8 @@ footer {
 	background: #211f1f;
 }
 
-<!--
-???-->#footer_sns {
-	position: absolute;
+#footer_sns {
+/* 	position: absolute; */
 	right: 17px;
 	top: 33px;
 	z-index: 1;
@@ -293,8 +291,9 @@ footer {
 
 
 @media ( max-width : 960px) {
-
+/* header .header_area h1 a {display:inline-block;  text-indent:-9999px; overflow:hidden; background:url("../../resources/image/Logo_wh_removebg.png") no-repeat;width:270px; height:71px;} */
 	
+/* 	header .header_area h1 a{visibility: hidden;} */
 	.footer_sns {
 		position: static;
 		text-align: center;
@@ -515,19 +514,23 @@ h1.loginTit a img {width:100%;}
 .regForm .reg_list li .reg_content .info_line {padding:10px 10px 17px 0; font-size:15px;}
 
 
-/*1066???? ??????? ???? :?????? ?? ?¥ê??? ???? ???*/
+/*1066???? ??????? ???? :?????? ?? ?ï¿½ï¿½??? ???? ???*/
 
 @media all and (min-width:1066px) {
 	
 	.icon{display:none}
+	
+	#mainLogo{display:inline-block}
+
 }
 
 
-@media all and (max-width:1065px) and (min-width:801px) {			/* ipad????, ipadPro???¥ì???, gallexyTab???? */
+@media all and (max-width:1065px) and (min-width:801px) {			/* ipad????, ipadPro???ï¿½ï¿½???, gallexyTab???? */
+
 	.box_inner {width:100%;}	
     header .header_area h1 {padding-left:20px;}
 	.header_cont {float:right; width:60%; padding-right:20px;}		/* gnb ???? ???? */
-	.header_cont .gnb li a {padding:26px 25px;}
+	.header_cont .gnb li a {padding:26px 11px;}                                           
 	.gnb_depth .submenu_list {width:100%; padding-left:52%;}
     .gnb_depth .submenu_list li a {padding:20px;}                  /* ?????? 395???? ?????? ?? */
 	#container {padding-bottom:20px;}
@@ -546,14 +549,18 @@ h1.loginTit a img {width:100%;}
     .regForm .reg_list li .tit_lbl {width:25%;}
     .regForm .reg_list li .reg_content {width:75%;}
 	.icon{display:none}
+	#mainLogo{display:inline-block}
+	
+	
+
 }
 
 @media all and (max-width:800px) {
+	#mainLogo{display:none}
 	.btn_bbs {display:inline-block; width:100%; text-align:center; height:35px; font-size:14px; line-height:35px; vertical-align:middle; background:#384d75; color:#fff !important;}
 	.btn_baseColor {display:inline-block; width:100%; height:50px; line-height:50px; background:#384d75; font-weight:bold; font-size:20px; color:#fff !important;}
 	.icon{display:inline-block}
 	.box_inner {width:100%;}
-
 	header {height:170px; text-align:center; z-index:200; background:rgba(0,0,0,0.5);}
 	header.on {background:#31353d;}
 	header .header_area h1 {float:none; width:100%; height:50px; text-align:center; padding:35px 0 0;}
@@ -868,6 +875,8 @@ footer {
 	.regForm .reg_list li .reg_content.radio_area {padding-top:5px;}
 	.regForm .reg_list li .reg_content label {vertical-align:middle;}
 	.regForm .reg_list li .reg_content .info_line {padding:10px 10px 15px 0; line-height:1.4; font-size:15px;}
+	
+	
 }
 
 @media all and (max-width:320px) {	

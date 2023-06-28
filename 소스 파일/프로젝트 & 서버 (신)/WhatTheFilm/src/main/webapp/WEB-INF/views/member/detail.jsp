@@ -86,6 +86,9 @@
         	<input type="hidden" name = "birthyear" value="${data.birthyear}"/>
             <input type="submit" value="정보수정" class="button" />
         </form>
+        <form action="/board">
+            <input type="submit" value="홈으로" class="button" />
+        </form>
     </div>
 </body>
 </html>
