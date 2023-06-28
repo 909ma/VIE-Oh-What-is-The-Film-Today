@@ -35,6 +35,17 @@ CREATE TABLE IF NOT EXISTS notice (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- 자유게시판
+CREATE TABLE IF NOT EXISTS freeboard (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT,
+    author VARCHAR(100) NOT NULL,
+    views INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- 뷰
 CREATE VIEW HowMuchDailyMovie AS 
 SELECT audiCnt, movieNm, salesAmt, targetDt 
@@ -47,3 +58,4 @@ SELECT audiCnt, movieNm, salesAmt, targetDt
 FROM DailyMovie
 ORDER BY targetDt DESC
 LIMIT 1000;
+
