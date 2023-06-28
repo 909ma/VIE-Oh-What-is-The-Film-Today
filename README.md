@@ -17,6 +17,7 @@
 국문명: VIE: 아 오늘 영화 뭐 보지?  
 영문명: VIE: Oh What's The Film Today?  
 ☑️ 월요일(28일)에 프로젝트 이름에 맞춰서 레포지토리 이름을 변경했습니다. 그에 따라 일전에 걸어둔 하이퍼링크들을 일괄수정해야합니다.  
+🔳 GifCam: https://lodobee.tistory.com/317
 
 ---
 
