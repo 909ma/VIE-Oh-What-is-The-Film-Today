@@ -1,7 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="freeboard">
 
+    <insert id="freeboard.insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="postId">
+        <![CDATA[
+        INSERT INTO freeboard(title, content, author) VALUES (#{title}, #{content}, #{author})
+        ]]>
+    </insert>
 
+    <select id="freeboard.selectDetail" parameterType="int" resultType="hashMap">
+        <![CDATA[
+        SELECT title, content, author, views, created_at, updated_at FROM freeboard WHERE id = #{postId}
+        ]]>
+    </select>
+
+    <update id="freeboard.update" parameterType="hashMap">
+        <![CDATA[
+        UPDATE freeboard SET title = #{title}, content = #{content}, updated_at = #{updated_at} WHERE id = #{postId}
+        ]]>
+    </update>
+
+    <delete id="freeboard.delete" parameterType="int">
+        <![CDATA[
+        DELETE FROM freeboard WHERE id = #{postId}
+        ]]>
+    </delete>
+
+    <select id="freeboard.countFreeboard" parameterType="hashMap" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) FROM freeboard WHERE 1=1 
+        ]]>
+        <if test="keyword != null and keyword != ''">
+            AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+
+    </select>
+
+    <select id="freeboard.selectList" parameterType="hashMap" resultType="hashMap">
+        <![CDATA[
+        SELECT id, title, content, author, views, created_at, updated_at FROM freeboard WHERE 1 = 1 
+        ]]>
+        <if test="keyword != null and keyword != ''">
+            AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY created_at DESC
+        <choose>
+            <when test="skipCount == null">
+                LIMIT 0, 10
+            </when>
+            <otherwise>
+                LIMIT ${skipCount}, 10
+            </otherwise>
+        </choose>
+    </select>
+
+    <update id="freeboard.incrementViews" parameterType="int">
+        <![CDATA[
+        UPDATE freeboard SET views = views + 1 WHERE id = #{postId}
+        ]]>
+    </update>
 
 </mapper>
