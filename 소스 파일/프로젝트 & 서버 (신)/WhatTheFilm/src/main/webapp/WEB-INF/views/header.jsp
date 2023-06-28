@@ -30,7 +30,7 @@
 							<div class="gnb_depth gnb_depth2_2">
 								<ul class="submenu_list">
 									<li><a href="/announcement/list">공지사항</a></li>
-									<li><a href="/freeboard">자유게시판</a></li>
+									<li><a href="/freeboard/list">자유게시판</a></li>
 								</ul>
 							</div></li>
 						<li><a href="javascript:;" class="openAll3"><i class="fa-solid fa-video icon" aria-hidden="true" style="color:#white;font-size:27px;"></i>&nbsp;영화투어</a>
