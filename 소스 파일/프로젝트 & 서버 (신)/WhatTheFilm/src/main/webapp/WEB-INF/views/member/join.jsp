@@ -228,6 +228,7 @@
         <p>
             비밀번호 : <input type="password" name="password" placeholder="비밀번호" oninput="handlePasswordChange()" />
         </p>
+        <p>
             비밀번호 확인 : <input type="password" name="confirmpassword" id="confirmPassword" placeholder="비밀번호 확인" oninput="handleConfirmPasswordChange()" />
             <span id="passwordMatchMessage" class="olmessage"></span>
         </p>
