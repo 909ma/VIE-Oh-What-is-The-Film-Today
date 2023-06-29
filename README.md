@@ -76,52 +76,69 @@
 
 <details>
     <summary>📁 프로젝트 결과 자세히 보기</summary>
+
 ## 데이터베이스 갱신
 
-<img src="./기타/발표 자료/image/1%20add%20DB-min.gif" width="100%" height="" title="" alt="DB갱신"></img> <br>
+<img src="./제출 파일 관리/결과화면/1%20파이썬을%20사용해%20DB%20업데이트.gif" width="100%" height="" title="" alt="DB갱신"></img> <br>
 Python으로 만든 DB 관리 툴입니다.
 <br><br>
 
 ## 회원가입 및 로그인
 
-<img src="./기타/발표 자료/image/2%20sign%20up%20and%20in-min.gif" width="100%" height="" title="" alt="sign"></img> <br>
+<img src="./제출 파일 관리/결과화면/2%20회원가입%20로그인.gif" width="100%" height="" title="" alt="sign"></img> <br>
 회원가입하고 로그인하는 과정입니다.
 <br><br>
 
 ## 네비게이션
 
-<img src="./기타/발표 자료/image/3%20navi-min.gif" width="100%" height="" title="" alt="navi"></img> <br>
+<img src="./제출 파일 관리/결과화면/3%20네비스타일.gif" width="100%" height="" title="" alt="navi"></img> <br>
 네비게이션입니다.
 <br><br>
 
 ## BIG 3
 
-<img src="./기타/발표 자료/image/4%20big%203.jpg" width="100%" height="" title="" alt="sign"></img> <br>
+<img src="./제출 파일 관리/결과화면/4%20big%203.gif" width="100%" height="" title="" alt="sign"></img> <br>
 지금 가장 잘 팔리는 영화 Best 3입니다.
 <br><br>
 
 ## 영화 찾기 및 영화 상세보기
 
-<img src="./기타/발표 자료/image/5%20search%20and%20detail-min.gif" width="100%" height="" title="" alt="search"></img> <br>
+<img src="./제출 파일 관리/결과화면/5%20영화%20찾기%20및%20영화%20상세%20정보.gif" width="100%" height="" title="" alt="search"></img> <br>
 데이터베이스에 있는 영화 목록을 보고 영화를 찾아 상세 정보를 확인하는 모습입니다.  
 <br><br>
 
 ## 영화평점
 
-<img src="./기타/발표 자료/image/7%20movie%20rate.jpg" width="100%" height="" title="" alt="rate"></img> <br>
+<img src="./제출 파일 관리/결과화면/7%20영화%20평점.jpg" width="100%" height="" title="" alt="rate"></img> <br>
 주어진 조건과 일치하는 영화들의 평점을 제공합니다.
 <br><br>
 
 ## 상영작 통계
 
-<img src="./기타/발표 자료/image/8%20movie%20chart1.gif" width="100%" height="" title="" alt="chart1"></img> <br>
+<img src="./제출 파일 관리/결과화면/8%20상영작%20통계.gif" width="100%" height="" title="" alt="chart1"></img> <br>
 상영작 통계를 제공합니다.
 <br><br>
 
 ## 개봉작 통계
 
-<img src="./기타/발표 자료/image/9%20movie%20chart2.gif" width="100%" height="" title="" alt="chart2"></img> <br>
+<img src="./제출 파일 관리/결과화면/9%20개봉작%20통계.gif" width="100%" height="" title="" alt="chart2"></img> <br>
 개봉작 통계를 제공합니다.
+<br><br>
+
+## 게시판
+
+| 공지사항 게시판                                                                                            | 자유게시판                                                                                                   |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| <img src="./제출 파일 관리/결과화면/10%20공지사항1.jpg" width="100%" height="" title="" alt="board"></img> | <img src="./제출 파일 관리/결과화면/11%20자유게시판1.jpg" width="100%" height="" title="" alt="board"></img> |
+| <img src="./제출 파일 관리/결과화면/10%20공지사항2.jpg" width="100%" height="" title="" alt="board"></img> | <img src="./제출 파일 관리/결과화면/11%20자유게시판2.jpg" width="100%" height="" title="" alt="board"></img> |
+
+게시판 기능입니다.
+<br><br>
+
+## 회원 정보 수정
+
+<img src="./제출 파일 관리/결과화면/12%20회원%20정보%20수정.gif" width="100%" height="" title="" alt="update"></img> <br>
+회원 정보 수정 기능을 제공합니다.  
 <br><br>
 
 ---
@@ -134,6 +151,7 @@ Python으로 만든 DB 관리 툴입니다.
 
 1. 프로젝트 시작 전 개발 환경을 통일하지 않았다.
 2. 프로젝트 관리를 브런치로 할 지, 파일 대조를 통한 원본 통합 관리로 할 지 미리 정하지 않았다.
+3. 세부적인 기능 구현을 끝내지 못했다.
 
 ## 📚 개발 환경
 
